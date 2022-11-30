@@ -14,7 +14,7 @@ Java Tetris game clone
 Author: Jan Bodnar
 Website: https://zetcode.com
  */
-public class Tetris extends JFrame {
+public class etris extends JFrame {
 	
 	private static final Logger logger = LogManager.getLogger(Tetris.class);
 
