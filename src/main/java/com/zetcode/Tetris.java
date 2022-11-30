@@ -1,12 +1,14 @@
 package com.zetcode;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Vista.Sonido;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.sql.ResultSet;
+import java.util.Iterator;
 
 /*
 Java Tetris game clone
@@ -38,7 +40,6 @@ public class Tetris extends JFrame {
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        //getContentPane().setBackground(Color.GREEN);
     }
 
     JLabel getStatusBar() {
@@ -49,12 +50,25 @@ public class Tetris extends JFrame {
     public static void main(String[] args) {
 
     	logger.info("Playing");
-        Sonido.getMiSonido().ReproducirSonido("Resources/Escudo.wav");
-        EventQueue.invokeLater(() -> {
+        /*EventQueue.invokeLater(() -> {
 
             var game = new Tetris();
             game.setVisible(true);
+        });*/
 
-        });
+        GestorBD database = GestorBD.getInstance();
+
+        ResultSet res = database.executeQuery("SELECT * FROM Test");
+        int count = 0;
+        try {
+            while (res.next()) {
+                count++;
+                int ID = res.getInt("ID");
+                String name = res.getString("name");
+                logger.info("Student #" + count + ": " + ID + ", " + name);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
