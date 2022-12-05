@@ -1,14 +1,13 @@
 package com.zetcode;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.visual.GestorPaneles;
+import com.visual.funcionalidad1.Interfaz1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.sql.ResultSet;
-import java.util.Iterator;
 
 /*
 Java Tetris game clone
@@ -55,5 +54,7 @@ public class Tetris extends JFrame {
             var game = new Tetris();
             game.setVisible(true);
         });*/
+
+        GestorPaneles.getInstance().bind(new Interfaz1());
     }
 }
