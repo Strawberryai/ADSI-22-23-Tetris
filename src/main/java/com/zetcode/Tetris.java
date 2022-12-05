@@ -1,10 +1,10 @@
 package com.zetcode;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Vista.Sonido;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +14,7 @@ Java Tetris game clone
 Author: Jan Bodnar
 Website: https://zetcode.com
  */
-public class etris extends JFrame {
+public class Tetris extends JFrame {
 	
 	private static final Logger logger = LogManager.getLogger(Tetris.class);
 
@@ -38,6 +38,7 @@ public class etris extends JFrame {
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        //getContentPane().setBackground(Color.GREEN);
     }
 
     JLabel getStatusBar() {
@@ -48,10 +49,12 @@ public class etris extends JFrame {
     public static void main(String[] args) {
 
     	logger.info("Playing");
+        Sonido.getMiSonido().ReproducirSonido("Resources/Escudo.wav");
         EventQueue.invokeLater(() -> {
 
             var game = new Tetris();
             game.setVisible(true);
+
         });
     }
 }
