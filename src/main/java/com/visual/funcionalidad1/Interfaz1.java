@@ -2,10 +2,8 @@ package com.visual.funcionalidad1;
 
 import com.visual.GestorPaneles;
 import com.visual.RecursosVisuales;
-<<<<<<< HEAD
 import com.visual.funcionalidad3.Personalizar;
-=======
->>>>>>> develop
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,14 +60,13 @@ public class Interfaz1 extends JPanel {
         rec.addActionListener(mouseEventHandler());
         content.add(rec);
 
-<<<<<<< HEAD
+
         //boto de personalizacion de la configuracion
         JButton pers = new JButton("Personalizar Configuracion");
         pers.addActionListener(mouseEventHandler());
         content.add(pers);
 
-=======
->>>>>>> develop
+
         // añadimos el contenido al centro del panel principal
         main.add(content, BorderLayout.CENTER);
 
@@ -95,13 +92,10 @@ public class Interfaz1 extends JPanel {
                     }else if(button.getText() == "Recuperar Contraseña"){
                         System.out.println("Recuperar Contraseña");
 
-<<<<<<< HEAD
                     }else if(button.getText() == "Personalizar Configuracion"){
                         System.out.println("Personalizar Configuracion");
                         GestorPaneles.getInstance().bind(new Personalizar());
 
-=======
->>>>>>> develop
                     }
                 }
             }

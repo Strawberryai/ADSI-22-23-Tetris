@@ -1,5 +1,6 @@
 package com.zetcode;
 
+import com.visual.funcionalidad3.Personalizar;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -34,7 +35,7 @@ public class Board extends JPanel {
     }
 
     private void initBoard(Tetris parent) {
-
+        //setBackground(Color.cyan);
         setFocusable(true);
         statusbar = parent.getStatusBar();
         addKeyListener(new TAdapter());
