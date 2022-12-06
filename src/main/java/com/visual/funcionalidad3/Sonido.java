@@ -1,9 +1,6 @@
-package Vista;
-import java.applet.AudioClip;
-import java.awt.FlowLayout;
+package com.visual.funcionalidad3;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
