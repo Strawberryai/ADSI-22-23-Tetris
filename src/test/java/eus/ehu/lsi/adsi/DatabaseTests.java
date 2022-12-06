@@ -21,10 +21,10 @@ public class DatabaseTests {
     @Test
     public void insertINTO(){
         GestorBD database = GestorBD.getInstance();
-
-        // Tablas vacias ¿?
         ResultSet res;
-        try {
+
+        // Tablas vacias ¿? -> Comentado porque si se ejecutan primero los tests de abajo falla porque ya hay datos
+        /*try {
             res = database.executeQuery("SELECT * FROM Configuracion");
             assertFalse(res.next());
             res = database.executeQuery("SELECT * FROM Jugador");
@@ -33,16 +33,16 @@ public class DatabaseTests {
             assertFalse(res.next());
             res = database.executeQuery("SELECT * FROM Gana");
             assertFalse(res.next());
-        }catch (Exception e){e.printStackTrace();}
+        }catch (Exception e){e.printStackTrace();}*/
 
         // Inserts simples en tabla Jugador -> Manuel(1) y Gustavo(2)
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Manuel', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Manuel', 'manuel@mail.com', '1234')");
         try{
             res = database.executeQuery("SELECT * FROM Jugador");
             assertTrue(res.next());
         }catch (Exception e){e.printStackTrace();}
 
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Gustavo', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
 
         // Inserts en tabla Configuracion -> (1, "Azul" ,"Zelda Theme", "Pixelado")
         database.executeStatement("INSERT INTO Configuracion (colorPieza, musica, ladrillo) VALUES ('Azul', 'Zelda Theme', 'Pixelado')");
@@ -90,13 +90,14 @@ public class DatabaseTests {
             assertTrue(res.next());
         }catch (Exception e){e.printStackTrace();}
     }
+
     @Test
     public void testLog(){
         GestorBD database = GestorBD.getInstance();
 
         // Volcando datos en tablas
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Manuel', '1234')");
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Gustavo', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Manuel', 'manuel@mail.com', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
 
         ResultSet res = database.executeQuery("SELECT * FROM Jugador");
         int count = 0;

@@ -69,10 +69,15 @@ public class GestorBD {
     private void initializeDatabase(){
         // Creando tablas
         this.executeStatement("CREATE TABLE Configuracion (CodC INT NOT NULL AUTO_INCREMENT, colorPieza TEXT, musica TEXT, ladrillo TEXT, PRIMARY KEY (CodC))");
-        this.executeStatement("CREATE TABLE Jugador (ID INT NOT NULL AUTO_INCREMENT, usuario TEXT NOT NULL, pass TEXT NOT NULL, puntosMax INT DEFAULT 0, esAdmin BIT NOT NULL DEFAULT 0, CodC INT, PRIMARY KEY(ID), FOREIGN KEY (CodC) REFERENCES Configuracion(CodC))");
+        this.executeStatement("CREATE TABLE Jugador (ID INT NOT NULL AUTO_INCREMENT, usuario TEXT NOT NULL, pass TEXT NOT NULL, email TEXT NOT NULL, puntosMax INT DEFAULT 0, esAdmin BIT NOT NULL DEFAULT 0, CodC INT, PRIMARY KEY(ID), FOREIGN KEY (CodC) REFERENCES Configuracion(CodC))");
         this.executeStatement("CREATE TABLE Partida (ID_Jugador INT NOT NULL, fechaHora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, puntuacion INT NOT NULL DEFAULT 0, nivel INT NOT NULL DEFAULT 0, PRIMARY KEY (ID_Jugador, fechaHora), FOREIGN KEY (ID_Jugador) REFERENCES Jugador(ID))");
         this.executeStatement("CREATE TABLE Premio (CodPremio INT NOT NULL AUTO_INCREMENT, recompensa INT NOT NULL DEFAULT 0, descripcion TEXT, PRIMARY KEY (CodPremio))");
         this.executeStatement("CREATE TABLE Gana (ID_Jugador INT NOT NULL, fechaHora TIMESTAMP NOT NULL, codPremio INT NOT NULL, PRIMARY KEY(ID_Jugador, fechaHora, codPremio), FOREIGN KEY (ID_Jugador, fechaHora) REFERENCES Partida(ID_Jugador, fechaHora), FOREIGN KEY (codPremio) REFERENCES Premio(CodPremio))");
 
+    }
+
+    public void fillDatabaseWithExampleData(){
+        this.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Manuel', 'manuel@mail.com', '1234')");
+        this.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
     }
 }
