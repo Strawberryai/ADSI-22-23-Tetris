@@ -107,4 +107,20 @@ public class GestorUsuarios {
 
         return existeUsuario;
     }
+
+    public String cambiarContrasena(String usuario, String pass1, String pass2) {
+        if(Objects.equals(pass1, "") || Objects.equals(pass2, ""))
+            return "Campo vacío";
+
+        if(!Objects.equals(pass1, pass2))
+            return "Las contraseñas no coinciden";
+
+        if(pass1.length() < 3)
+            return "La contraseña requiere de al menos 3 carácteres";
+
+        GestorBD database = GestorBD.getInstance();
+        database.executeStatement("UPDATE Jugador SET pass = '" + pass1 + "' WHERE usuario = '" + usuario + "'");
+
+        return null;
+    }
 }

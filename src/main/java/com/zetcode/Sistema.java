@@ -24,4 +24,8 @@ public class Sistema {
     public boolean recuperarContrasena(String usuario) {
         return GestorUsuarios.getInstance().recuperarContrasena(usuario);
     }
+
+    public String cambiarContrasena(String usuario, String pass1, String pass2) {
+        return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
+    }
 }
