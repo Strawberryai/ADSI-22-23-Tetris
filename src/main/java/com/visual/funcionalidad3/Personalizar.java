@@ -1,15 +1,19 @@
-package Vista;
+package com.visual.funcionalidad3;
+
+import com.visual.RecursosVisuales;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Personalizar extends JFrame{
+public class Personalizar extends JPanel{
 
     private static Personalizar miMenu;
 
     private JPanel panelBox;
     private JPanel panelBoton;
+    private JPanel panelLbanel;
     private JComboBox Colores;
     private JComboBox Sonido;
     private JComboBox Ladrillo;
@@ -20,24 +24,30 @@ public class Personalizar extends JFrame{
     private JLabel ladrillo;
 
     public  Personalizar(){
-        super("Personalizar");
-        setMinimumSize(new Dimension(300,300));
-        setVisible(true);
 
-        Container contentpane = getContentPane();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        contentpane.setLayout(new GridLayout(2, 1, 0, 0));
+        RecursosVisuales rv = RecursosVisuales.getInstance();
+        setBackground(Color.lightGray);
+        setLayout(new BorderLayout());
 
+        add(rv.getTitle(), BorderLayout.NORTH);
+        add(getContentPanel(), BorderLayout.CENTER);
+
+
+    };
+    private JPanel getContentPanel(){
+        JPanel panel= new JPanel();
+        panel.setLayout(new BorderLayout());
 
         panelBox=new JPanel();
         panelBoton= new JPanel();
+        panelLbanel = new JPanel();
 
         panelBox.setLayout(new FlowLayout());
         panelBoton.setLayout(new FlowLayout());
-        getContentPane().add(panelBox, BorderLayout.CENTER);
-        getContentPane().add(panelBoton,BorderLayout.CENTER);
+        panel.add(panelBox, BorderLayout.CENTER);
+        panel.add(panelLbanel,BorderLayout.NORTH);
+        panel.add(panelBoton,BorderLayout.SOUTH);
 
-        setLocationRelativeTo(null);
         String colores[]= new String[]{
                 "azul",
                 "verde",
@@ -69,19 +79,13 @@ public class Personalizar extends JFrame{
         panelBox.add(Colores,FlowLayout.LEFT);
         panelBox.add(Sonido, FlowLayout.CENTER);
         panelBox.add(Ladrillo,FlowLayout.RIGHT);
-        panelBox.add(color,FlowLayout.LEFT);
-        panelBox.add(sonido,FlowLayout.CENTER);
-        panelBox.add(ladrillo,FlowLayout.RIGHT);
+        panelLbanel.add(color,FlowLayout.LEFT);
+        panelLbanel.add(sonido,FlowLayout.CENTER);
+        panelLbanel.add(ladrillo,FlowLayout.RIGHT);
         panelBoton.add(actualizar, BorderLayout.NORTH);
 
-        setVisible(true);
-
-
-
-        //etiqueta = new JLabel("");
-        //add(etiqueta);
-
-    };
+        return panel;
+    }
     private JButton getBoton(String text){
         JButton boton = new JButton(text);
         //boton.addMouseListener(ControladorVentanaMenu.getInstance());
@@ -101,8 +105,14 @@ public class Personalizar extends JFrame{
             String color = (String) Colores.getSelectedItem();
             String sonido = (String) Sonido.getSelectedItem();
             String ladrillo = (String) Ladrillo.getSelectedItem();
-           // etiqueta.setText(color+"Has pulsado el botón " + e.getActionCommand());
+            // etiqueta.setText(color+"Has pulsado el botón " + e.getActionCommand());
             actualizar.setBackground(Color.GREEN);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            actualizar.setBackground(Color.ORANGE);
         }
     }
 }

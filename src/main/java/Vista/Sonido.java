@@ -33,7 +33,7 @@ public class Sonido extends JFrame implements ActionListener{
     }
     public void ReproducirSonido(String nombreSonido){
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
