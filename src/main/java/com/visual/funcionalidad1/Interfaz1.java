@@ -1,14 +1,16 @@
 package com.visual.funcionalidad1;
 
 import com.visual.GestorPaneles;
+import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
-public class Interfaz1 extends JPanel {
+public class Interfaz1 extends PlantillaInterfaces {
     /**
      * Interfaz inicial: Usuario no loggeado.
      * Se presentan las opciones de loggearse, registrarse y de
@@ -21,24 +23,26 @@ public class Interfaz1 extends JPanel {
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getContentPanel(), BorderLayout.CENTER);
+        add(getMainPanel("Página Principal"), BorderLayout.CENTER);
     }
 
-    private JPanel getContentPanel(){
-        // Contenido de la Interfaz -> main panel (subtitulo + contenido)
-        JPanel main = new JPanel();
-        main.setLayout(new BorderLayout());
-
+    @Override
+    protected JPanel getSubtitlePanel(String subtitle){
         // Creamos el panel del subtitulo (flowlayout)
         JPanel subTitlePanel = new JPanel();
         subTitlePanel.setLayout(new FlowLayout());
-        JLabel subTitle = new JLabel("Página Principal");
+        JLabel subTitle = new JLabel(subtitle);
         subTitle.setFont(RecursosVisuales.getInstance().subTitleFont);
+
         subTitlePanel.add(subTitle);
+        subTitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 
-        // Añadimos el panel del subtitulo en la parte superior
-        main.add(subTitlePanel, BorderLayout.NORTH);
+        return subTitlePanel;
+    }
 
+    @Override
+    protected JPanel getContentPanel(){
+        // Contenido principal de la vista
         // [No loggeado] -> El contenido es un flowlayout con los botones de login...
         JPanel content = new JPanel();
         content.setLayout(new FlowLayout());
@@ -57,14 +61,11 @@ public class Interfaz1 extends JPanel {
         JButton rec = new JButton("Recuperar Contraseña");
         rec.addActionListener(mouseEventHandler());
         content.add(rec);
-
-        // añadimos el contenido al centro del panel principal
-        main.add(content, BorderLayout.CENTER);
-
-        return main;
+        return content;
     }
 
-    private ActionListener mouseEventHandler(){
+    @Override
+    protected ActionListener mouseEventHandler(){
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,22 +74,22 @@ public class Interfaz1 extends JPanel {
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
 
-                    if(button.getText() == "Log in"){
-                        System.out.println("Log in");
+                    if(Objects.equals(button.getText(), "Log in")){
+                        // Abrimos la vista de log in
                         GestorPaneles.getInstance().bind(new Interfaz2());
 
-                    }else if(button.getText() == "Register"){
-                        System.out.println("Register");
+                    }else if(Objects.equals(button.getText(), "Register")){
+                        // Abrimos la vista de registro
+                        GestorPaneles.getInstance().bind(new Interfaz4());
 
-                    }else if(button.getText() == "Recuperar Contraseña"){
-                        System.out.println("Recuperar Contraseña");
+                    }else if(Objects.equals(button.getText(), "Recuperar Contraseña")){
+                        // Abrimos la vista de recuperacion
+                        GestorPaneles.getInstance().bind(new Interfaz6());
 
                     }
                 }
             }
         };
     }
-
-
 
 }
