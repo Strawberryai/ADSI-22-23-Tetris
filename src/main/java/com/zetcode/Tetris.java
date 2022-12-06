@@ -54,7 +54,7 @@ public class Tetris extends JFrame {
             var game = new Tetris();
             game.setVisible(true);
         });*/
-
+        GestorBD.getInstance().fillDatabaseWithExampleData();
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
 }
