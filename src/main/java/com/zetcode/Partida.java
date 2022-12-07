@@ -1,6 +1,14 @@
 package com.zetcode;
 
-public class Partida {
+import java.sql.Timestamp;
+import java.util.Date;
 
-    public Partida(){}
+public class Partida {
+        private Date fecha;
+
+        private int nivel;
+    public Partida(Date pFecha, int pNivel){
+        fecha=pFecha;
+        nivel=pNivel;
+    }
 }

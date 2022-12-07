@@ -8,11 +8,11 @@ public class Usuario {
     private String contrasena;
     private int puntosMax;
     private boolean esAdmin;
-    private Configuracion laCfg;
+    private int laCfg;
     private Collection<Premio> listaP;
     private ListaPuntuacion listaPuntos;
 
-    public Usuario(String pUsuario,String pContra,int pPuntosMax,boolean pAdmin,Configuracion pConfig){
+    public Usuario(String pUsuario,String pContra,int pPuntosMax,boolean pAdmin,int pConfig){
         usuario=pUsuario;
         contrasena=pContra;
         puntosMax = pPuntosMax;
@@ -34,6 +34,10 @@ public class Usuario {
 
     public int obtenerPuntuacionesMax(){
         return puntosMax;
+    }
+
+    public void anadirListaPuntuacion(Puntuacion pPuntos){
+        listaPuntos.add(pPuntos);
     }
 
 }

@@ -13,18 +13,13 @@ public class ListaPuntuacion {
     }
 
     private void ordenarLista(){
-        Puntuacion x=new Puntuacion(10, new Partida());
-        Puntuacion y=new Puntuacion(20, new Partida());
-        Puntuacion z=new Puntuacion(30, new Partida());
-        lista.add(z);
-        lista.add(x);
-        lista.add(y);
 
         Comparator<Puntuacion> cm1=Comparator.comparing(Puntuacion::getPuntos);
         Collections.sort(lista,cm1);
-        System.out.println(lista.get(0));
-        System.out.println(lista.get(1));
-        System.out.println(lista.get(2));
+    }
+
+    public void add(Puntuacion pPun){
+        lista.add(pPun);
     }
 
 }

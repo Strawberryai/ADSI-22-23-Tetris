@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -106,5 +107,49 @@ public class GestorUsuarios {
         } catch (SQLException e) {e.printStackTrace();}
 
         return existeUsuario;
+    }
+
+    public void datosAObjetos() {
+        GestorBD database = GestorBD.getInstance();
+        boolean partida=true,usuario = true;
+        ResultSet res = database.executeQuery("SELECT * FROM Jugador");
+        int puntosMax,puntos,nivel;
+        Date fecha;
+        boolean esAdmin;
+        String pass,nomUsu;
+        int config;
+        while (usuario) {
+            try {
+                usuario = res.next();
+                if (usuario) {
+                    nomUsu = res.getString(1);
+                    pass = res.getString(2);
+                    puntosMax = res.getInt(3);
+                    esAdmin = res.getBoolean(4);
+                    config = res.getInt(5);
+                    Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
+                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
+
+                    while (partida) {
+                        try {
+                            partida = resPartida.next();
+                            if (partida) {
+                                fecha = resPartida.getDate(1);
+                                puntos = resPartida.getInt(2);
+                                nivel = resPartida.getInt(3);
+                                Puntuacion y = new Puntuacion(puntos, new Partida(fecha, nivel));
+                                x.anadirListaPuntuacion(y);
+                            }
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
