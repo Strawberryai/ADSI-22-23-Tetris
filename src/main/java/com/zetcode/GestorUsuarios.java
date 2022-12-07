@@ -165,4 +165,7 @@ public class GestorUsuarios {
     public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
+    public org.json.JSONArray obtenerPuntuacionesMax(){
+        return lista.obtenerPuntuacionesMax();
+    }
 }

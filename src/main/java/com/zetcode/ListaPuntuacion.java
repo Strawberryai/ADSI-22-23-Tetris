@@ -18,8 +18,7 @@ public class ListaPuntuacion {
         Collections.sort(lista,cm1);
     }
 
-    private Iterator<Puntuacion> getItr(){
-        return lista.iterator();
+    private Iterator<Puntuacion> getItr(){return lista.iterator();
     }
     public void add(Puntuacion pPun){
         lista.add(pPun);
@@ -32,5 +31,19 @@ public class ListaPuntuacion {
     public int getPuntos(int indice){
         return lista.get(indice).getPuntos();
     }
+
+    private void ordenarPorNivel(){
+        Comparator<Puntuacion> cm1=Comparator.comparing(Puntuacion::nivelPartida);
+        Collections.sort(lista,cm1);
+    }
+
+
+
+   /* public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+        ordenarPorNivel();
+        while(){}
+
+    }
+    */
 
 }

@@ -11,4 +11,8 @@ public class Partida {
         fecha=pFecha;
         nivel=pNivel;
     }
+
+    public int getNivel(){
+        return nivel;
+    }
 }

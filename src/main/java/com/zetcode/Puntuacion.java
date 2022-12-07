@@ -13,4 +13,15 @@ public class Puntuacion {
     public int getPuntos(){
         return puntos;
     }
+
+    public int obtenerPuntuacionPorNivel(int pNivel){
+        if(laPartida.getNivel()==pNivel){
+            return puntos;
+        }else{ return 0;}
+
+    }
+
+    public int nivelPartida(){
+        return laPartida.getNivel();
+    }
 }

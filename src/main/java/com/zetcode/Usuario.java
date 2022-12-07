@@ -56,6 +56,14 @@ public class Usuario {
         return lista;
     }
 
+  /*  public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+        org.json.JSONArray lista=new org.json.JSONArray();
+        int i =0;
+        while(i<listaPuntos.size()){
+
+        }
+    }
+    */
 }
 
 
