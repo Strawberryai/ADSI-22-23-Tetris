@@ -1,5 +1,7 @@
 package com.zetcode;
 
+import org.h2.util.json.JSONArray;
+
 public class Sistema {
     private static Sistema miSistema;
     private Sistema(){}
@@ -27,5 +29,11 @@ public class Sistema {
 
     public void datosAObjetosRanking(){
         GestorUsuarios.getInstance().datosAObjetos();
+    }
+
+    public org.json.JSONArray obtenerRankingGlobal(String pUsuario){
+       Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+       org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
+        return puntPers;
     }
 }

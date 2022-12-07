@@ -1,6 +1,7 @@
 package com.zetcode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.h2.util.json.JSONArray;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +12,11 @@ import java.util.regex.Pattern;
 public class GestorUsuarios {
     private static final Logger logger = LogManager.getLogger(GestorUsuarios.class);
     private static GestorUsuarios misUsuarios;
+    private ListaUsuarios lista;
 
-    private GestorUsuarios(){}
+    private GestorUsuarios(){
+        lista=new ListaUsuarios();
+    }
     public static GestorUsuarios getInstance(){
         if(GestorUsuarios.misUsuarios == null) GestorUsuarios.misUsuarios = new GestorUsuarios();
         return GestorUsuarios.misUsuarios;
@@ -128,6 +132,7 @@ public class GestorUsuarios {
                     esAdmin = res.getBoolean(4);
                     config = res.getInt(5);
                     Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
+                    lista.add(x);
                     ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
 
                     while (partida) {
@@ -151,5 +156,13 @@ public class GestorUsuarios {
             }
         }
 
+    }
+
+    public Usuario buscarUsuario(String pUsuario){
+        return lista.buscarUsuario(pUsuario);
+    }
+
+    public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
+        return pUsuario.obtenerPuntuacionesMax();
     }
 }

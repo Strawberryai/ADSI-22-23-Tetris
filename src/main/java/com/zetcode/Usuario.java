@@ -1,5 +1,8 @@
 package com.zetcode;
 
+import org.h2.util.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -22,22 +25,35 @@ public class Usuario {
         listaPuntos=new ListaPuntuacion();
     }
 
-    public Usuario tieneMismoNombre(String pUsu){
+    public boolean tieneMismoNombre(String pUsu){
         if(pUsu.equals(usuario)){
-            return this;
-        }else{return null;}
+            return true;
+        }else{return false;}
     }
 
     public String getNombre(){
         return usuario;
     }
 
-    public int obtenerPuntuacionesMax(){
+    public int obtenerPuntuacionMax(){
         return puntosMax;
     }
 
     public void anadirListaPuntuacion(Puntuacion pPuntos){
         listaPuntos.add(pPuntos);
+    }
+
+    public org.json.JSONArray obtenerPuntuacionesMax(){
+        org.json.JSONArray lista=new org.json.JSONArray();
+        int i=0;
+        while(i<listaPuntos.size()){
+            JSONObject partida=new org.json.JSONObject();
+            partida.put("usuario",usuario);
+            partida.put("puntos",listaPuntos.getPuntos(i));
+            lista.put(partida);
+            i++;
+        }
+        return lista;
     }
 
 }
