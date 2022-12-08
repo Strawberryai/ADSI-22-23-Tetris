@@ -46,6 +46,7 @@ public class Usuario {
     public org.json.JSONArray obtenerPuntuacionesMax(){
         org.json.JSONArray lista=new org.json.JSONArray();
         int i=0;
+        listaPuntos.ordenarLista(listaPuntos.getLista());
         while(i<listaPuntos.size()){
             JSONObject partida=new org.json.JSONObject();
             partida.put("usuario",usuario);
@@ -56,14 +57,10 @@ public class Usuario {
         return lista;
     }
 
-  /*  public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
-        org.json.JSONArray lista=new org.json.JSONArray();
-        int i =0;
-        while(i<listaPuntos.size()){
-
-        }
+    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+       return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
-    */
+
 }
 
 

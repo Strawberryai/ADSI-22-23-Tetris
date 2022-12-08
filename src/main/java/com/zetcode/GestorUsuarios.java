@@ -133,6 +133,7 @@ public class GestorUsuarios {
                     config = res.getInt(5);
                     Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
                     lista.add(x);
+                    Ranking.getInstance().anadirJugador(x);
                     ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
 
                     while (partida) {
@@ -165,7 +166,10 @@ public class GestorUsuarios {
     public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
-    public org.json.JSONArray obtenerPuntuacionesMax(){
-        return lista.obtenerPuntuacionesMax();
+
+
+    public org.json.JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
+        return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
+
 }

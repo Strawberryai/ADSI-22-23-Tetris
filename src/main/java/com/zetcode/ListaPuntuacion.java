@@ -1,5 +1,7 @@
 package com.zetcode;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,12 +15,16 @@ public class ListaPuntuacion {
         lista=new ArrayList<Puntuacion>();
     }
 
-    private void ordenarLista(){
+    public void ordenarLista(ArrayList<Puntuacion> pLista){
         Comparator<Puntuacion> cm1=Comparator.comparing(Puntuacion::getPuntos);
-        Collections.sort(lista,cm1);
+        Collections.sort(pLista,cm1);
     }
 
-    private Iterator<Puntuacion> getItr(){return lista.iterator();
+    public ArrayList<Puntuacion> getLista(){
+        return lista;
+    }
+
+    private Iterator<Puntuacion> getItr(ArrayList<Puntuacion> pLista){return pLista.iterator();
     }
     public void add(Puntuacion pPun){
         lista.add(pPun);
@@ -37,13 +43,34 @@ public class ListaPuntuacion {
         Collections.sort(lista,cm1);
     }
 
+    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel, String pUsu){
+        org.json.JSONArray listaPart=new org.json.JSONArray();
 
-
-   /* public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+        Iterator<Puntuacion> itr=getItr(lista);
+        Puntuacion punt;
+        int anadido=0;
+        ArrayList<Puntuacion> aux=new ArrayList<Puntuacion>();
         ordenarPorNivel();
-        while(){}
+        while(itr.hasNext() || anadido<10){
+            punt=itr.next();
+            if(punt.nivelPartida()==pNivel){
+                aux.add(punt);
+                anadido++;
+            }
+        }
+
+        ordenarLista(aux);
+        Iterator<Puntuacion> itr2=getItr(aux);
+        while(itr2.hasNext()){
+            punt=itr2.next();
+            org.json.JSONObject part=new JSONObject();
+            part.put("usuario",pUsu);
+            part.put("puntos", punt.getPuntos());
+            listaPart.put(part);
+        }
+
+        return listaPart;
 
     }
-    */
 
 }

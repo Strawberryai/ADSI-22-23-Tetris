@@ -1,5 +1,6 @@
 package com.zetcode;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Array;
@@ -56,4 +57,52 @@ public class ListaUsuarios {
         }
         return listaPuntos;
     }
+
+    public void anadirJugadorRanking(Usuario pUsuario){
+        lista.add(pUsuario);
+        ordenar();
+    }
+
+    public JSONArray obtenerMejoresJug(int pNivel){
+        JSONArray listaDef = new JSONArray();
+        Iterator<Usuario> itr=getItr();
+        Usuario x=null;
+        int min=0;
+        int puntos;
+        while(itr.hasNext()){
+            x=itr.next();
+            JSONArray partidasOrdNivel=x.buscarMejoresPartidasJug(pNivel);
+            int i=0;
+            int j=0; //jsonObjects en el array
+            while(i< partidasOrdNivel.length()) {
+                puntos=partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
+                if(puntos>min || j<10){
+                    JSONObject nuevo=new JSONObject();
+                    nuevo.put("usuario", x.getNombre());
+                    nuevo.put("puntuacion", puntos);
+                    int z=0;
+                    boolean fin=false;
+                    while(z<listaDef.length() && !fin && j==10){
+                        if(listaDef.getJSONObject(z).getInt("puntuacion")<puntos){
+                              while(z<listaDef.length()){
+                                  if(listaDef.getJSONObject(z).getInt("puntuacion")==min){
+                                      listaDef.remove(z);
+                                      j--;
+                                      fin=true;
+                                  }
+                              }
+                        }
+                        z++;
+                    }
+                    listaDef.put(nuevo);
+                    j++;
+                    min=puntos;
+                }
+                i++;
+            }
+        }
+
+        return listaDef;
+    }
+
 }

@@ -37,20 +37,24 @@ public class Sistema {
 
        Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
-       org.json.JSONArray puntGlobal=GestorUsuarios.getInstance().obtenerPuntuacionesMax();
-        ranking.put("global",puntGlobal);
-        ranking.put("personal",puntPers);
+       org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
+       ranking.put("global",puntGlobal);
+       ranking.put("personal",puntPers);
        return ranking;
 
     }
 
-   /* public org.json.JSONObject obtenerRankingPorNiveles(String pUsuario){
-        JSONObject ranking=new org.json.JSONObject();
+    public org.json.JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
+        JSONObject elRanking=new org.json.JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
+        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        org.json.JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        elRanking.put("global", puntGlobales);
+        elRanking.put("personal", puntPers);
+        return elRanking;
     }
 
-*/
+
 
 
 }
