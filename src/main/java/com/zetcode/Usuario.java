@@ -1,7 +1,7 @@
 package com.zetcode;
 
 import org.h2.util.json.JSONArray;
-import org.json.JSONObject;
+import org.h2.util.json.JSONObject;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -43,8 +43,8 @@ public class Usuario {
         listaPuntos.add(pPuntos);
     }
 
-    public org.json.JSONArray obtenerPuntuacionesMax(){
-        org.json.JSONArray lista=new org.json.JSONArray();
+   /* public JSONArray obtenerPuntuacionesMax(){
+        JSONArray lista=new JSONArray();
         int i=0;
         listaPuntos.ordenarLista(listaPuntos.getLista());
         while(i<listaPuntos.size()){
@@ -57,10 +57,10 @@ public class Usuario {
         return lista;
     }
 
-    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+    public JSONArray buscarMejoresPartidasJug(int pNivel){
        return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
-
+*/
 }
 
 
