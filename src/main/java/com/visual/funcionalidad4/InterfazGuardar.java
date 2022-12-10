@@ -14,14 +14,15 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class InterfazGuardar extends JPanel {
-
-    public InterfazGuardar() {
+    private String usuario;
+    public InterfazGuardar(String pUsuario) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getContentPanel(), BorderLayout.CENTER);
+        this.usuario=pUsuario;
 
     }
 
@@ -66,7 +67,8 @@ public class InterfazGuardar extends JPanel {
                         System.out.println("Guardar");
                         GestorPaneles.getInstance().bind(new Interfaz1());
                         try {
-                            Sistema.getInstance().guardarPartida("prueba");
+                            System.out.println(usuario);
+                            Sistema.getInstance().guardarPartida(usuario);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
