@@ -2,6 +2,8 @@ package com.visual.funcionalidad1;
 
 import com.visual.GestorPaneles;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad4.InterfazCargarPartida;
+import com.visual.funcionalidad4.InterfazGuardar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,6 +60,11 @@ public class Interfaz1 extends JPanel {
         rec.addActionListener(mouseEventHandler());
         content.add(rec);
 
+        // boton de prueba para guardar JSON
+        JButton CPartida = new JButton("Cargar Partida");
+        CPartida.addActionListener(mouseEventHandler());
+        content.add(CPartida);
+
         // añadimos el contenido al centro del panel principal
         main.add(content, BorderLayout.CENTER);
 
@@ -83,6 +90,10 @@ public class Interfaz1 extends JPanel {
                     }else if(button.getText() == "Recuperar Contraseña"){
                         System.out.println("Recuperar Contraseña");
 
+                    }
+                    else if(button.getText() == "Cargar Partida"){
+                    System.out.println("Cargar Partida");
+                        GestorPaneles.getInstance().bind(new InterfazCargarPartida());
                     }
                 }
             }
