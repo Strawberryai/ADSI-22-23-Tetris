@@ -31,6 +31,7 @@ public class Interfaz7 extends PlantillaInterfaces {
         // Contenido de la vista
         JPanel content = new JPanel();
         content.add(new JLabel("Se ha enviado un correo de recuperación a email del usuario."));
+        content.add(new JLabel("(Por simplicidad, hemos decidico imprimir por consola la contraseña y no saturar el correo)."));
 
         return content;
     }

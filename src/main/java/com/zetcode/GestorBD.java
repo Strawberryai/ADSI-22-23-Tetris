@@ -1,6 +1,7 @@
 package com.zetcode;
 
 import java.net.ConnectException;
+import java.nio.file.Paths;
 import java.sql.*;
 
 public class GestorBD {
@@ -11,12 +12,19 @@ public class GestorBD {
     // Gana (ID_Jugador🔑, fechaHora🔑, codPremio🔑)
 
     private static GestorBD miGestor;
-    private String URL = "jdbc:h2:mem:test";
+    private String URL;
     private Connection connection = null;
 
     private GestorBD() {
+        String path = Paths.get("").toAbsolutePath().toString();
+        URL = "jdbc:h2:" + path + "/assets/database/datafile";
+
         this.createConnection();
-        this.initializeDatabase();
+
+        // Inicializar base de datos en caso de que no lo esté
+        ResultSet res = this.executeQuery("SELECT * FROM Jugador");
+        if(res == null)
+            this.initializeDatabase();
     }
 
     public static GestorBD getInstance(){
