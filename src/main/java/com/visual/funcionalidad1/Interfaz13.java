@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz11 extends PlantillaInterfaces {
+public class Interfaz13 extends PlantillaInterfaces {
     /**
-     * Interfaz de Error de Cambio de contraseña.
+     * Interfaz de Error de Borrado de usuarios.
      * Se presenta un único campo: un botón de volver.
      * Al pulsarlo se vuelve a la interfaz 9 (pagina principal loggeado).
      */
@@ -21,7 +21,7 @@ public class Interfaz11 extends PlantillaInterfaces {
     private boolean esAdmin;
     private String error;
 
-    public Interfaz11(String pUsuario, boolean pEsAdmin, String pError){
+    public Interfaz13(String pUsuario, boolean pEsAdmin, String pError){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
