@@ -1,5 +1,8 @@
 package com.zetcode;
 
+import org.h2.util.json.JSONArray;
+
+
 public class Sistema {
     private static Sistema miSistema;
     private Sistema(){}
@@ -25,7 +28,38 @@ public class Sistema {
         return GestorUsuarios.getInstance().recuperarContrasena(usuario);
     }
 
+    public void datosAObjetosRanking(){
+        GestorUsuarios.getInstance().datosAObjetos();
+    }
+/*  PROBLEMAS CON EL JSON
+    public org.json.JSONObject obtenerRankingGlobal(String pUsuario){
+        JSONObject ranking=new org.json.JSONObject();
+
+       Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+       org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
+       org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
+       ranking.put("global",puntGlobal);
+       ranking.put("personal",puntPers);
+       return ranking;
+
+    }
+
+    public org.json.JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
+        JSONObject elRanking=new org.json.JSONObject();
+        Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        org.json.JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        elRanking.put("global", puntGlobales);
+        elRanking.put("personal", puntPers);
+        return elRanking;
+    }
+*/
     public String cambiarContrasena(String usuario, String pass1, String pass2) {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
+
+
+
+
+
 }
