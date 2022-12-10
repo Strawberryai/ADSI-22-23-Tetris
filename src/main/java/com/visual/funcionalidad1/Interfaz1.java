@@ -3,6 +3,8 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad4.InterfazCargarPartida;
+import com.visual.funcionalidad4.InterfazGuardar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,6 +63,8 @@ public class Interfaz1 extends PlantillaInterfaces {
         JButton rec = new JButton("Recuperar Contraseña");
         rec.addActionListener(mouseEventHandler());
         content.add(rec);
+
+
         return content;
     }
 
@@ -87,9 +91,12 @@ public class Interfaz1 extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz6());
 
                     }
+
                 }
             }
         };
     }
+
+
 
 }
