@@ -113,6 +113,23 @@ public class GestorUsuarios {
         return existeUsuario;
     }
 
+    public String cambiarContrasena(String usuario, String pass1, String pass2) {
+        if(Objects.equals(pass1, "") || Objects.equals(pass2, ""))
+            return "Campo vacío";
+
+        if(!Objects.equals(pass1, pass2))
+            return "Las contraseñas no coinciden";
+
+        if(pass1.length() < 3)
+            return "La contraseña requiere de al menos 3 carácteres";
+
+        GestorBD database = GestorBD.getInstance();
+        database.executeStatement("UPDATE Jugador SET pass = '" + pass1 + "' WHERE usuario = '" + usuario + "'");
+
+        return null;
+    }
+
+
     public void datosAObjetos() {
         GestorBD database = GestorBD.getInstance();
         boolean partida=true,usuario = true;
@@ -162,7 +179,7 @@ public class GestorUsuarios {
     public Usuario buscarUsuario(String pUsuario){
         return lista.buscarUsuario(pUsuario);
     }
-
+/*
     public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
@@ -171,5 +188,5 @@ public class GestorUsuarios {
     public org.json.JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
-
+*/
 }

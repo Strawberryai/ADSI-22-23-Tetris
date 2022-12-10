@@ -1,7 +1,7 @@
 package com.zetcode;
 
 import org.h2.util.json.JSONArray;
-import org.json.JSONObject;
+
 
 public class Sistema {
     private static Sistema miSistema;
@@ -31,7 +31,7 @@ public class Sistema {
     public void datosAObjetosRanking(){
         GestorUsuarios.getInstance().datosAObjetos();
     }
-
+/*  PROBLEMAS CON EL JSON
     public org.json.JSONObject obtenerRankingGlobal(String pUsuario){
         JSONObject ranking=new org.json.JSONObject();
 
@@ -53,6 +53,11 @@ public class Sistema {
         elRanking.put("personal", puntPers);
         return elRanking;
     }
+*/
+    public String cambiarContrasena(String usuario, String pass1, String pass2) {
+        return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
+    }
+
 
 
 
