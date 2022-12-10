@@ -80,10 +80,6 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
 
-<<<<<<< HEAD
-        GestorBD.getInstance().fillDatabaseWithExampleData();
-=======
->>>>>>> developAlan
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
     public static void acabar(){

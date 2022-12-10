@@ -1,31 +1,17 @@
 package com.zetcode;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
-import com.zetcode.Tetris;
-import com.zetcode.Shape;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import org.json.JSONException;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-
-import org.h2.util.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.JSONValue;
 
 
 public class Sistema {
@@ -77,7 +63,7 @@ public class Sistema {
         String jsonstring =Files.readString(Path.of(f));
         System.out.println(jsonstring);
         //Guardador cargador=null;
-        Object obj=JSONValue.parse(jsonstring);
+        Object obj= JSONValue.parse(jsonstring);
         JSONObject jsonObject = (JSONObject) obj;
         /*try{
             cargador=new Gson().fromJson(jsonstring,Guardador.class);

@@ -59,9 +59,6 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(mouseEventHandler());
         panelUsuario.add(logoutButton);
-        JButton CPartida = new JButton("Cargar Partida");
-        CPartida.addActionListener(mouseEventHandler());
-        panelUsuario.add(CPartida);
         submain.add(panelUsuario, BorderLayout.EAST);
 
         //  Subtítulo
@@ -83,6 +80,10 @@ public class Interfaz9 extends PlantillaInterfaces {
         JPanel content = new JPanel();
 
         content.add(new JLabel("Añadir contenido de la página aquí (clase: funcionalidad1.Interfaz9; método: getContentPanel())"));
+
+        JButton CPartida = new JButton("Cargar Partida");
+        CPartida.addActionListener(mouseEventHandler());
+        content.add(CPartida);
 
         return content;
     }
