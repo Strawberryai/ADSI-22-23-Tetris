@@ -46,6 +46,9 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton recButton = new JButton("Cambiar contraseña");
         recButton.addActionListener(mouseEventHandler());
         panelUsuario.add(recButton);
+        JButton logoutButton = new JButton("Log out");
+        logoutButton.addActionListener(mouseEventHandler());
+        panelUsuario.add(logoutButton);
 
         submain.add(panelUsuario, BorderLayout.EAST);
 
@@ -84,7 +87,10 @@ public class Interfaz9 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Cambiar contraseña")){
                         // Abrimos la vista de cambio de contraseña
-                        // TODO: Implementar esto
+                        GestorPaneles.getInstance().bind(new Interfaz10(usuario));
+                    }else if(Objects.equals(button.getText(), "Log out")){
+                        // Volvemos a la vista principal pero desloggeados
+                        GestorPaneles.getInstance().bind(new Interfaz1());
                     }
                 }
             }
