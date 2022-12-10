@@ -105,4 +105,9 @@ public class ListaUsuarios {
         return listaDef;
     }
 
+    public void eliminarJugador(String usuario){
+        Usuario usu = this.buscarUsuario(usuario);
+        if(usu != null)
+            this.lista.remove(usu);
+    }
 }

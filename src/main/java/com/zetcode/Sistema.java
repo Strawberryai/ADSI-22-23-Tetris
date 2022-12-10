@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.h2.util.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class Sistema {
@@ -36,7 +37,7 @@ public class Sistema {
         return Sistema.miSistema;
     }
 
-    public boolean comprobarUsuario(String usuario, String pass){
+    public JSONObject comprobarUsuario(String usuario, String pass){
         return GestorUsuarios.getInstance().comprobarUsuario(usuario, pass);
     }
 
@@ -150,7 +151,7 @@ public class Sistema {
     }
 
 
-
-
-
+    public String borrarUsuario(String usuario) {
+        return GestorUsuarios.getInstance().borrarUsuario(usuario);
+    }
 }

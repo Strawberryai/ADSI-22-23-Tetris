@@ -21,13 +21,15 @@ public class Interfaz9 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private boolean esAdmin;
 
-    public Interfaz9(String pUsuario){
+    public Interfaz9(String pUsuario, boolean pEsAdmin){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         usuario = pUsuario;
+        esAdmin = pEsAdmin;
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Página Principal"), BorderLayout.CENTER);
@@ -44,6 +46,13 @@ public class Interfaz9 extends PlantillaInterfaces {
         JPanel panelUsuario = new JPanel();
         panelUsuario.setLayout(new FlowLayout());
         panelUsuario.add(new JLabel(usuario));
+
+        if(esAdmin){
+            JButton recButton = new JButton("Borrar usuario");
+            recButton.addActionListener(mouseEventHandler());
+            panelUsuario.add(recButton);
+        }
+
         JButton recButton = new JButton("Cambiar contraseña");
         recButton.addActionListener(mouseEventHandler());
         panelUsuario.add(recButton);
@@ -90,7 +99,12 @@ public class Interfaz9 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Cambiar contraseña")){
                         // Abrimos la vista de cambio de contraseña
-                        GestorPaneles.getInstance().bind(new Interfaz10(usuario));
+                        GestorPaneles.getInstance().bind(new Interfaz10(usuario, esAdmin));
+
+                    }else if(Objects.equals(button.getText(), "Borrar usuario")){
+                        // Abrimos la vista de borrar usuarios
+                        GestorPaneles.getInstance().bind(new Interfaz12(usuario, esAdmin));
+
                     }else if(Objects.equals(button.getText(), "Log out")){
                         // Volvemos a la vista principal pero desloggeados
                         GestorPaneles.getInstance().bind(new Interfaz1());
