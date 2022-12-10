@@ -64,9 +64,7 @@ public class Interfaz1 extends PlantillaInterfaces {
         rec.addActionListener(mouseEventHandler());
         content.add(rec);
 
-        JButton CPartida = new JButton("Cargar Partida");
-        CPartida.addActionListener(mouseEventHandler());
-        content.add(CPartida);
+
         return content;
     }
 
@@ -93,10 +91,7 @@ public class Interfaz1 extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz6());
 
                     }
-                    else if(Objects.equals(button.getText(),"Cargar Partida")){
-                    //System.out.println("Cargar Partida");
-                        GestorPaneles.getInstance().bind(new InterfazCargarPartida());
-                    }
+
                 }
             }
         };

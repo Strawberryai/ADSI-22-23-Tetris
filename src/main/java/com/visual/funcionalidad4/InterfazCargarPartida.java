@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class InterfazCargarPartida extends JPanel {
-
-    public InterfazCargarPartida() {
+    private String usuario;
+    public InterfazCargarPartida(String pUsuario) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());

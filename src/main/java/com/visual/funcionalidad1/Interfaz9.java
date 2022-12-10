@@ -3,6 +3,7 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad4.InterfazCargarPartida;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -49,7 +50,9 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(mouseEventHandler());
         panelUsuario.add(logoutButton);
-
+        JButton CPartida = new JButton("Cargar Partida");
+        CPartida.addActionListener(mouseEventHandler());
+        panelUsuario.add(CPartida);
         submain.add(panelUsuario, BorderLayout.EAST);
 
         //  Subtítulo
@@ -91,6 +94,10 @@ public class Interfaz9 extends PlantillaInterfaces {
                     }else if(Objects.equals(button.getText(), "Log out")){
                         // Volvemos a la vista principal pero desloggeados
                         GestorPaneles.getInstance().bind(new Interfaz1());
+                    }
+                    else if(Objects.equals(button.getText(),"Cargar Partida")){
+                        //System.out.println("Cargar Partida");
+                        GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
                     }
                 }
             }
