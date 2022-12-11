@@ -1,9 +1,8 @@
 package com.zetcode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.h2.util.json.JSONArray;
 import org.json.JSONObject;
-
+import org.json.JSONArray;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -214,14 +213,14 @@ public class GestorUsuarios {
 
         return error;
     }
-/*
-    public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
+
+    public JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
 
 
-    public org.json.JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
+    public JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
-*/
+
 }

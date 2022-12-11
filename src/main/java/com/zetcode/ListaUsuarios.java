@@ -69,7 +69,7 @@ public class ListaUsuarios {
         Usuario x=null;
         int min=0;
         int puntos;
-        /*while(itr.hasNext()){
+        while(itr.hasNext()){
             x=itr.next();
             JSONArray partidasOrdNivel=x.buscarMejoresPartidasJug(pNivel);
             int i=0;
@@ -100,7 +100,7 @@ public class ListaUsuarios {
                 }
                 i++;
             }
-        }*/
+        }
 
         return listaDef;
     }
