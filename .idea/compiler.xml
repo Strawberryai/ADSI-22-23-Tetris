@@ -9,8 +9,5 @@
         <module name="Tetris-Local" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Tetris-Local" target="14" />
-    </bytecodeTargetLevel>
   </component>
 </project>

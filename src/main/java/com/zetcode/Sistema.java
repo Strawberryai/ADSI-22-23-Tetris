@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
@@ -100,5 +102,21 @@ public class Sistema {
 
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
+    }
+    public void acabarPartida(int puntuacion,String usuario,int nivel){
+        int codUsuario=-1;//si es 1 error
+        java.util.Date date = new java.util.Date();
+        long t = date.getTime();
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+        GestorBD BD=GestorBD.getInstance();
+        ResultSet res=BD.executeQuery("SELECT ID FROM Jugador WHERE usuario='" + usuario + "'");
+        try {
+           if(res.next()){
+               codUsuario=res.getInt("ID");
+           }
+
+
+        } catch (SQLException e) {e.printStackTrace();}
+        GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
     }
 }
