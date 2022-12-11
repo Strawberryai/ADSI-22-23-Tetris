@@ -145,29 +145,31 @@ public class GestorUsuarios {
         int puntosMax,puntos,nivel;
         Date fecha;
         boolean esAdmin;
-        String pass,nomUsu;
-        int config;
+        String pass,nomUsu,email;
+        int config,id;
         while (usuario) {
             try {
                 usuario = res.next();
                 if (usuario) {
-                    nomUsu = res.getString(1);
-                    pass = res.getString(2);
-                    puntosMax = res.getInt(3);
-                    esAdmin = res.getBoolean(4);
-                    config = res.getInt(5);
-                    Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
+                    id=res.getInt("ID");
+                    nomUsu = res.getString("usuario");
+                    pass = res.getString("pass");
+                    email=res.getString("email");
+                    puntosMax = res.getInt("puntosMax");
+                    esAdmin = res.getBoolean("esAdmin");
+                    config = res.getInt("codC");
+                    Usuario x = new Usuario(nomUsu, pass,email, puntosMax, esAdmin, config);
                     lista.add(x);
                     Ranking.getInstance().anadirJugador(x);
-                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
+                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador='" + id + "'");
 
                     while (partida) {
                         try {
                             partida = resPartida.next();
                             if (partida) {
-                                fecha = resPartida.getDate(1);
-                                puntos = resPartida.getInt(2);
-                                nivel = resPartida.getInt(3);
+                                fecha = resPartida.getDate("fechaHora");
+                                puntos = resPartida.getInt("puntuacion");
+                                nivel = resPartida.getInt("nivel");
                                 Puntuacion y = new Puntuacion(puntos, new Partida(fecha, nivel));
                                 x.anadirListaPuntuacion(y);
                             }

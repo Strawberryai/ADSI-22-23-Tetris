@@ -94,7 +94,7 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
         GestorBD.getInstance().fillDatabaseWithExampleData();
-        GestorPaneles.getInstance().bind(new Interfaz9("Manuel",true));
+        GestorPaneles.getInstance().bind(new Interfaz1());
     }
     public static void acabar(){tetris.setVisible(false);}
     public static void finalizarPartida(int puntuacion){tetris.setVisible(false);

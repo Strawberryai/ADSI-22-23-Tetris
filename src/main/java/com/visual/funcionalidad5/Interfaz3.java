@@ -65,14 +65,16 @@ public class Interfaz3 extends PlantillaInterfaces {
         JButton verGlobal = new JButton("Visualizar Global");
         verGlobal.addActionListener(mouseEventHandler());
         content.add(verGlobal, BorderLayout.NORTH);
-/*
+
+
         DefaultListModel<String> lista1 = new DefaultListModel<>();
         JSONObject array = Sistema.getInstance().obtenerPuntuaciones(nivel,usuario);
         JSONArray global = (JSONArray) array.get("global");
         JSONArray personal = (JSONArray) array.get("personal");
         lista1.addElement("Ranking Global");
-        for (int i = 0; i < global.length(); i++) {
-            lista1.addElement(global.getString(i) + global.getInt(i));
+        for (int i = global.length()-1; i >0; i--) {
+            JSONObject x=global.getJSONObject(i);
+            lista1.addElement(x.getString("usuario") +"\t"+ x.getInt("puntuacion"));
         }
 
         JList<String> listaGl = new JList<>(lista1);
@@ -80,14 +82,15 @@ public class Interfaz3 extends PlantillaInterfaces {
 
         DefaultListModel<String> lista2 = new DefaultListModel<>();
         lista2.addElement("Ranking Personal");
-        for (int i = 0; i < personal.length(); i++) {
-            lista2.addElement(personal.getString(i) + personal.getInt(i));
+        for (int i = personal.length()-1; i > 0 ; i--) {
+            JSONObject x=personal.getJSONObject(i);
+            lista2.addElement(x.getString("usuario") +"\t "+"\t "+ "\t "+ "\t "+  x.getInt("puntuacion"));
         }
         JList<String> listaPers = new JList<>(lista2);
         listaPers.setBounds(100, 100, 200, 100);
         central.add(listaGl);
         central.add(listaPers);
-        */
+
         if(nivel==1){
             JButton nivel2=new JButton("Nivel 2");
             nivel2.addActionListener(mouseEventHandler());

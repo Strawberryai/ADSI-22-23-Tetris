@@ -117,5 +117,6 @@ public class GestorBD {
     public void fillDatabaseWithExampleData(){
         this.executeStatement("INSERT INTO Jugador (usuario, email, pass, esAdmin) VALUES ('Manuel', 'manuel@mail.com', '1234', 1)");
         this.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
+        imprimirTabla("Jugador");
     }
 }
