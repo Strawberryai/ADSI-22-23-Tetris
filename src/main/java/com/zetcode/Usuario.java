@@ -1,11 +1,12 @@
 package com.zetcode;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Collection;
 import java.util.Iterator;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 public class Usuario {
     private String usuario;
     private String contrasena;
@@ -43,21 +44,21 @@ public class Usuario {
         listaPuntos.add(pPuntos);
     }
 
-   public JSONArray obtenerPuntuacionesMax(){
-        JSONArray lista=new JSONArray();
+    public JSONArray obtenerPuntuacionesMax(){
+        JSONArray listaA=new JSONArray();
         int i=0;
         listaPuntos.ordenarLista(listaPuntos.getLista());
         while(i<listaPuntos.size()){
-            JSONObject partida=new org.json.JSONObject();
+            JSONObject partida=new JSONObject();
             partida.put("usuario",usuario);
             partida.put("puntos",listaPuntos.getPuntos(i));
-            lista.put(partida);
+            listaA.put(partida);
             i++;
         }
-        return lista;
+        return listaA;
     }
 
-    public JSONArray buscarMejoresPartidasJug(int pNivel){
+    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
        return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
 

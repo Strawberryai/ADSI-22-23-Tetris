@@ -76,13 +76,13 @@ public class ListaUsuarios {
             int j=0; //jsonObjects en el array
             while(i< partidasOrdNivel.length()) {
                 puntos=partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
-                if(puntos>min || j<10){
+                if(puntos>min || j<25){
                     JSONObject nuevo=new JSONObject();
                     nuevo.put("usuario", x.getNombre());
                     nuevo.put("puntuacion", puntos);
                     int z=0;
                     boolean fin=false;
-                    while(z<listaDef.length() && !fin && j==10){
+                    while(z<listaDef.length() && !fin && j==25){
                         if(listaDef.getJSONObject(z).getInt("puntuacion")<puntos){
                               while(z<listaDef.length()){
                                   if(listaDef.getJSONObject(z).getInt("puntuacion")==min){
