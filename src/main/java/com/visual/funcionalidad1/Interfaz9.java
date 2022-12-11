@@ -3,6 +3,7 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad5.Interfaz2;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -69,8 +70,10 @@ public class Interfaz9 extends PlantillaInterfaces {
     protected JPanel getContentPanel(){
         // Contenido principal de la vista
         JPanel content = new JPanel();
+        JButton ranking=new JButton("Ver Ranking");
+        ranking.addActionListener(mouseEventHandler());
+        content.add(ranking);
 
-        content.add(new JLabel("Añadir contenido de la página aquí (clase: funcionalidad1.Interfaz9; método: getContentPanel())"));
 
         return content;
     }
@@ -91,6 +94,8 @@ public class Interfaz9 extends PlantillaInterfaces {
                     }else if(Objects.equals(button.getText(), "Log out")){
                         // Volvemos a la vista principal pero desloggeados
                         GestorPaneles.getInstance().bind(new Interfaz1());
+                    }else if(Objects.equals(button.getText(), "Ver Ranking")){
+                        GestorPaneles.getInstance().bind(new Interfaz2(usuario));
                     }
                 }
             }

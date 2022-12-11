@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz1;
+import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad5.Interfaz2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,6 +57,6 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
         GestorBD.getInstance().fillDatabaseWithExampleData();
-        GestorPaneles.getInstance().bind(new Interfaz1());
+        GestorPaneles.getInstance().bind(new Interfaz9("Alejandro"));
     }
 }

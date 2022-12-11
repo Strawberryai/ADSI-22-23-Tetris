@@ -179,7 +179,7 @@ public class GestorUsuarios {
     public Usuario buscarUsuario(String pUsuario){
         return lista.buscarUsuario(pUsuario);
     }
-/*
+
     public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
@@ -188,5 +188,5 @@ public class GestorUsuarios {
     public org.json.JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
-*/
+
 }

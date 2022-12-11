@@ -18,3 +18,102 @@ CREATE TABLE Premio (CodPremio INT NOT NULL AUTO_INCREMENT, recompensa INT NOT N
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "GANA" ya existe
 Table "GANA" already exists; SQL statement:
 CREATE TABLE Gana (ID_Jugador INT NOT NULL, fechaHora TIMESTAMP NOT NULL, codPremio INT NOT NULL, PRIMARY KEY(ID_Jugador, fechaHora, codPremio), FOREIGN KEY (ID_Jugador, fechaHora) REFERENCES Partida(ID_Jugador, fechaHora), FOREIGN KEY (codPremio) REFERENCES Premio(CodPremio)) [42101-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
+2022-12-11 12:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER LARGE OBJECT to INTEGER"
+Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
