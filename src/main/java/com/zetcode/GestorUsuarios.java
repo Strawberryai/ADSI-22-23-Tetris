@@ -138,20 +138,21 @@ public class GestorUsuarios {
         Date fecha;
         boolean esAdmin;
         String pass,nomUsu;
-        int config;
+        int config,id;
         while (usuario) {
             try {
                 usuario = res.next();
                 if (usuario) {
-                    nomUsu = res.getString(1);
-                    pass = res.getString(2);
-                    puntosMax = res.getInt(3);
-                    esAdmin = res.getBoolean(4);
-                    config = res.getInt(5);
+                    id = res.getInt("ID");
+                    nomUsu=res.getString("usuario");
+                    pass = res.getString("pass");
+                    puntosMax = res.getInt("puntosMax");
+                    esAdmin = res.getBoolean("esAdmin");
+                    config = res.getInt("codC");
                     Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
                     lista.add(x);
                     Ranking.getInstance().anadirJugador(x);
-                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
+                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador=' + id + '");
 
                     while (partida) {
                         try {
