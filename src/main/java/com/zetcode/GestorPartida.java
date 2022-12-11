@@ -13,6 +13,7 @@ public class GestorPartida {
     }
     public void guardarPartida(Date pFecha,int pNivel,int pPuntuacion,int pCodUsuario){
         GestorBD database = GestorBD.getInstance();
-        database.executeStatement("INSERT INTO Partida (ID_JUGADOR, NIVEL, PUNTUACION,FECHAHORA) VALUES ('" + pCodUsuario+ "', '" + pNivel + "', '" + pNivel + "', '" + pFecha + "')");
+        database.executeStatement("INSERT INTO Partida (ID_JUGADOR, NIVEL, PUNTUACION,FECHAHORA) VALUES ('" + pCodUsuario+ "', '" + pNivel + "', '" + pPuntuacion + "', '" + pFecha + "')");
+        database.imprimirTabla("PARTIDA");
     }
 }

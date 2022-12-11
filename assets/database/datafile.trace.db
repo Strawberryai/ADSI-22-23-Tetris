@@ -250,3 +250,6 @@ Data conversion error converting "CHARACTER LARGE OBJECT to INTEGER" [22018-210]
 org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo " + id + "
 Data conversion error converting " + id + "; SQL statement:
 SELECT * FROM Partida WHERE ID_Jugador=' + id + ' [22018-210]
+2022-12-11 18:02:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [*]SELECT ID FROM Jugador WHERE usuario='Manuel'"; expected "identifier"; SQL statement:
+SELECT * FROM SELECT ID FROM Jugador WHERE usuario='Manuel' [42001-210]
