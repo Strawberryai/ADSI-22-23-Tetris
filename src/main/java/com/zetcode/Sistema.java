@@ -101,4 +101,9 @@ public class Sistema {
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
     }
+
+    public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+
+    }
 }
