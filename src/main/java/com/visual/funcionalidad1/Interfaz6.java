@@ -4,7 +4,6 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.zetcode.Sistema;
-import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,30 +11,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz2 extends PlantillaInterfaces {
+public class Interfaz6 extends PlantillaInterfaces {
     /**
-     * Interfaz de Log in del sistema.
-     * Se presentan cuatro campos: un textarea para el username;
-     * otro para la contraseña; un boton de volver y otro para confirmar
-     * el inicio de sesión.
+     * Interfaz de Recuperacion de contraseña
+     * Se presenta tres campos: un botón de volver; un textinput y un boton de recuperar.
+     * Al pulsar "volver" se vuelve a la interfaz 1 (pagina principal).
      */
 
     private JTextField userInput;
-    private JPasswordField passInput;
 
-    public Interfaz2(){
+    public Interfaz6(){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getMainPanel("Log in"), BorderLayout.CENTER);
+        add(getMainPanel("Recuperar contraseña"), BorderLayout.CENTER);
     }
 
     @Override
-    protected JPanel getContentPanel(){
+    protected JPanel getContentPanel() {
         // Contenido principal de la vista
-        // El contenido es un boxlayout con los textinputs, los labels y el boton confirmar (flowlayout para centrar)
+        // El contenido es un boxlayout con un label, un textinput y un boton.
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
 
@@ -48,16 +45,7 @@ public class Interfaz2 extends PlantillaInterfaces {
         userInput.setMaximumSize(new Dimension(400, 30));
         content.add(userInput);
 
-        JLabel passLabel = new JLabel("Contraseña");
-        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        content.add(passLabel);
-
-        passInput = new JPasswordField();
-        passInput.setAlignmentX(Component.CENTER_ALIGNMENT);
-        passInput.setMaximumSize(new Dimension(400, 30));
-        content.add(passInput);
-
-        JButton okButton = new JButton("Ok");
+        JButton okButton = new JButton("Recuperar");
         okButton.addActionListener(mouseEventHandler());
         okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(okButton);
@@ -66,7 +54,8 @@ public class Interfaz2 extends PlantillaInterfaces {
     }
 
     @Override
-    protected ActionListener mouseEventHandler(){
+    protected ActionListener mouseEventHandler() {
+        // Control de los botones
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,21 +68,18 @@ public class Interfaz2 extends PlantillaInterfaces {
                         // Volver a la pagina principal
                         GestorPaneles.getInstance().bind(new Interfaz1());
 
-                    }else if(Objects.equals(button.getText(), "Ok")){
+                    }else if(Objects.equals(button.getText(), "Recuperar")){
                         // Tomamos los datos de los campos y se los enviamos al sistema
                         String usuario = userInput.getText();
-                        String pass = passInput.getText();
+                        boolean usuarioValido = Sistema.getInstance().recuperarContrasena(usuario);
 
-                        JSONObject res = Sistema.getInstance().comprobarUsuario(usuario, pass);
-
-                        // Si es un usuario válido entramos en el sistema. Si no se muestra un error
-                        if(res.getBoolean("identificado")){
-                            //GestorPaneles.getInstance().bind(new Interfaz9(usuario));
-                            GestorPaneles.getInstance().bind(new Interfaz9(usuario, res.getBoolean("esAdmin")));
+                        if(usuarioValido){
+                            // Mostramos una vista informando que se ha enviado un email de recuperacion
+                            GestorPaneles.getInstance().bind(new Interfaz7());
                         }else{
-                            GestorPaneles.getInstance().bind(new Interfaz3());
+                            // Mostramos una vista de error avisando de que el usuario no es valido
+                            GestorPaneles.getInstance().bind(new Interfaz8());
                         }
-
                     }
                 }
             }

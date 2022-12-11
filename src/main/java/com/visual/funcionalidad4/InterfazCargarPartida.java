@@ -1,5 +1,6 @@
 package com.visual.funcionalidad4;
 import com.visual.GestorPaneles;
+import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz2;
 import com.visual.funcionalidad1.Interfaz1;
@@ -15,19 +16,20 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class InterfazCargarPartida extends JPanel {
-
-    public InterfazCargarPartida() {
+public class InterfazCargarPartida extends PlantillaInterfaces {
+    private String usuario;
+    public InterfazCargarPartida(String pUsuario) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getContentPanel(), BorderLayout.CENTER);
+        add(getMainPanel("Cargar Partida"), BorderLayout.CENTER);
+        this.usuario=pUsuario;
 
     }
 
-    private JPanel getContentPanel(){
+    protected JPanel getContentPanel(){
         // Contenido de la Interfaz -> main panel (subtitulo + contenido)
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
@@ -47,7 +49,7 @@ public class InterfazCargarPartida extends JPanel {
         content.setLayout(new FlowLayout());
 
         // botones de los arhcivos
-        String usuario="pruebaguardado";
+        String usuario=this.usuario;
         String userHomeDir = System.getProperty("user.home");
         String directorio=userHomeDir+ "/TetrisSaveFiles/"+usuario+"/";
         System.out.println(directorio);
@@ -73,13 +75,13 @@ public class InterfazCargarPartida extends JPanel {
         return main;
     }
 
-    private ActionListener mouseEventHandler(){
+    protected ActionListener mouseEventHandler(){
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object o = e.getSource();
                 String userHomeDir = System.getProperty("user.home");
-                String usuario="pruebaguardado";
+
 
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
@@ -91,7 +93,7 @@ public class InterfazCargarPartida extends JPanel {
                         System.out.println("Cargando:" + userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText());
                         try {
 
-                            Sistema.getInstance().cargarPartida(userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText());
+                            Sistema.getInstance().cargarPartida(userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText(),usuario);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }

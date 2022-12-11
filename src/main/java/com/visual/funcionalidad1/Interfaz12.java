@@ -12,30 +12,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz2 extends PlantillaInterfaces {
+public class Interfaz12 extends PlantillaInterfaces {
     /**
-     * Interfaz de Log in del sistema.
-     * Se presentan cuatro campos: un textarea para el username;
-     * otro para la contraseña; un boton de volver y otro para confirmar
-     * el inicio de sesión.
+     * Interfaz de Borrado de usuarios.
+     * Se presentan tres campos: un boton de volver, un
+     * textInput para introducir el usuario a borrar y
+     * un boton de confirmar el borrado.
      */
 
+    private String usuario;
+    private boolean esAdmin;
     private JTextField userInput;
-    private JPasswordField passInput;
 
-    public Interfaz2(){
+    public Interfaz12(String pUsuario, boolean pEsAdmin){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
+        usuario = pUsuario;
+        esAdmin = pEsAdmin;
+
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getMainPanel("Log in"), BorderLayout.CENTER);
+        add(getMainPanel("Borrado de usuarios"), BorderLayout.CENTER);
     }
 
     @Override
     protected JPanel getContentPanel(){
         // Contenido principal de la vista
-        // El contenido es un boxlayout con los textinputs, los labels y el boton confirmar (flowlayout para centrar)
+        // El contenido es un boxlayout con el textInput y el boton
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
 
@@ -48,16 +52,7 @@ public class Interfaz2 extends PlantillaInterfaces {
         userInput.setMaximumSize(new Dimension(400, 30));
         content.add(userInput);
 
-        JLabel passLabel = new JLabel("Contraseña");
-        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        content.add(passLabel);
-
-        passInput = new JPasswordField();
-        passInput.setAlignmentX(Component.CENTER_ALIGNMENT);
-        passInput.setMaximumSize(new Dimension(400, 30));
-        content.add(passInput);
-
-        JButton okButton = new JButton("Ok");
+        JButton okButton = new JButton("Confirmar borrado");
         okButton.addActionListener(mouseEventHandler());
         okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(okButton);
@@ -77,26 +72,23 @@ public class Interfaz2 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Volver")){
                         // Volver a la pagina principal
-                        GestorPaneles.getInstance().bind(new Interfaz1());
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
-                    }else if(Objects.equals(button.getText(), "Ok")){
-                        // Tomamos los datos de los campos y se los enviamos al sistema
-                        String usuario = userInput.getText();
-                        String pass = passInput.getText();
+                    }else if(Objects.equals(button.getText(), "Confirmar borrado")){
+                        // Borrar usuario y volver a la pagina principal
+                        String error = Sistema.getInstance().borrarUsuario(userInput.getText());
 
-                        JSONObject res = Sistema.getInstance().comprobarUsuario(usuario, pass);
-
-                        // Si es un usuario válido entramos en el sistema. Si no se muestra un error
-                        if(res.getBoolean("identificado")){
-                            //GestorPaneles.getInstance().bind(new Interfaz9(usuario));
-                            GestorPaneles.getInstance().bind(new Interfaz9(usuario, res.getBoolean("esAdmin")));
+                        if(Objects.equals(error, "")){
+                            // Usuario borrado, volvemos a la pagina principal
+                            GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
                         }else{
-                            GestorPaneles.getInstance().bind(new Interfaz3());
+                            // Mostramos la vista de error
+                            GestorPaneles.getInstance().bind(new Interfaz13(usuario, esAdmin, error));
                         }
-
                     }
                 }
             }
         };
     }
+
 }

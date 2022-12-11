@@ -1,10 +1,11 @@
-package com.visual.funcionalidad1;
+package com.visual.funcionalidad5;
+
 
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
-import com.visual.funcionalidad4.InterfazCargarPartida;
-import com.visual.funcionalidad4.InterfazGuardar;
+import com.visual.funcionalidad1.Interfaz4;
+import com.visual.funcionalidad1.Interfaz6;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +13,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz1 extends PlantillaInterfaces {
+public class Interfaz2 extends PlantillaInterfaces{
     /**
-     * Interfaz inicial: Usuario no loggeado.
-     * Se presentan las opciones de loggearse, registrarse y de
-     * recuperacion de contraseña.
+     * Interfaz ranking global: Usuario loggeado.
+     * Se presenta el ranking global tanto personal como de todos los usuarios,
+     * se da la opción de ver el ranking por niveles.
      */
 
-    public Interfaz1(){
+    public Interfaz2(){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getMainPanel("Página Principal"), BorderLayout.CENTER);
+        add(getMainPanel("Ranking Global"), BorderLayout.CENTER);
     }
 
     @Override
@@ -44,25 +45,13 @@ public class Interfaz1 extends PlantillaInterfaces {
 
     @Override
     protected JPanel getContentPanel(){
-        // Contenido principal de la vista
-        // [No loggeado] -> El contenido es un flowlayout con los botones de login...
         JPanel content = new JPanel();
         content.setLayout(new FlowLayout());
 
-        // boton de login
-        JButton login = new JButton("Log in");
-        login.addActionListener(mouseEventHandler());
-        content.add(login);
-
-        // boton de registro
-        JButton register = new JButton("Register");
-        register.addActionListener(mouseEventHandler());
-        content.add(register);
-
-        // boton de recuperacion de contraseña
-        JButton rec = new JButton("Recuperar Contraseña");
-        rec.addActionListener(mouseEventHandler());
-        content.add(rec);
+        // boton de Visualizar por niveles
+        JButton verNiveles = new JButton("Visualizar por niveles");
+        verNiveles.addActionListener(mouseEventHandler());
+        content.add(verNiveles);
 
 
         return content;
@@ -80,7 +69,7 @@ public class Interfaz1 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Log in")){
                         // Abrimos la vista de log in
-                        GestorPaneles.getInstance().bind(new Interfaz2());
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad1.Interfaz2());
 
                     }else if(Objects.equals(button.getText(), "Register")){
                         // Abrimos la vista de registro
@@ -91,12 +80,10 @@ public class Interfaz1 extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz6());
 
                     }
-
                 }
             }
         };
     }
-
 
 
 }

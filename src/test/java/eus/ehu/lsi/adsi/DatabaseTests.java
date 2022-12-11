@@ -6,6 +6,7 @@ import com.zetcode.GestorBD;
 import com.zetcode.Sistema;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import com.zetcode.Shape;
@@ -21,10 +22,10 @@ public class DatabaseTests {
     @Test
     public void insertINTO(){
         GestorBD database = GestorBD.getInstance();
-
-        // Tablas vacias ¿?
         ResultSet res;
-        try {
+
+        // Tablas vacias ¿? -> Comentado porque si se ejecutan primero los tests de abajo falla porque ya hay datos
+        /*try {
             res = database.executeQuery("SELECT * FROM Configuracion");
             assertFalse(res.next());
             res = database.executeQuery("SELECT * FROM Jugador");
@@ -33,16 +34,16 @@ public class DatabaseTests {
             assertFalse(res.next());
             res = database.executeQuery("SELECT * FROM Gana");
             assertFalse(res.next());
-        }catch (Exception e){e.printStackTrace();}
+        }catch (Exception e){e.printStackTrace();}*/
 
         // Inserts simples en tabla Jugador -> Manuel(1) y Gustavo(2)
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Manuel', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Manuel', 'manuel@mail.com', '1234')");
         try{
             res = database.executeQuery("SELECT * FROM Jugador");
             assertTrue(res.next());
         }catch (Exception e){e.printStackTrace();}
 
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Gustavo', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
 
         // Inserts en tabla Configuracion -> (1, "Azul" ,"Zelda Theme", "Pixelado")
         database.executeStatement("INSERT INTO Configuracion (colorPieza, musica, ladrillo) VALUES ('Azul', 'Zelda Theme', 'Pixelado')");
@@ -90,13 +91,14 @@ public class DatabaseTests {
             assertTrue(res.next());
         }catch (Exception e){e.printStackTrace();}
     }
+
     @Test
     public void testLog(){
         GestorBD database = GestorBD.getInstance();
 
         // Volcando datos en tablas
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Manuel', '1234')");
-        database.executeStatement("INSERT INTO Jugador (usuario, pass) VALUES ('Gustavo', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Manuel', 'manuel@mail.com', '1234')");
+        database.executeStatement("INSERT INTO Jugador (usuario, email, pass) VALUES ('Gustavo', 'gustavo@mail.com', '1234')");
 
         ResultSet res = database.executeQuery("SELECT * FROM Jugador");
         int count = 0;
@@ -114,39 +116,39 @@ public class DatabaseTests {
 
         String usuario = "Manuel";
         String pass = "1234";
-        boolean ident = Sistema.getInstance().comprobarUsuario("Manuel", "1234");
+        JSONObject ident = Sistema.getInstance().comprobarUsuario("Manuel", "1234");
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertTrue(ident);
+        assertTrue(ident.getBoolean("identificado"));
 
         usuario = "Manuel";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Fernando";
         pass = "1234";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Fernando";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Gustavo";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Gustavo";
         pass = "1234";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertTrue(ident);
+        assertTrue(ident.getBoolean("identificado"));
     }
 
 
