@@ -1,5 +1,6 @@
 package com.visual.funcionalidad4;
 import com.visual.GestorPaneles;
+import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz2;
 import com.visual.funcionalidad1.Interfaz1;
@@ -14,10 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class InterfazGuardar extends JPanel {
+public class InterfazError extends PlantillaInterfaces {
     private String usuario;
     private Boolean esAdmin;
-    public InterfazGuardar(String pUsuario,boolean esAdmin) {
+    public InterfazError(String pUsuario,boolean esAdmin) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
@@ -29,7 +30,7 @@ public class InterfazGuardar extends JPanel {
 
     }
 
-    private JPanel getContentPanel(){
+    protected JPanel getContentPanel(){
         // Contenido de la Interfaz -> main panel (subtitulo + contenido)
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
@@ -37,27 +38,27 @@ public class InterfazGuardar extends JPanel {
         // Creamos el panel del subtitulo (flowlayout)
         JPanel subTitlePanel = new JPanel();
         subTitlePanel.setLayout(new FlowLayout());
-        JLabel subTitle = new JLabel("GuardarPrueba");
+        // Añadimos el panel del subtitulo en la parte superior
+        JLabel subTitle = new JLabel("Error");
         subTitle.setFont(RecursosVisuales.getInstance().subTitleFont);
         subTitlePanel.add(subTitle);
-
-        // Añadimos el panel del subtitulo en la parte superior
         main.add(subTitlePanel, BorderLayout.NORTH);
-
-        // [No loggeado] -> El contenido es un flowlayout con los botones de login...
         JPanel content = new JPanel();
         content.setLayout(new FlowLayout());
-
-        // boton de login
-        JButton Guardar = new JButton("Guardar");
-        Guardar.addActionListener(mouseEventHandler());
-        content.add(Guardar);
+        // [No loggeado] -> El contenido es un flowlayout con los botones de login...
+        JLabel ERROR= new JLabel("ERROR:La partida ha sido eliminada o modificada. Compruebe si se ha corrompido o modificado");
+        content.add(ERROR);
+        JButton volver = new JButton("Volver al menu");
+        volver.addActionListener(mouseEventHandler());
+        content.add(volver);
         main.add(content, BorderLayout.CENTER);
+
+
 
         return main;
     }
 
-    private ActionListener mouseEventHandler(){
+    protected ActionListener mouseEventHandler(){
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,15 +67,10 @@ public class InterfazGuardar extends JPanel {
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
 
-                    if(button.getText() == "Guardar") {
-                        System.out.println("Guardar");
+                    if(button.getText() == "Volver al menu") {
+                        System.out.println("Volver");
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
-                        try {
-                            System.out.println(usuario);
-                            Sistema.getInstance().guardarPartida(usuario);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
+
                     }
                 }
             }

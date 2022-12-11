@@ -4,6 +4,7 @@ import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz2;
 import com.visual.funcionalidad1.Interfaz1;
+import com.visual.funcionalidad1.Interfaz9;
 import com.zetcode.Board;
 import com.zetcode.Sistema;
 import com.zetcode.Tetris;
@@ -18,14 +19,18 @@ import java.nio.file.Paths;
 
 public class InterfazCargarPartida extends PlantillaInterfaces {
     private String usuario;
-    public InterfazCargarPartida(String pUsuario) {
+    private boolean esAdmin;
+    public InterfazCargarPartida(String pUsuario,boolean esAdmin) {
+        this.usuario=pUsuario;
+        this.esAdmin=esAdmin;
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Cargar Partida"), BorderLayout.CENTER);
-        this.usuario=pUsuario;
+        System.out.println(pUsuario);
+
 
     }
 
@@ -49,11 +54,16 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
         content.setLayout(new FlowLayout());
 
         // botones de los arhcivos
-        String usuario=this.usuario;
-        String userHomeDir = System.getProperty("user.home");
-        String directorio=userHomeDir+ "/TetrisSaveFiles/"+usuario+"/";
-        System.out.println(directorio);
-        File f=new File(directorio);
+
+        String path= Paths.get("").toAbsolutePath().toString();
+        String directorioGuardados=path+File.separator+"assets"+ File.separator+"TetrisSaveFiles"+File.separator+usuario+"guardado";
+        System.out.println(directorioGuardados);
+        File dir=new File(directorioGuardados);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        directorioGuardados=directorioGuardados+File.separator;
+        File f=new File(directorioGuardados);
         String[] pathnames=f.list();
         int i=0;
         if(f.exists()) {
@@ -64,14 +74,14 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
                 main.add(content, BorderLayout.CENTER);
             }
         }
-        else{
+        /*else{
             JLabel ERROR= new JLabel("ERROR:No existen partidas guardadas");
             content.add(ERROR);
-            JButton volver = new JButton("volver");
-            volver.addActionListener(mouseEventHandler());
-            content.add(volver);
+            JButton volverMenu = new JButton("volver al menu");
+            volverMenu.addActionListener(mouseEventHandler());
+            content.add(volverMenu);
             main.add(content, BorderLayout.CENTER);
-        }
+        }*/
         return main;
     }
 
@@ -80,24 +90,36 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object o = e.getSource();
-                String userHomeDir = System.getProperty("user.home");
 
 
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
-                    File f=new File(userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText());
-                    if(button.getText()=="volver"){
-                        GestorPaneles.getInstance().bind(new Interfaz1());
+                    String path= Paths.get("").toAbsolutePath().toString();
+                    String directorioGuardados=path+File.separator+"assets"+ File.separator+"TetrisSaveFiles"+File.separator+usuario+"guardado"+File.separator;
+                    File f=new File(directorioGuardados+button.getText());
+                    if(button.getText()=="volver al menu"){
+                        System.out.println("volviendo");
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
+                    }
+                    else if(button.getText()=="Volver") {
+                        System.out.println("volviendo");
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
                     }
                     else if(f.exists()) {
-                        System.out.println("Cargando:" + userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText());
+                        System.out.println("Cargando:" +directorioGuardados+button.getText());
                         try {
 
-                            Sistema.getInstance().cargarPartida(userHomeDir+ "/TetrisSaveFiles/"+usuario+"/"+button.getText(),usuario);
+                            Sistema.getInstance().cargarPartida(directorioGuardados+button.getText(),usuario,esAdmin);
                         } catch (IOException ex) {
+                            GestorPaneles.getInstance().bind(new InterfazError(usuario,esAdmin));
                             throw new RuntimeException(ex);
+
                         }
                     }
+                    else if(!f.exists()){
+                        GestorPaneles.getInstance().bind(new InterfazError(usuario,esAdmin));
+                    }
+
                 }
             }
         };

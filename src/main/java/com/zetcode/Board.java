@@ -45,7 +45,7 @@ public class Board extends JPanel {
         ObjectMapper mapper= new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         Guardador guardador= new Guardador();
-        guardador.setAllGuardador(miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
+        guardador.setAllGuardador(miPartida.BOARD_HEIGHT,miPartida.BOARD_WIDTH, miPartida.PERIOD_INTERVAL, miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
         return (mapper.writeValueAsString(guardador));
     }
     public  void cargar(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){

@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
@@ -30,32 +31,10 @@ public class Sistema {
     }
 
     public void guardarPartida(String usuario) throws IOException {
-        System.out.println(usuario);
-        String userHomeDir = System.getProperty("user.home");
-        if(Files.notExists(Path.of(userHomeDir + "/TetrisSaveFiles"))){
-            File dir = new File(userHomeDir + "/TetrisSaveFiles");
-            dir.mkdirs();
-        }
-        System.out.println(usuario);
-        if(Files.notExists(Path.of(userHomeDir + "/TetrisSaveFiles/" + usuario + "guardado"))){
-            File dir = new File(userHomeDir + "/TetrisSaveFiles/" + usuario + "guardado");
-            dir.mkdirs();
-        }
-        else{
-            System.out.println(userHomeDir + "/TetrisSaveFiles/" + usuario + "guardado");
-        }
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String fecha=formatter.format(date);
-        String jsonString=Board.getInstance().guardar();
-        FileWriter file=new FileWriter(userHomeDir + "/TetrisSaveFiles/" + usuario + "guardado/"+ fecha);
-        file.write(jsonString);
-        file.close();
-        Tetris.acabar();
+        Guardador.guardarPartida(usuario);
     }
 
-    public void cargarPartida(String f,String pUsuario) throws IOException {
+    public void cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String jsonstring =Files.readString(Path.of(f));
@@ -63,15 +42,15 @@ public class Sistema {
         Guardador cargador=mapper.readValue(jsonstring, Guardador.class);
         EventQueue.invokeLater(() -> {
 
-            Tetris tetris=new Tetris(true,cargador.getIsFallingFinished(),cargador.getIsPaused(),cargador.getNumLinesRemoved(),cargador.getCurX(),cargador.getCurY(),cargador.getCurPiece(),cargador.getBoard(),pUsuario);
+            Tetris tetris=new Tetris(cargador.getBOARD_HEIGHT(),cargador.getBOARD_WIDTH(),cargador.getPERIOD_INTERVAL(),true,cargador.getIsFallingFinished(),cargador.getIsPaused(),cargador.getNumLinesRemoved(),cargador.getCurX(),cargador.getCurY(),cargador.getCurPiece(),cargador.getBoard(),pUsuario,esAdmin);
 
         });
 
     }
-    public void jugarNuevaPartida(String pUsuario){
+    public void jugarNuevaPartida(String pUsuario,boolean esAdmin){
         EventQueue.invokeLater(() -> {
 
-            var game = new Tetris(false,false,false,0,0,0,null,null,pUsuario);
+            var game = new Tetris(10,22,300,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
             game.setVisible(true);
         });
     }
