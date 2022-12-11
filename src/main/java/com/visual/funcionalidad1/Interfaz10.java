@@ -19,15 +19,17 @@ public class Interfaz10 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private boolean esAdmin;
     private JPasswordField passInput1;
     private JPasswordField passInput2;
 
-    public Interfaz10(String pUsuario){
+    public Interfaz10(String pUsuario, boolean pEsAdmin){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         usuario = pUsuario;
+        esAdmin = pEsAdmin;
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Cambiar contraseña"), BorderLayout.CENTER);
@@ -80,7 +82,7 @@ public class Interfaz10 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Volver")){
                         // Volver a la pagina principal
-                        GestorPaneles.getInstance().bind(new Interfaz9(usuario));
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
                     }else if(Objects.equals(button.getText(), "Confirmar")){
                         // Tomamos los datos de los campos y se los enviamos al sistema
@@ -91,10 +93,10 @@ public class Interfaz10 extends PlantillaInterfaces {
 
                         if(error == null){
                             // Contraseña cambiada con éxito -> volvemos a la pagina principal
-                            GestorPaneles.getInstance().bind(new Interfaz9(usuario));
+                            GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
                         }else{
                             // error -> mostramos vista de error
-                            GestorPaneles.getInstance().bind(new Interfaz11(usuario, error));
+                            GestorPaneles.getInstance().bind(new Interfaz11(usuario, esAdmin, error));
                         }
 
                     }

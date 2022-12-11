@@ -10,28 +10,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz7 extends PlantillaInterfaces {
+public class Interfaz13 extends PlantillaInterfaces {
     /**
-     * Interfaz de Informacion de recuperacion de contraseña.
+     * Interfaz de Error de Borrado de usuarios.
      * Se presenta un único campo: un botón de volver.
-     * Al pulsarlo se vuelve a la interfaz 6.
+     * Al pulsarlo se vuelve a la interfaz 9 (pagina principal loggeado).
      */
 
-    public Interfaz7(){
+    private String usuario;
+    private boolean esAdmin;
+    private String error;
+
+    public Interfaz13(String pUsuario, boolean pEsAdmin, String pError){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
+        usuario = pUsuario;
+        esAdmin = pEsAdmin;
+        error = pError;
+
         add(rv.getTitle(), BorderLayout.NORTH);
-        add(getMainPanel("Info"), BorderLayout.CENTER);
+        add(getMainPanel("Error"), BorderLayout.CENTER);
     }
 
     @Override
     protected JPanel getContentPanel() {
         // Contenido de la vista
         JPanel content = new JPanel();
-        content.add(new JLabel("Se ha enviado un correo de recuperación a email del usuario."));
-        content.add(new JLabel("(Por simplicidad, hemos decidico imprimir por consola la contraseña y no saturar el correo)."));
+        content.add(new JLabel(error));
 
         return content;
     }
@@ -49,7 +56,7 @@ public class Interfaz7 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Volver")){
                         // Volver a la pagina principal
-                        GestorPaneles.getInstance().bind(new Interfaz6());
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
                     }
                 }

@@ -3,6 +3,7 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad4.InterfazCargarPartida;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -20,13 +21,15 @@ public class Interfaz9 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private boolean esAdmin;
 
-    public Interfaz9(String pUsuario){
+    public Interfaz9(String pUsuario, boolean pEsAdmin){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         usuario = pUsuario;
+        esAdmin = pEsAdmin;
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Página Principal"), BorderLayout.CENTER);
@@ -43,13 +46,19 @@ public class Interfaz9 extends PlantillaInterfaces {
         JPanel panelUsuario = new JPanel();
         panelUsuario.setLayout(new FlowLayout());
         panelUsuario.add(new JLabel(usuario));
+
+        if(esAdmin){
+            JButton recButton = new JButton("Borrar usuario");
+            recButton.addActionListener(mouseEventHandler());
+            panelUsuario.add(recButton);
+        }
+
         JButton recButton = new JButton("Cambiar contraseña");
         recButton.addActionListener(mouseEventHandler());
         panelUsuario.add(recButton);
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(mouseEventHandler());
         panelUsuario.add(logoutButton);
-
         submain.add(panelUsuario, BorderLayout.EAST);
 
         //  Subtítulo
@@ -72,6 +81,14 @@ public class Interfaz9 extends PlantillaInterfaces {
 
         content.add(new JLabel("Añadir contenido de la página aquí (clase: funcionalidad1.Interfaz9; método: getContentPanel())"));
 
+        JButton CPartida = new JButton("Cargar Partida");
+        CPartida.addActionListener(mouseEventHandler());
+        content.add(CPartida);
+
+        JButton JPartida = new JButton("Jugar Partida");
+        JPartida.addActionListener(mouseEventHandler());
+        content.add(JPartida);
+
         return content;
     }
 
@@ -87,10 +104,24 @@ public class Interfaz9 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Cambiar contraseña")){
                         // Abrimos la vista de cambio de contraseña
-                        GestorPaneles.getInstance().bind(new Interfaz10(usuario));
+                        GestorPaneles.getInstance().bind(new Interfaz10(usuario, esAdmin));
+
+                    }else if(Objects.equals(button.getText(), "Borrar usuario")){
+                        // Abrimos la vista de borrar usuarios
+                        GestorPaneles.getInstance().bind(new Interfaz12(usuario, esAdmin));
+
                     }else if(Objects.equals(button.getText(), "Log out")){
                         // Volvemos a la vista principal pero desloggeados
                         GestorPaneles.getInstance().bind(new Interfaz1());
+                    }
+                    else if(Objects.equals(button.getText(),"Cargar Partida")){
+                        //System.out.println("Cargar Partida");
+                        GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario,esAdmin));
+                    }
+                    else if(Objects.equals(button.getText(),"Jugar Partida")){
+                        //System.out.println("Jugar Partida");
+                        //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
+                        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
                     }
                 }
             }

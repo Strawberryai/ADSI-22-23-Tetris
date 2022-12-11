@@ -2,6 +2,7 @@ package com.zetcode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.h2.util.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class GestorUsuarios {
         return pat.matcher(email).matches();
     }
 
-    public boolean comprobarUsuario(String usuario, String pass){
+    public JSONObject comprobarUsuario(String usuario, String pass){
         // PRE: usuario y contraseña
         // POST: boolean indicando si el login es correcto
 
@@ -45,15 +46,23 @@ public class GestorUsuarios {
 
         ResultSet res = database.executeQuery("SELECT * FROM Jugador WHERE usuario='" + usuario + "' AND pass='" + pass + "'");
         boolean identificado = false;
+        boolean esAdmin = false;
 
         try {
             identificado = res.next();
+            if(identificado){
+                esAdmin = res.getBoolean("esAdmin");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return identificado;
+        JSONObject obj = new JSONObject();
+        obj.put("identificado", identificado);
+        obj.put("esAdmin", esAdmin);
+
+        return obj;
     }
 
     public String validarRegistro(String usuario, String mail, String pass) {
@@ -178,6 +187,32 @@ public class GestorUsuarios {
 
     public Usuario buscarUsuario(String pUsuario){
         return lista.buscarUsuario(pUsuario);
+    }
+
+    public String borrarUsuario(String usuario) {
+        String error = "";
+
+        // Borramos el usuario de la base de datos (todos sus datos!! -> CASCADE)
+        GestorBD database = GestorBD.getInstance();
+        ResultSet res = database.executeQuery("SELECT * FROM Jugador WHERE usuario='" + usuario + "'");
+        boolean existeUsuario = true;
+
+        try {
+            existeUsuario = res.next();
+        } catch (SQLException e) {e.printStackTrace();}
+
+        if(!existeUsuario)
+            return "El usuario introducido no existe";
+
+        database.executeStatement("DELETE FROM Jugador WHERE usuario='" + usuario + "'");
+
+        // TODO: Hay que borrar sus datos de los objetos cargados
+        lista.eliminarJugador(usuario);
+
+        // TODO: Hay que borrar sus partidas guardadas
+
+
+        return error;
     }
 /*
     public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){

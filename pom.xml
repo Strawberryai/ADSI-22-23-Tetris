@@ -19,6 +19,11 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.13.0</version>
 		</dependency>
+	  <dependency>
+		  <groupId>org.jsonschema2pojo</groupId>
+		  <artifactId>jsonschema2pojo-core</artifactId>
+		  <version>1.1.2</version>
+	  </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -30,13 +35,24 @@
 		  <artifactId>h2</artifactId>
 		  <version>2.1.210</version>
 	  	</dependency>
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>RELEASE</version>
-          <scope>test</scope>
-      </dependency>
+	  <dependency>
+		  <groupId>org.json</groupId>
+		  <artifactId>json</artifactId>
+		  <version>20220924</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.googlecode.json-simple</groupId>
+		  <artifactId>json-simple</artifactId>
+		  <version>1.1.1</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.fasterxml.jackson.core</groupId>
+		  <artifactId>jackson-databind</artifactId>
+		  <version>2.10.0.pr2</version>
+	  </dependency>
   </dependencies>
+
+
 	<build>
 		<plugins>
 			<plugin>

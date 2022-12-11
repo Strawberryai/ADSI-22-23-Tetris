@@ -18,14 +18,16 @@ public class Interfaz11 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private boolean esAdmin;
     private String error;
 
-    public Interfaz11(String pUsuario, String pError){
+    public Interfaz11(String pUsuario, boolean pEsAdmin, String pError){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
         usuario = pUsuario;
+        esAdmin = pEsAdmin;
         error = pError;
 
         add(rv.getTitle(), BorderLayout.NORTH);
@@ -54,7 +56,7 @@ public class Interfaz11 extends PlantillaInterfaces {
 
                     if(Objects.equals(button.getText(), "Volver")){
                         // Volver a la pagina principal
-                        GestorPaneles.getInstance().bind(new Interfaz9(usuario));
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
                     }
                 }

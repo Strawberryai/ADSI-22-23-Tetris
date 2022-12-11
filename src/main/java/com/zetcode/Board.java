@@ -1,6 +1,9 @@
 package com.zetcode;
 
-import com.visual.funcionalidad3.Personalizar;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -12,9 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class Board extends JPanel {
-
+    private static Board miPartida;
     private final int BOARD_WIDTH = 10;
     private final int BOARD_HEIGHT = 22;
     private final int PERIOD_INTERVAL = 300;
@@ -29,13 +34,33 @@ public class Board extends JPanel {
     private Shape curPiece;
     private Tetrominoe[] board;
 
+    public static Board getInstance(){
+        return Board.miPartida;
+    }
     public Board(Tetris parent) {
-
+        miPartida=this;
         initBoard(parent);
     }
-
+    public static String guardar() throws IOException {
+        ObjectMapper mapper= new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        Guardador guardador= new Guardador();
+        guardador.setAllGuardador(miPartida.BOARD_HEIGHT,miPartida.BOARD_WIDTH, miPartida.PERIOD_INTERVAL, miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
+        return (mapper.writeValueAsString(guardador));
+    }
+    public  void cargar(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
+        this.isFallingFinished=isFallingFinished;
+        this.isPaused=isPaused;
+        this.numLinesRemoved=numLinesRemoved;
+        this.curX=curX;
+        this.curY=curY;
+        this.curPiece=curPiece;
+        this.board=board;
+        timer = new Timer(PERIOD_INTERVAL, new GameCycle());
+        timer.start();
+    }
     private void initBoard(Tetris parent) {
-        //setBackground(Color.cyan);
+
         setFocusable(true);
         statusbar = parent.getStatusBar();
         addKeyListener(new TAdapter());

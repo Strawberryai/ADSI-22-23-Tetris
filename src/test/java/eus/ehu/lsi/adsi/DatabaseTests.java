@@ -6,6 +6,7 @@ import com.zetcode.GestorBD;
 import com.zetcode.Sistema;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import com.zetcode.Shape;
@@ -115,39 +116,39 @@ public class DatabaseTests {
 
         String usuario = "Manuel";
         String pass = "1234";
-        boolean ident = Sistema.getInstance().comprobarUsuario("Manuel", "1234");
+        JSONObject ident = Sistema.getInstance().comprobarUsuario("Manuel", "1234");
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertTrue(ident);
+        assertTrue(ident.getBoolean("identificado"));
 
         usuario = "Manuel";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Fernando";
         pass = "1234";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Fernando";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Gustavo";
         pass = "1";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertFalse(ident);
+        assertFalse(ident.getBoolean("identificado"));
 
         usuario = "Gustavo";
         pass = "1234";
         ident = Sistema.getInstance().comprobarUsuario(usuario, pass);
         logger.info("Usuario: " + usuario + " con contraseña: " + pass + " -> identificado: " + ident);
-        assertTrue(ident);
+        assertTrue(ident.getBoolean("identificado"));
     }
 
 
