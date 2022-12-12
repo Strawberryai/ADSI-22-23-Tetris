@@ -216,7 +216,7 @@ public class GestorUsuarios {
 
         // TODO: Hay que borrar sus partidas guardadas
 
-
+        Sistema.getInstance().borrarSusPartidas(usuario);
         return error;
     }
 
