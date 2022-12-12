@@ -4,7 +4,6 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad4.InterfazCargarPartida;
-import com.zetcode.Sistema;
 
 import javax.swing.*;
 import java.awt.*;
