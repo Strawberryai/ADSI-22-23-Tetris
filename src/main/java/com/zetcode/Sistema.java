@@ -54,6 +54,7 @@ public class Sistema {
 
             var game = new Tetris(10,22,300,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
             game.setVisible(true);
+            System.out.println("ha acabado");
         });
     }
 
