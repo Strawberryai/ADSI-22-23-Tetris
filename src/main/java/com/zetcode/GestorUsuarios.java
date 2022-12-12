@@ -224,4 +224,7 @@ public class GestorUsuarios {
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
 */
+    public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
+        nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
+    }
 }

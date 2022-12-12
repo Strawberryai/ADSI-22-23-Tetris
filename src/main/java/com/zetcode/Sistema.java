@@ -104,6 +104,6 @@ public class Sistema {
 
     public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
         Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-
+        GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 }

@@ -3,9 +3,11 @@ package com.visual.funcionalidad3;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz2;
 import com.visual.funcionalidad1.Interfaz4;
 import com.visual.funcionalidad1.Interfaz6;
+import com.zetcode.Sistema;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,8 +30,10 @@ public class Personalizar extends PlantillaInterfaces {
     private JLabel color;
     private JLabel sonido;
     private JLabel ladrillo;
+    private String usuario;
 
-    public Personalizar() {
+    public Personalizar(String usuario) {
+        usuario= usuario;
 
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
@@ -114,9 +118,16 @@ public class Personalizar extends PlantillaInterfaces {
                             throw new RuntimeException(ex);
                         }
                         actualizar.setBackground(Color.ORANGE);
-
+                        String pColor = (String) Colores.getSelectedItem();
+                        String pSonido = (String) Sonido.getSelectedItem();
+                        String pLadrillo = (String) Ladrillo.getSelectedItem();
+                        Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
+                    }else if(Objects.equals(button.getText(), "Volver")){
+                        // Volver a la pagina principal
+                        GestorPaneles.getInstance().bind(new Interfaz1());
 
                     }
+
                 }
             }
         };
@@ -129,9 +140,9 @@ public class Personalizar extends PlantillaInterfaces {
         return boton;
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         new Personalizar();
 
-    }
+    }*/
 }

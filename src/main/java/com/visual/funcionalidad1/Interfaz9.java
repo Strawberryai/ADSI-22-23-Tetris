@@ -127,9 +127,8 @@ public class Interfaz9 extends PlantillaInterfaces {
                         //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
                         Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
                     }else if(Objects.equals(button.getText(),"Actualizar Configuracion")){
-                        //System.out.println("Jugar Partida");
-                        //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
-                        GestorPaneles.getInstance().bind(new Personalizar());
+                        //System.out.println("Actualizar Configuracion");
+                        GestorPaneles.getInstance().bind(new Personalizar(usuario));
                     }
                 }
             }
