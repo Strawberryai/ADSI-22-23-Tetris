@@ -120,4 +120,8 @@ public class Sistema {
         } catch (SQLException e) {e.printStackTrace();}
         GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
     }
+    public void borrarSusPartidas(String usuario){
+        Guardador eliminador=new Guardador();
+        eliminador.eliminarSusPartidas(usuario);
+    }
 }

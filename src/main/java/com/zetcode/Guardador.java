@@ -157,4 +157,13 @@ public class Guardador {
         file.close();
         Tetris.acabar();
     }
+
+    public void eliminarSusPartidas(String usuario) {
+        String path= Paths.get("").toAbsolutePath().toString();
+        String directorioGuardados=path+ File.separator+"assets"+ File.separator+"tetris_files"+File.separator+ usuario + "guardado";
+        File dir=new File(directorioGuardados);
+        if(dir.exists()) {
+            dir.delete();
+        }
+    }
 }
