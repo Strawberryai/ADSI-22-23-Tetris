@@ -26,7 +26,7 @@ public class Sonido extends JFrame implements ActionListener{
     public static void main(String[] Dar10){
         Sonido sonido = new Sonido();
        // sonido.ReproducirSonido("C:\\Users\\Mario\\OneDrive\\Escritorio\\Sonidos\\0008368.wav");
-        sonido.ReproducirSonido("/home/mario/ADSI-22-23-Tetris/src/main/java/Resources/Impacto_Arma.wav");
+        sonido.ReproducirSonido("Resouces/Escudo.wav");
     }
     public void ReproducirSonido(String nombreSonido){
         try {
@@ -42,7 +42,7 @@ public class Sonido extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == boton1){
 
-            ReproducirSonido("Resources/Impacto_Arma.wav");
+            ReproducirSonido("src/Resources/Impacto_Arma.wav");
         }
     }
     private Sonido() {
