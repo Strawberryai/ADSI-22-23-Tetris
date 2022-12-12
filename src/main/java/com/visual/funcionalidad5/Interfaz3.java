@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Interfaz2 extends PlantillaInterfaces {
+public class Interfaz3 extends PlantillaInterfaces {
     /**
      * Interfaz ranking global: Usuario loggeado.
      * Se presenta el ranking global tanto personal como de todos los usuarios,
@@ -25,12 +25,14 @@ public class Interfaz2 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private int nivel;
 
-    public Interfaz2(String pUsuario) {
+    public Interfaz3(String pUsuario, int pNivel) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
         usuario = pUsuario;
+        nivel=pNivel;
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Ranking Global"), BorderLayout.CENTER);
     }
@@ -53,18 +55,19 @@ public class Interfaz2 extends PlantillaInterfaces {
     protected JPanel getContentPanel() {
         JPanel content = new JPanel();
         content.setLayout(new BorderLayout());
+        JPanel botones =new JPanel();
+        botones.setLayout(new FlowLayout());
         JPanel central = new JPanel();
         central.setLayout(new GridLayout(1, 2));
         content.add(central, BorderLayout.CENTER);
+        content.add(botones,BorderLayout.SOUTH);
         // boton de Visualizar por niveles
-        JButton verNiveles = new JButton("Visualizar Por Niveles");
-        verNiveles.addActionListener(mouseEventHandler());
-        content.add(verNiveles, BorderLayout.NORTH);
-        /*
-        Sistema.getInstance().datosAObjetosRanking();
-
+        JButton verGlobal = new JButton("Visualizar Global");
+        verGlobal.addActionListener(mouseEventHandler());
+        content.add(verGlobal, BorderLayout.NORTH);
+/*
         DefaultListModel<String> lista1 = new DefaultListModel<>();
-        JSONObject array = Sistema.getInstance().obtenerRankingGlobal(usuario);
+        JSONObject array = Sistema.getInstance().obtenerPuntuaciones(nivel,usuario);
         JSONArray global = (JSONArray) array.get("global");
         JSONArray personal = (JSONArray) array.get("personal");
         lista1.addElement("Ranking Global");
@@ -84,8 +87,31 @@ public class Interfaz2 extends PlantillaInterfaces {
         listaPers.setBounds(100, 100, 200, 100);
         central.add(listaGl);
         central.add(listaPers);
+        */
+        if(nivel==1){
+            JButton nivel2=new JButton("Nivel 2");
+            nivel2.addActionListener(mouseEventHandler());
+            botones.add(nivel2);
+            JButton nivel3=new JButton("Nivel 3");
+            nivel3.addActionListener(mouseEventHandler());
+            botones.add(nivel3);
+        }else if(nivel ==2){
+            JButton nivel1=new JButton("Nivel 1");
+            nivel1.addActionListener(mouseEventHandler());
+            botones.add(nivel1);
+            JButton nivel3=new JButton("Nivel 3");
+            nivel3.addActionListener(mouseEventHandler());
+            botones.add(nivel3);
+        }else{
+            JButton nivel1=new JButton("Nivel 1");
+            nivel1.addActionListener(mouseEventHandler());
+            botones.add(nivel1);
+            JButton nivel2=new JButton("Nivel 2");
+            nivel2.addActionListener(mouseEventHandler());
+            botones.add(nivel2);
+        }
 
-         */
+
         return content;
     }
 
@@ -99,9 +125,15 @@ public class Interfaz2 extends PlantillaInterfaces {
                 if (o instanceof JButton) {
                     JButton button = (JButton) o;
 
-                    if (Objects.equals(button.getText(), "Visualizar Por Niveles")) {
+                    if (Objects.equals(button.getText(), "Visualizar Global")) {
                         // Abrimos la vista de log in
-                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario,1));
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz2(usuario));
+                    }else if(Objects.equals(button.getText(), "Nivel 1")) {
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario, 1));
+                    }else if(Objects.equals(button.getText(), "Nivel 2")) {
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario, 2));
+                    }else if(Objects.equals(button.getText(), "Nivel 3")) {
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario, 3));
                     }
                 }
             }

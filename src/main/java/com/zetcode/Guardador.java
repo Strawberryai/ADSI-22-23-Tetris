@@ -1,11 +1,22 @@
 package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Guardador {
+
+    private  int BOARD_WIDTH;
+    private  int BOARD_HEIGHT;
+    private  int PERIOD_INTERVAL;
     @JsonIgnore
     private Timer timer;
 
@@ -21,7 +32,7 @@ public class Guardador {
 
     }
 
-    public void setAllGuardador(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
+    public void setAllGuardador(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL, boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
@@ -29,7 +40,34 @@ public class Guardador {
         this.curY=curY;
         this.curPiece=curPiece;
         this.board=board;
+        this.BOARD_HEIGHT=BOARD_HEIGHT;
+        this.BOARD_WIDTH=BOARD_WIDTH;
+        this.PERIOD_INTERVAL=PERIOD_INTERVAL;
     }
+
+    public void setBOARD_HEIGHT(int BOARD_HEIGHT) {
+        this.BOARD_HEIGHT = BOARD_HEIGHT;
+    }
+
+    public void setBOARD_WIDTH(int BOARD_WIDTH) {
+        this.BOARD_WIDTH = BOARD_WIDTH;
+    }
+
+    public void setPERIOD_INTERVAL(int PERIOD_INTERVAL) {
+        this.PERIOD_INTERVAL = PERIOD_INTERVAL;
+    }
+    public int getBOARD_WIDTH(){
+        return this.BOARD_WIDTH;
+    }
+
+    public int getBOARD_HEIGHT() {
+        return BOARD_HEIGHT;
+    }
+
+    public int getPERIOD_INTERVAL() {
+        return PERIOD_INTERVAL;
+    }
+
     public boolean getIsFallingFinished(){
         return this.isFallingFinished;
     }
@@ -90,5 +128,33 @@ public class Guardador {
     }
     public Shape.Tetrominoe[] getBoard() {
         return board;
+    }
+    public static void guardarPartida(String usuario) throws IOException{
+        System.out.println(usuario);
+        String path= Paths.get("").toAbsolutePath().toString();
+        String directorioGuardados=path+ File.separator+"assets"+ File.separator+"tetris_files";//Miramos si el directorio de todos los guardados esta creado
+
+        if(Files.notExists(Path.of(directorioGuardados))){//si no lo esta se crea para evitar error
+            File dir = new File(directorioGuardados);
+            dir.mkdirs();
+        }
+
+        directorioGuardados=directorioGuardados+File.separator;
+        System.out.println(usuario);
+        if(Files.notExists(Path.of(directorioGuardados + usuario + "guardado"))){//se mira si el directorio de guardados del usuario esta creado, si no lo esta se crea
+            File dir = new File(directorioGuardados+ usuario + "guardado");
+            dir.mkdirs();
+        }else{
+            System.out.println(directorioGuardados + usuario + "guardado");
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date date = new Date();
+        String fecha=formatter.format(date);
+        String jsonString=Board.getInstance().guardar();//Se obtiene el json que tiene todos los datos de la partida
+        FileWriter file=new FileWriter(directorioGuardados + usuario + "guardado"+File.separator+ fecha);//se mete en un fichero
+        file.write(jsonString);
+        file.close();
+        Tetris.acabar();
     }
 }

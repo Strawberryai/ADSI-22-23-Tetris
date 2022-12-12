@@ -20,7 +20,7 @@ public class Ranking {
         return miLista.obtenerMejoresJug(pNivel);
     }
 
-    public org.json.JSONArray obtenerPuntuacionesMax(){
+    public JSONArray obtenerPuntuacionesMax(){
         return miLista.obtenerPuntuacionesMax();
     }
 

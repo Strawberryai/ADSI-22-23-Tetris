@@ -1,7 +1,8 @@
 package com.zetcode;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-
+import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,8 +44,8 @@ public class ListaPuntuacion {
         Collections.sort(lista,cm1);
     }
 
-    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel, String pUsu){
-        org.json.JSONArray listaPart=new org.json.JSONArray();
+    public JSONArray buscarMejoresPartidasJug(int pNivel, String pUsu){
+        JSONArray listaPart=new JSONArray();
 
         Iterator<Puntuacion> itr=getItr(lista);
         Puntuacion punt;
@@ -63,7 +64,7 @@ public class ListaPuntuacion {
         Iterator<Puntuacion> itr2=getItr(aux);
         while(itr2.hasNext()){
             punt=itr2.next();
-            org.json.JSONObject part=new JSONObject();
+            JSONObject part=new JSONObject();
             part.put("usuario",pUsu);
             part.put("puntos", punt.getPuntos());
             listaPart.put(part);

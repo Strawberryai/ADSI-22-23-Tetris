@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.visual.GestorPaneles;
+import com.visual.funcionalidad1.Interfaz9;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -17,8 +19,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
+    private String usuario;
     private static Board miPartida;
     private final int BOARD_WIDTH = 10;
     private final int BOARD_HEIGHT = 22;
@@ -37,15 +41,16 @@ public class Board extends JPanel {
     public static Board getInstance(){
         return Board.miPartida;
     }
-    public Board(Tetris parent) {
+    public Board(Tetris parent,String usuario) {
         miPartida=this;
+        miPartida.usuario=usuario;
         initBoard(parent);
     }
     public static String guardar() throws IOException {
         ObjectMapper mapper= new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         Guardador guardador= new Guardador();
-        guardador.setAllGuardador(miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
+        guardador.setAllGuardador(miPartida.BOARD_HEIGHT,miPartida.BOARD_WIDTH, miPartida.PERIOD_INTERVAL, miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
         return (mapper.writeValueAsString(guardador));
     }
     public  void cargar(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
@@ -211,6 +216,9 @@ public class Board extends JPanel {
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
+
+            Tetris.finalizarPartida(numLinesRemoved);
+
         }
     }
 
