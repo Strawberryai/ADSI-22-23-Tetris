@@ -139,6 +139,9 @@ public class GestorUsuarios {
 
 
     public void datosAObjetos() {
+        // Reiniciar la lista de usuarios -> problema usuarios repetidos
+        lista = new ListaUsuarios();
+
         GestorBD database = GestorBD.getInstance();
         boolean partida=true,usuario = true;
         ResultSet res = database.executeQuery("SELECT * FROM Jugador");
@@ -160,7 +163,6 @@ public class GestorUsuarios {
                     config = res.getInt("codC");
                     Usuario x = new Usuario(nomUsu, pass,email, puntosMax, esAdmin, config);
                     lista.add(x);
-                    Ranking.getInstance().anadirJugador(x);
                     ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador='" + id + "'");
 
                     while (partida) {
@@ -183,6 +185,8 @@ public class GestorUsuarios {
                 e.printStackTrace();
             }
         }
+
+        Ranking.getInstance().resetearLista(lista);
 
     }
 

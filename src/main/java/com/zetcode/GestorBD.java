@@ -20,14 +20,10 @@ public class GestorBD {
         URL = "jdbc:h2:" + path + "/assets/database/datafile";
 
         this.createConnection();
-
+        ResultSet res = this.executeQuery("SELECT * FROM Jugador");
         // Inicializar base de datos en caso de que no lo esté
         try {
-            ResultSet res = this.executeQuery("SELECT * FROM Jugador WHERE usuario='Manuel'");
-            if(!res.next()){
-                // Existen las tablas pero no existe Manuel
-                fillDatabaseWithExampleData();
-            }
+            res.next();
 
         } catch (Exception e) {
             this.initializeDatabase();

@@ -6,6 +6,7 @@ import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz4;
 import com.visual.funcionalidad1.Interfaz6;
+import com.visual.funcionalidad1.Interfaz9;
 import com.zetcode.Sistema;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,28 +26,16 @@ public class Interfaz2 extends PlantillaInterfaces {
      */
 
     private String usuario;
+    private boolean esAdmin;
 
-    public Interfaz2(String pUsuario) {
+    public Interfaz2(String pUsuario, boolean pEsAdmin) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
         usuario = pUsuario;
+        esAdmin = pEsAdmin;
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Ranking Global"), BorderLayout.CENTER);
-    }
-
-    @Override
-    protected JPanel getSubtitlePanel(String subtitle) {
-        // Creamos el panel del subtitulo (flowlayout)
-        JPanel subTitlePanel = new JPanel();
-        subTitlePanel.setLayout(new FlowLayout());
-        JLabel subTitle = new JLabel(subtitle);
-        subTitle.setFont(RecursosVisuales.getInstance().subTitleFont);
-
-        subTitlePanel.add(subTitle);
-        subTitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
-
-        return subTitlePanel;
     }
 
     @Override
@@ -61,14 +50,14 @@ public class Interfaz2 extends PlantillaInterfaces {
         verNiveles.addActionListener(mouseEventHandler());
         content.add(verNiveles, BorderLayout.NORTH);
 
-        Sistema.getInstance().datosAObjetosRanking();
-
         DefaultListModel<String> lista1 = new DefaultListModel<>();
         JSONObject array = Sistema.getInstance().obtenerRankingGlobal(usuario);
+        System.out.println(array.toString());
+
         JSONArray global = (JSONArray) array.get("global");
         JSONArray personal = (JSONArray) array.get("personal");
         lista1.addElement("Ranking Global");
-        for (int i = global.length()-1; i > 0; i--) {
+        for (int i = global.length()-1; i >= 0; i--) {
             JSONObject x=global.getJSONObject(i);
             lista1.addElement(x.getString("usuario") + x.getInt("puntuacion"));
         }
@@ -100,10 +89,13 @@ public class Interfaz2 extends PlantillaInterfaces {
 
                 if (o instanceof JButton) {
                     JButton button = (JButton) o;
+                    if (Objects.equals(button.getText(), "Volver")) {
+                        // Volvemos a la pagina principal
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
 
-                    if (Objects.equals(button.getText(), "Visualizar Por Niveles")) {
+                    } else if (Objects.equals(button.getText(), "Visualizar Por Niveles")) {
                         // Abrimos la vista de log in
-                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario,1));
+                        GestorPaneles.getInstance().bind(new com.visual.funcionalidad5.Interfaz3(usuario,1, esAdmin));
                     }
                 }
             }

@@ -128,7 +128,7 @@ public class Interfaz9 extends PlantillaInterfaces {
                         //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
                         Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
                     }else if(Objects.equals(button.getText(),"Ver Ranking")){
-                        GestorPaneles.getInstance().bind(new Interfaz2(usuario));
+                        GestorPaneles.getInstance().bind(new Interfaz2(usuario, esAdmin));
                     }
                 }
             }
