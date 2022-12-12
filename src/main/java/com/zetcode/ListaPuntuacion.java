@@ -25,7 +25,7 @@ public class ListaPuntuacion {
         return lista;
     }
 
-    private Iterator<Puntuacion> getItr(ArrayList<Puntuacion> pLista){return pLista.iterator();
+    private Iterator<Puntuacion> getItr(){return lista.iterator();
     }
     public void add(Puntuacion pPun){
         lista.add(pPun);
@@ -46,14 +46,12 @@ public class ListaPuntuacion {
 
     public JSONArray buscarMejoresPartidasJug(int pNivel, String pUsu){
         JSONArray listaPart=new JSONArray();
-
-        Iterator<Puntuacion> itr=getItr(lista);
-        Puntuacion punt;
         int anadido=0;
         ArrayList<Puntuacion> aux=new ArrayList<Puntuacion>();
         ordenarPorNivel();
-        while(itr.hasNext() || anadido<10){
-            punt=itr.next();
+        Iterator<Puntuacion> itr=getItr();
+        while(itr.hasNext() && anadido<20){
+            Puntuacion punt=itr.next();
             if(punt.nivelPartida()==pNivel){
                 aux.add(punt);
                 anadido++;
@@ -61,12 +59,12 @@ public class ListaPuntuacion {
         }
 
         ordenarLista(aux);
-        Iterator<Puntuacion> itr2=getItr(aux);
+        Iterator<Puntuacion> itr2= aux.iterator();
         while(itr2.hasNext()){
-            punt=itr2.next();
+            Puntuacion punt=itr2.next();
             JSONObject part=new JSONObject();
             part.put("usuario",pUsu);
-            part.put("puntos", punt.getPuntos());
+            part.put("puntuacion", punt.getPuntos());
             listaPart.put(part);
         }
 

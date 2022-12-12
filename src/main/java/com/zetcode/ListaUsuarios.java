@@ -43,15 +43,15 @@ public class ListaUsuarios {
 
     public org.json.JSONArray obtenerPuntuacionesMax(){
         ordenar();
-        org.json.JSONArray listaPuntos=new org.json.JSONArray();
+        JSONArray listaPuntos=new JSONArray();
         Iterator<Usuario> itr=this.getItr();
         int i=0;
         Usuario x=null;
-        while(itr.hasNext() && i<10){
+        while(itr.hasNext() && i<100){
             x=itr.next();
-            JSONObject partida=new org.json.JSONObject();
+            JSONObject partida=new JSONObject();
             partida.put("usuario",x.getNombre());
-            partida.put("puntos",x.obtenerPuntuacionMax());
+            partida.put("puntuacion",x.obtenerPuntuacionMax());
             listaPuntos.put(partida);
             i++;
         }
