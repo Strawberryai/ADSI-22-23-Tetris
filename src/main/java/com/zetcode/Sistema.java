@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.simple.JSONValue;
 
 
@@ -69,32 +70,36 @@ public class Sistema {
         return GestorUsuarios.getInstance().recuperarContrasena(usuario);
     }
 
-    public void datosAObjetosRanking(){
+    private void datosAObjetosRanking(){
         GestorUsuarios.getInstance().datosAObjetos();
     }
-/*  PROBLEMAS CON EL JSON
+
     public org.json.JSONObject obtenerRankingGlobal(String pUsuario){
+        datosAObjetosRanking();
+
         JSONObject ranking=new org.json.JSONObject();
 
-       Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-       org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
-       org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
-       ranking.put("global",puntGlobal);
-       ranking.put("personal",puntPers);
-       return ranking;
+        Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
+        org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
+        ranking.put("global",puntGlobal);
+        ranking.put("personal",puntPers);
+        return ranking;
 
     }
 
-    public org.json.JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
-        JSONObject elRanking=new org.json.JSONObject();
+    public JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
+        datosAObjetosRanking();
+
+        JSONObject elRanking=new JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
-        org.json.JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
         elRanking.put("global", puntGlobales);
         elRanking.put("personal", puntPers);
         return elRanking;
     }
-*/
+
     public String cambiarContrasena(String usuario, String pass1, String pass2) {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
@@ -118,5 +123,14 @@ public class Sistema {
 
         } catch (SQLException e) {e.printStackTrace();}
         GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
+    }
+    public void borrarSusPartidas(String usuario){
+        Guardador eliminador=new Guardador();
+        eliminador.eliminarSusPartidas(usuario);
+    }
+
+    public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 }

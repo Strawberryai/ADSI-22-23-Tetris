@@ -10,15 +10,18 @@ import java.util.Iterator;
 public class Usuario {
     private String usuario;
     private String contrasena;
+
+    private String email;
     private int puntosMax;
     private boolean esAdmin;
     private int laCfg;
     private Collection<Premio> listaP;
     private ListaPuntuacion listaPuntos;
 
-    public Usuario(String pUsuario,String pContra,int pPuntosMax,boolean pAdmin,int pConfig){
+    public Usuario(String pUsuario,String pContra,String pEmail, int pPuntosMax,boolean pAdmin,int pConfig){
         usuario=pUsuario;
         contrasena=pContra;
+        email=pEmail;
         puntosMax = pPuntosMax;
         esAdmin=pAdmin;
         laCfg=pConfig;
@@ -51,17 +54,20 @@ public class Usuario {
         while(i<listaPuntos.size()){
             JSONObject partida=new JSONObject();
             partida.put("usuario",usuario);
-            partida.put("puntos",listaPuntos.getPuntos(i));
+            partida.put("puntuacion",listaPuntos.getPuntos(i));
             listaA.put(partida);
             i++;
         }
         return listaA;
     }
 
-    public org.json.JSONArray buscarMejoresPartidasJug(int pNivel){
+    public JSONArray buscarMejoresPartidasJug(int pNivel){
        return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
 
+    public void actualizarConfiguracion(String pColor, String pSonido, String pLadrillo){
+        // TODO: implementar esto
+    }
 }
 
 
