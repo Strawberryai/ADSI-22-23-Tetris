@@ -43,15 +43,15 @@ public class ListaUsuarios {
 
     public org.json.JSONArray obtenerPuntuacionesMax(){
         ordenar();
-        org.json.JSONArray listaPuntos=new org.json.JSONArray();
+        JSONArray listaPuntos=new JSONArray();
         Iterator<Usuario> itr=this.getItr();
         int i=0;
         Usuario x=null;
-        while(itr.hasNext() && i<10){
+        while(itr.hasNext() && i<100){
             x=itr.next();
-            JSONObject partida=new org.json.JSONObject();
+            JSONObject partida=new JSONObject();
             partida.put("usuario",x.getNombre());
-            partida.put("puntos",x.obtenerPuntuacionMax());
+            partida.put("puntuacion",x.obtenerPuntuacionMax());
             listaPuntos.put(partida);
             i++;
         }
@@ -69,20 +69,20 @@ public class ListaUsuarios {
         Usuario x=null;
         int min=0;
         int puntos;
-        /*while(itr.hasNext()){
+        while(itr.hasNext()){
             x=itr.next();
             JSONArray partidasOrdNivel=x.buscarMejoresPartidasJug(pNivel);
             int i=0;
             int j=0; //jsonObjects en el array
             while(i< partidasOrdNivel.length()) {
                 puntos=partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
-                if(puntos>min || j<10){
+                if(puntos>min || j<25){
                     JSONObject nuevo=new JSONObject();
                     nuevo.put("usuario", x.getNombre());
                     nuevo.put("puntuacion", puntos);
                     int z=0;
                     boolean fin=false;
-                    while(z<listaDef.length() && !fin && j==10){
+                    while(z<listaDef.length() && !fin && j==25){
                         if(listaDef.getJSONObject(z).getInt("puntuacion")<puntos){
                               while(z<listaDef.length()){
                                   if(listaDef.getJSONObject(z).getInt("puntuacion")==min){
@@ -100,7 +100,7 @@ public class ListaUsuarios {
                 }
                 i++;
             }
-        }*/
+        }
 
         return listaDef;
     }

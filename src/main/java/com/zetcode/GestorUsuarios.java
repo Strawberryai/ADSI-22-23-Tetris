@@ -1,9 +1,8 @@
 package com.zetcode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.h2.util.json.JSONArray;
 import org.json.JSONObject;
-
+import org.json.JSONArray;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -140,35 +139,39 @@ public class GestorUsuarios {
 
 
     public void datosAObjetos() {
+        // Reiniciar la lista de usuarios -> problema usuarios repetidos
+        lista = new ListaUsuarios();
+
         GestorBD database = GestorBD.getInstance();
         boolean partida=true,usuario = true;
         ResultSet res = database.executeQuery("SELECT * FROM Jugador");
         int puntosMax,puntos,nivel;
         Date fecha;
         boolean esAdmin;
-        String pass,nomUsu;
-        int config;
+        String pass,nomUsu,email;
+        int config,id;
         while (usuario) {
             try {
                 usuario = res.next();
                 if (usuario) {
-                    nomUsu = res.getString(1);
-                    pass = res.getString(2);
-                    puntosMax = res.getInt(3);
-                    esAdmin = res.getBoolean(4);
-                    config = res.getInt(5);
-                    Usuario x = new Usuario(nomUsu, pass, puntosMax, esAdmin, config);
+                    id=res.getInt("ID");
+                    nomUsu = res.getString("usuario");
+                    pass = res.getString("pass");
+                    email=res.getString("email");
+                    puntosMax = res.getInt("puntosMax");
+                    esAdmin = res.getBoolean("esAdmin");
+                    config = res.getInt("codC");
+                    Usuario x = new Usuario(nomUsu, pass,email, puntosMax, esAdmin, config);
                     lista.add(x);
-                    Ranking.getInstance().anadirJugador(x);
-                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE JUGADORUsuario='" + nomUsu + "'");
+                    ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador='" + id + "'");
 
                     while (partida) {
                         try {
                             partida = resPartida.next();
                             if (partida) {
-                                fecha = resPartida.getDate(1);
-                                puntos = resPartida.getInt(2);
-                                nivel = resPartida.getInt(3);
+                                fecha = resPartida.getDate("fechaHora");
+                                puntos = resPartida.getInt("puntuacion");
+                                nivel = resPartida.getInt("nivel");
                                 Puntuacion y = new Puntuacion(puntos, new Partida(fecha, nivel));
                                 x.anadirListaPuntuacion(y);
                             }
@@ -182,6 +185,8 @@ public class GestorUsuarios {
                 e.printStackTrace();
             }
         }
+
+        Ranking.getInstance().resetearLista(lista);
 
     }
 
@@ -211,19 +216,18 @@ public class GestorUsuarios {
 
         // TODO: Hay que borrar sus partidas guardadas
 
-
+        Sistema.getInstance().borrarSusPartidas(usuario);
         return error;
     }
-/*
-    public org.json.JSONArray obtenerPuntuacionJug(Usuario pUsuario){
+
+    public JSONArray obtenerPuntuacionJug(Usuario pUsuario){
         return pUsuario.obtenerPuntuacionesMax();
     }
 
 
-    public org.json.JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
+    public JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
-*/
     public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
         nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
     }

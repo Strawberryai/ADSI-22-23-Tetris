@@ -11,9 +11,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.simple.JSONValue;
 
 
@@ -67,32 +70,36 @@ public class Sistema {
         return GestorUsuarios.getInstance().recuperarContrasena(usuario);
     }
 
-    public void datosAObjetosRanking(){
+    private void datosAObjetosRanking(){
         GestorUsuarios.getInstance().datosAObjetos();
     }
-/*  PROBLEMAS CON EL JSON
+
     public org.json.JSONObject obtenerRankingGlobal(String pUsuario){
+        datosAObjetosRanking();
+
         JSONObject ranking=new org.json.JSONObject();
 
-       Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-       org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
-       org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
-       ranking.put("global",puntGlobal);
-       ranking.put("personal",puntPers);
-       return ranking;
+        Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerPuntuacionJug(usu);
+        org.json.JSONArray puntGlobal=Ranking.getInstance().obtenerPuntuacionesMax();
+        ranking.put("global",puntGlobal);
+        ranking.put("personal",puntPers);
+        return ranking;
 
     }
 
-    public org.json.JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
-        JSONObject elRanking=new org.json.JSONObject();
+    public JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
+        datosAObjetosRanking();
+
+        JSONObject elRanking=new JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-        org.json.JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
-        org.json.JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
         elRanking.put("global", puntGlobales);
         elRanking.put("personal", puntPers);
         return elRanking;
     }
-*/
+
     public String cambiarContrasena(String usuario, String pass1, String pass2) {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
@@ -100,6 +107,26 @@ public class Sistema {
 
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
+    }
+    public void acabarPartida(int puntuacion,String usuario,int nivel){
+        int codUsuario=-1;//si es 1 error
+        java.util.Date date = new java.util.Date();
+        long t = date.getTime();
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+        GestorBD BD=GestorBD.getInstance();
+        ResultSet res=BD.executeQuery("SELECT ID FROM Jugador WHERE usuario='" + usuario + "'");
+        try {
+           if(res.next()){
+               codUsuario=res.getInt("ID");
+           }
+
+
+        } catch (SQLException e) {e.printStackTrace();}
+        GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
+    }
+    public void borrarSusPartidas(String usuario){
+        Guardador eliminador=new Guardador();
+        eliminador.eliminarSusPartidas(usuario);
     }
 
     public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){

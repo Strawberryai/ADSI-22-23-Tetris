@@ -20,11 +20,11 @@ public class Ranking {
         return miLista.obtenerMejoresJug(pNivel);
     }
 
-    public org.json.JSONArray obtenerPuntuacionesMax(){
+    public JSONArray obtenerPuntuacionesMax(){
         return miLista.obtenerPuntuacionesMax();
     }
 
-    public void anadirJugador(Usuario pUsuario){
-        miLista.anadirJugadorRanking(pUsuario);
+    public void resetearLista(ListaUsuarios lista) {
+        this.miLista = lista;
     }
 }

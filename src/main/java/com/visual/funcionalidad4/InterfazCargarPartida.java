@@ -39,16 +39,6 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
 
-        // Creamos el panel del subtitulo (flowlayout)
-        JPanel subTitlePanel = new JPanel();
-        subTitlePanel.setLayout(new FlowLayout());
-        JLabel subTitle = new JLabel("Cargar Partida");
-        subTitle.setFont(RecursosVisuales.getInstance().subTitleFont);
-        subTitlePanel.add(subTitle);
-
-        // Añadimos el panel del subtitulo en la parte superior
-        main.add(subTitlePanel, BorderLayout.NORTH);
-
         // [No loggeado] -> El contenido es un flowlayout con los botones de login...
         JPanel content = new JPanel();
         content.setLayout(new FlowLayout());
@@ -56,7 +46,7 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
         // botones de los arhcivos
 
         String path= Paths.get("").toAbsolutePath().toString();
-        String directorioGuardados=path+File.separator+"assets"+ File.separator+"TetrisSaveFiles"+File.separator+usuario+"guardado";
+        String directorioGuardados=path+File.separator+"assets"+ File.separator+"tetris_files"+File.separator+usuario+"guardado";
         System.out.println(directorioGuardados);
         File dir=new File(directorioGuardados);
         if(!dir.exists()){
@@ -95,7 +85,7 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
                     String path= Paths.get("").toAbsolutePath().toString();
-                    String directorioGuardados=path+File.separator+"assets"+ File.separator+"TetrisSaveFiles"+File.separator+usuario+"guardado"+File.separator;
+                    String directorioGuardados=path+File.separator+"assets"+ File.separator+"tetris_files"+File.separator+usuario+"guardado"+File.separator;
                     File f=new File(directorioGuardados+button.getText());
                     if(button.getText()=="volver al menu"){
                         System.out.println("volviendo");

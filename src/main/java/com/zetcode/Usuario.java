@@ -1,7 +1,8 @@
 package com.zetcode;
 
-import org.h2.util.json.JSONArray;
-import org.h2.util.json.JSONObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,15 +10,18 @@ import java.util.Iterator;
 public class Usuario {
     private String usuario;
     private String contrasena;
+
+    private String email;
     private int puntosMax;
     private boolean esAdmin;
     private int laCfg;
     private Collection<Premio> listaP;
     private ListaPuntuacion listaPuntos;
 
-    public Usuario(String pUsuario,String pContra,int pPuntosMax,boolean pAdmin,int pConfig){
+    public Usuario(String pUsuario,String pContra,String pEmail, int pPuntosMax,boolean pAdmin,int pConfig){
         usuario=pUsuario;
         contrasena=pContra;
+        email=pEmail;
         puntosMax = pPuntosMax;
         esAdmin=pAdmin;
         laCfg=pConfig;
@@ -43,18 +47,18 @@ public class Usuario {
         listaPuntos.add(pPuntos);
     }
 
-   /* public JSONArray obtenerPuntuacionesMax(){
-        JSONArray lista=new JSONArray();
+    public JSONArray obtenerPuntuacionesMax(){
+        JSONArray listaA=new JSONArray();
         int i=0;
         listaPuntos.ordenarLista(listaPuntos.getLista());
         while(i<listaPuntos.size()){
-            JSONObject partida=new org.json.JSONObject();
+            JSONObject partida=new JSONObject();
             partida.put("usuario",usuario);
-            partida.put("puntos",listaPuntos.getPuntos(i));
-            lista.put(partida);
+            partida.put("puntuacion",listaPuntos.getPuntos(i));
+            listaA.put(partida);
             i++;
         }
-        return lista;
+        return listaA;
     }
 
     public JSONArray buscarMejoresPartidasJug(int pNivel){

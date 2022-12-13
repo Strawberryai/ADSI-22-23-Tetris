@@ -1,18 +1,20 @@
 package com.zetcode;
 
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import com.visual.GestorPaneles;
-import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz1;
+import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad4.InterfazGuardar;
+import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad5.Interfaz2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 /*
 Java Tetris game clone
@@ -22,7 +24,7 @@ Website: https://zetcode.com
  */
 public class Tetris extends JFrame {
     private String usuario;
-    private boolean esAdmin;
+    private  boolean esAdmin;
 	private static Tetris tetris=null;
 	private static final Logger logger = LogManager.getLogger(Tetris.class);
 
@@ -47,7 +49,7 @@ public class Tetris extends JFrame {
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this);
+        var board = new Board(this,usuario);
         add(board);
         board.start();
 
@@ -69,7 +71,7 @@ public class Tetris extends JFrame {
 
         statusbar = new JLabel(Integer.toString(numLinesRemoved));
         add(statusbar, BorderLayout.SOUTH);
-        var boardc = new Board(this);
+        var boardc = new Board(this,usuario);
         add(boardc);
         boardc.cargar(isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
 
@@ -94,9 +96,14 @@ public class Tetris extends JFrame {
             var game = new Tetris();
             game.setVisible(true);
         });*/
-
+        GestorBD.getInstance().imprimirTabla("Jugador");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
-    public static void acabar(){tetris.setVisible(false);
+
+    public static void acabar(){tetris.setVisible(false);}
+
+    public static void finalizarPartida(int puntuacion){tetris.setVisible(false);
+        GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
+        Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
     }
     }

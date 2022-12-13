@@ -1,9 +1,9 @@
 package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -132,20 +132,20 @@ public class Guardador {
     }
     public static void guardarPartida(String usuario) throws IOException{
         System.out.println(usuario);
-        String userHomeDir = System.getProperty("user.home");
         String path= Paths.get("").toAbsolutePath().toString();
-        String directorioGuardados=path+ File.separator+"assets"+ File.separator+"TetrisSaveFiles";//Miramos si el directorio de todos los guardados esta creado
+        String directorioGuardados=path+ File.separator+"assets"+ File.separator+"tetris_files";//Miramos si el directorio de todos los guardados esta creado
+
         if(Files.notExists(Path.of(directorioGuardados))){//si no lo esta se crea para evitar error
             File dir = new File(directorioGuardados);
             dir.mkdirs();
         }
+
         directorioGuardados=directorioGuardados+File.separator;
         System.out.println(usuario);
         if(Files.notExists(Path.of(directorioGuardados + usuario + "guardado"))){//se mira si el directorio de guardados del usuario esta creado, si no lo esta se crea
             File dir = new File(directorioGuardados+ usuario + "guardado");
             dir.mkdirs();
-        }
-        else{
+        }else{
             System.out.println(directorioGuardados + usuario + "guardado");
         }
 
@@ -157,5 +157,26 @@ public class Guardador {
         file.write(jsonString);
         file.close();
         Tetris.acabar();
+    }
+
+    public void eliminarSusPartidas(String usuario) {
+        String path= Paths.get("").toAbsolutePath().toString();
+        String directorioGuardados=path+ File.separator+"assets"+ File.separator+"tetris_files"+File.separator+ usuario + "guardado";
+        System.out.println("Eliminando:"+directorioGuardados);
+        File dir=new File(directorioGuardados);
+        String[] pathnames=dir.list();
+        int i=0;
+        directorioGuardados=directorioGuardados+File.separator;
+        if(dir.exists()) {
+            for (String pathname : pathnames) {
+                String file=directorioGuardados+pathname;
+                File f=new File(file);
+                f.delete();
+            }
+        }
+        File f=new File(directorioGuardados);
+        if(f.exists()){
+            f.delete();
+        }
     }
 }
