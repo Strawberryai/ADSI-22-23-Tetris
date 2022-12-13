@@ -3,10 +3,7 @@ package com.visual.funcionalidad3;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
-import com.visual.funcionalidad1.Interfaz1;
-import com.visual.funcionalidad1.Interfaz2;
-import com.visual.funcionalidad1.Interfaz4;
-import com.visual.funcionalidad1.Interfaz6;
+import com.visual.funcionalidad1.*;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -30,22 +27,21 @@ public class Personalizar extends PlantillaInterfaces {
     private JLabel color;
     private JLabel sonido;
     private JLabel ladrillo;
+
     private String usuario;
+    private boolean esAdmin;
 
-    public Personalizar(String usuario) {
-        usuario= usuario;
-
+    public Personalizar(String pUsuario, boolean pEsAdmin) {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
 
+        usuario = pUsuario;
+        esAdmin = pEsAdmin;
+
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Actualizar Configuracion"), BorderLayout.CENTER);
-
-
     }
-
-    ;
 
     protected JPanel getContentPanel() {
         JPanel panel = new JPanel();
@@ -110,7 +106,11 @@ public class Personalizar extends PlantillaInterfaces {
                 if (o instanceof JButton) {
                     JButton button = (JButton) o;
 
-                    if (Objects.equals(button.getText(), "Actualizar configracion")) {
+                    if(Objects.equals(button.getText(), "Volver")){
+                        // Volver a la pagina principal
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
+
+                    }else if (Objects.equals(button.getText(), "Actualizar configracion")) {
                         actualizar.setBackground(Color.GREEN);
                         try {
                             Thread.sleep(2000);
@@ -122,10 +122,6 @@ public class Personalizar extends PlantillaInterfaces {
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();
                         Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
-                    }else if(Objects.equals(button.getText(), "Volver")){
-                        // Volver a la pagina principal
-                        GestorPaneles.getInstance().bind(new Interfaz1());
-
                     }
 
                 }

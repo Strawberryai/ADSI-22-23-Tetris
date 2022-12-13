@@ -135,7 +135,7 @@ public class Interfaz9 extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz2(usuario, esAdmin));
                     }else if(Objects.equals(button.getText(),"Actualizar Configuracion")){
                         //System.out.println("Actualizar Configuracion");
-                        GestorPaneles.getInstance().bind(new Personalizar(usuario));
+                        GestorPaneles.getInstance().bind(new Personalizar(usuario, esAdmin));
                     }
                 }
             }
