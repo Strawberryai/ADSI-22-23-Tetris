@@ -38,13 +38,13 @@ public class Tetris extends JFrame {
             initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI();
+            initUI(pUsuario);
         }
         tetris=this;
 
     }
 
-    private void initUI() {
+    private void initUI(String pUsuario) {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
@@ -58,13 +58,16 @@ public class Tetris extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
-       /* if (pColor.equals("azul")){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        Configuracion nueva = nuevo.getConfig();
+        String pColor= nueva.getColor();
+        if (pColor.equals("azul")){
             board.setBackground(Color.blue);
         } else if (pColor.equals("verde")) {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
-        }*/
+        }
         this.setVisible(true);
     }
     private void initUICargar(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL,boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){

@@ -111,13 +111,6 @@ public class Personalizar extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
                     }else if (Objects.equals(button.getText(), "Actualizar configracion")) {
-                        actualizar.setBackground(Color.GREEN);
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        actualizar.setBackground(Color.ORANGE);
                         String pColor = (String) Colores.getSelectedItem();
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();

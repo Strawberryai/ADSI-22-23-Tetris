@@ -133,4 +133,7 @@ public class Sistema {
         Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
         GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
+    public void cargarDatosUsuarios(){
+        GestorUsuarios.getInstance().datosAObjetos();
+    }
 }

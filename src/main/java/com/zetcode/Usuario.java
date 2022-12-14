@@ -4,6 +4,8 @@ package com.zetcode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -14,9 +16,10 @@ public class Usuario {
     private String email;
     private int puntosMax;
     private boolean esAdmin;
-    private int laCfg;
+    private Configuracion config;
     private Collection<Premio> listaP;
     private ListaPuntuacion listaPuntos;
+
 
     public Usuario(String pUsuario,String pContra,String pEmail, int pPuntosMax,boolean pAdmin,int pConfig){
         usuario=pUsuario;
@@ -24,9 +27,34 @@ public class Usuario {
         email=pEmail;
         puntosMax = pPuntosMax;
         esAdmin=pAdmin;
-        laCfg=pConfig;
         //listaP=new Collection<Premio>();
         listaPuntos=new ListaPuntuacion();
+
+        config = cargarConfiguracion(pConfig);
+    }
+
+    private Configuracion cargarConfiguracion(int pCodC){
+        GestorBD dataase = GestorBD.getInstance();
+        ResultSet res = dataase.executeQuery("SELECT * FROM Configuracion");
+        String color="red";
+        String ladrillo = "green";
+        String sonido = "epic";
+        boolean usuario ;
+
+        try {
+            usuario=res.next();
+            if(usuario){
+                color = res.getString("color");
+                ladrillo = res.getString("ladrillo");
+                sonido = res.getString("musica");
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        //TODO: meter los datos
+        return new Configuracion(pCodC,color, ladrillo, sonido);
     }
 
     public boolean tieneMismoNombre(String pUsu){
@@ -67,6 +95,10 @@ public class Usuario {
 
     public void actualizarConfiguracion(String pColor, String pSonido, String pLadrillo){
         // TODO: implementar esto
+        config.actualizarConfiguracion(pColor, pSonido, pLadrillo);
+    }
+    public Configuracion getConfig(){
+        return config;
     }
 }
 

@@ -1,7 +1,13 @@
 package com.visual.funcionalidad3;
+
+import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -25,8 +31,9 @@ public class Sonido extends JFrame implements ActionListener{
       }*/
     public static void main(String[] Dar10){
         Sonido sonido = new Sonido();
-       // sonido.ReproducirSonido("C:\\Users\\Mario\\OneDrive\\Escritorio\\Sonidos\\0008368.wav");
-        sonido.ReproducirSonido("Resouces/Escudo.wav");
+
+        getMiSonido().ReproducirSonido("/audios/Escudo.wav");
+        System.out.println("Hola esto es una prueba");
     }
     public void ReproducirSonido(String nombreSonido){
         try {
