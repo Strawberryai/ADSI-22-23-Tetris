@@ -57,6 +57,9 @@ public class Sistema {
             game.setVisible(true);
         });
     }
+    public void actualizarNivel(int pNivel){
+
+    }
 
     public String validarRegistro(String usuario, String mail, String pass) {
         return GestorUsuarios.getInstance().validarRegistro(usuario, mail, pass);
