@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -210,7 +211,8 @@ public class Board extends JPanel {
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
         if (!tryMove(curPiece, curX, curY)) {
-
+            //TODO: añadir sonido de gameover
+            Sonido.getMiSonido().ReproducirSonido("/audios/gameOver.wav");
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
 
@@ -290,16 +292,23 @@ public class Board extends JPanel {
 
     private void drawSquare(Graphics g, int x, int y, Tetrominoe shape) {
 
-        Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
-                new Color(102, 204, 102), new Color(102, 102, 204),
-                new Color(204, 204, 102), new Color(204, 102, 204),
-                new Color(102, 204, 204), new Color(218, 170, 0),
-        };
+        Usuario activo =GestorUsuarios.getInstance().buscarUsuario(usuario);
+        String ladrillo = activo.getConfig().getLadrillo();
+        Color color= new Color(0,0,0);
+        if(ladrillo.equals("predeterminado")){
+            Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
+                    new Color(102, 204, 102), new Color(102, 102, 204),
+                    new Color(204, 204, 102), new Color(204, 102, 204),
+                    new Color(102, 204, 204), new Color(218, 170, 0),
+            };
 
-        var color = colors[shape.ordinal()];
+              color = colors[shape.ordinal()];
+        } else if (ladrillo.equals("rojo")) {
+             color= new Color(102, 204, 102);
+        }
 
 
-       // color= new Color(102, 204, 102);
+
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 

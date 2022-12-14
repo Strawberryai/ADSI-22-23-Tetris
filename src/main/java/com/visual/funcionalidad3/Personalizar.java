@@ -58,19 +58,22 @@ public class Personalizar extends PlantillaInterfaces {
         panel.add(panelBoton, BorderLayout.SOUTH);
 
         String colores[] = new String[]{
+                "predeterminado",
                 "azul",
                 "verde",
                 "rojo"
         };
         String sonidos[] = new String[]{
+                "predeterminado",
                 "boom",
                 "cuack",
                 "casa"
         };
         String Ladrillos[] = new String[]{
-                "basico",
-                "moderno",
-                "retro"
+                "predeterminado",
+                "rojo",
+                "azul",
+                "verde"
         };
 
         Colores = new JComboBox(colores);

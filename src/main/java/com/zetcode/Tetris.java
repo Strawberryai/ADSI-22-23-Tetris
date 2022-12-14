@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
@@ -100,6 +101,7 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
         GestorBD.getInstance().imprimirTabla("Jugador");
+        Sonido.getMiSonido().ReproducirSonido("/audios/Musica_fondo.wav");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
 

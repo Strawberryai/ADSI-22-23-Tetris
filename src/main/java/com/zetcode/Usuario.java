@@ -36,9 +36,9 @@ public class Usuario {
     private Configuracion cargarConfiguracion(int pCodC){
         GestorBD dataase = GestorBD.getInstance();
         ResultSet res = dataase.executeQuery("SELECT * FROM Configuracion");
-        String color="red";
-        String ladrillo = "green";
-        String sonido = "epic";
+        String color="predeterminado";
+        String ladrillo = "predeterminado";
+        String sonido = "predeterminado";
         boolean usuario ;
 
         try {
