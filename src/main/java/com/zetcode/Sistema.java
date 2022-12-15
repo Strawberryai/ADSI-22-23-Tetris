@@ -134,7 +134,7 @@ public class Sistema {
         GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 
-    public void comprobarPremio(Usuario pUsuario, Partida pPartida) {
+  /*  public void comprobarPremio(Usuario pUsuario, Partida pPartida) {
 
         if (pPartida.getVecesSuperada() + 1 == 5) {
             Premio premio = new Premio("Amateur del nivel " + pPartida.getNivel(),5);
@@ -145,8 +145,8 @@ public class Sistema {
          * veces un nivel en concreto. Se crea el premio y se le otorga al usuario
          * Estaría bien imprimirlo por terminal también. Falta todo lo que tiene que
          * ver con la lógica de qué usuario tiene qué partidas ganadas. eoe
-        */
-    }
 
-    
+    }
+    */
+
 }
