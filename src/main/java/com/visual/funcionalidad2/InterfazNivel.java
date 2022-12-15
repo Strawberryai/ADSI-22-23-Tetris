@@ -98,7 +98,7 @@ public class InterfazNivel extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
                     } else if ((Objects.equals(button.getText(), "Seleccionar nivel"))) {
                         if(true){
-                            Sistema.getInstance().actualizarNivel(getLevel());
+                            Sistema.getInstance().actualizarNivel(usuario,esAdmin,getLevel());
 
                         }
                     }

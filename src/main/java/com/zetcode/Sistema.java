@@ -57,7 +57,7 @@ public class Sistema {
             game.setVisible(true);
         });
     }
-    public void actualizarNivel(int pNivel){
+    public void actualizarNivel(String pUsuario, boolean esAdmin, int pNivel){
 
     }
 

@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class Board extends JPanel {
     private String usuario;
     private static Board miPartida;
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
-    private final int PERIOD_INTERVAL = 300;
+    private int BOARD_WIDTH = 10;
+    private int BOARD_HEIGHT = 22;
+    private int PERIOD_INTERVAL = 300;
 
     private Timer timer;
     private boolean isFallingFinished = false;
@@ -64,6 +64,26 @@ public class Board extends JPanel {
         timer = new Timer(PERIOD_INTERVAL, new GameCycle());
         timer.start();
     }
+
+    public void modificarBoardPorNivel(int pNivel){
+
+        if(pNivel == 1){
+            modificarBoard(10,22,300);
+
+        } else if (pNivel == 2) {
+            modificarBoard(12,21,150);
+        }
+        else if(pNivel == 3){
+            modificarBoard(14,20,75);
+        }
+    }
+    private void modificarBoard(int pX, int pY, int pV){
+        this.BOARD_WIDTH = pX;
+        this.BOARD_HEIGHT = pY;
+        this.PERIOD_INTERVAL = pV;
+
+    }
+
     private void initBoard(Tetris parent) {
 
         setFocusable(true);
