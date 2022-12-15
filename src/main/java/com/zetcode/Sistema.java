@@ -37,7 +37,7 @@ public class Sistema {
         Guardador.guardarPartida(usuario);
     }
 
-    public void cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
+    public Guardador cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String jsonstring =Files.readString(Path.of(f));
@@ -48,7 +48,7 @@ public class Sistema {
             Tetris tetris=new Tetris(cargador.getBOARD_HEIGHT(),cargador.getBOARD_WIDTH(),cargador.getPERIOD_INTERVAL(),true,cargador.getIsFallingFinished(),cargador.getIsPaused(),cargador.getNumLinesRemoved(),cargador.getCurX(),cargador.getCurY(),cargador.getCurPiece(),cargador.getBoard(),pUsuario,esAdmin);
 
         });
-
+        return cargador;
     }
     public void jugarNuevaPartida(String pUsuario,boolean esAdmin){
         EventQueue.invokeLater(() -> {

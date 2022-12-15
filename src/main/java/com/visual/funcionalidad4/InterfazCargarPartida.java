@@ -6,6 +6,7 @@ import com.visual.funcionalidad1.Interfaz2;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
 import com.zetcode.Board;
+import com.zetcode.Guardador;
 import com.zetcode.Sistema;
 import com.zetcode.Tetris;
 
@@ -98,8 +99,8 @@ public class InterfazCargarPartida extends PlantillaInterfaces {
                     else if(f.exists()) {
                         System.out.println("Cargando:" +directorioGuardados+button.getText());
                         try {
-
-                            Sistema.getInstance().cargarPartida(directorioGuardados+button.getText(),usuario,esAdmin);
+                            Guardador g=null;
+                            g=Sistema.getInstance().cargarPartida(directorioGuardados+button.getText(),usuario,esAdmin);
                         } catch (IOException ex) {
                             GestorPaneles.getInstance().bind(new InterfazError(usuario,esAdmin));
                             throw new RuntimeException(ex);
