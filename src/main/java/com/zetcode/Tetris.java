@@ -10,7 +10,6 @@ import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
-import com.visual.funcionalidad6.InterfazPremios;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,13 +58,6 @@ public class Tetris extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
-       /* if (pColor.equals("azul")){
-            board.setBackground(Color.blue);
-        } else if (pColor.equals("verde")) {
-            board.setBackground(Color.GREEN);
-        } else if (pColor.equals("rojo")) {
-            board.setBackground(Color.red);
-        }*/
         this.setVisible(true);
     }
     private void initUICargar(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL,boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
@@ -106,6 +98,5 @@ public class Tetris extends JFrame {
     public static void finalizarPartida(int puntuacion){tetris.setVisible(false);
         GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
         Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
-        GestorPaneles.getInstance().bind(new InterfazPremios(tetris.usuario,tetris.esAdmin));
     }
-}
+    }

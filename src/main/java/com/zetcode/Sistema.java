@@ -37,7 +37,7 @@ public class Sistema {
         Guardador.guardarPartida(usuario);
     }
 
-    public void cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
+    public Guardador cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String jsonstring =Files.readString(Path.of(f));
@@ -48,7 +48,7 @@ public class Sistema {
             Tetris tetris=new Tetris(cargador.getBOARD_HEIGHT(),cargador.getBOARD_WIDTH(),cargador.getPERIOD_INTERVAL(),true,cargador.getIsFallingFinished(),cargador.getIsPaused(),cargador.getNumLinesRemoved(),cargador.getCurX(),cargador.getCurY(),cargador.getCurPiece(),cargador.getBoard(),pUsuario,esAdmin);
 
         });
-
+        return cargador;
     }
     public void jugarNuevaPartida(String pUsuario,boolean esAdmin){
         EventQueue.invokeLater(() -> {
@@ -128,25 +128,4 @@ public class Sistema {
         Guardador eliminador=new Guardador();
         eliminador.eliminarSusPartidas(usuario);
     }
-
-    public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
-        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
-        GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
-    }
-
-  /*  public void comprobarPremio(Usuario pUsuario, Partida pPartida) {
-
-        if (pPartida.getVecesSuperada() + 1 == 5) {
-            Premio premio = new Premio("Amateur del nivel " + pPartida.getNivel(),5);
-            pUsuario.actualizarListaPremios(premio);
-            System.out.println("Premio otorgado xdxd");
-        }
-        /* Hasta donde está hecho, se decide aquí cómo es el premio tras superar X
-         * veces un nivel en concreto. Se crea el premio y se le otorga al usuario
-         * Estaría bien imprimirlo por terminal también. Falta todo lo que tiene que
-         * ver con la lógica de qué usuario tiene qué partidas ganadas. eoe
-
-    }
-    */
-
 }

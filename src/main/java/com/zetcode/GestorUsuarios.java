@@ -228,7 +228,5 @@ public class GestorUsuarios {
     public JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
-    public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
-        nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
-    }
+
 }

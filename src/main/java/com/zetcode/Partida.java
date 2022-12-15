@@ -7,7 +7,7 @@ public class Partida {
         private Date fecha;
 
         private int nivel;
-        public Partida(Date pFecha, int pNivel){
+    public Partida(Date pFecha, int pNivel){
         fecha=pFecha;
         nivel=pNivel;
     }
