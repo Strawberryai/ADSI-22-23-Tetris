@@ -65,6 +65,13 @@ public class Usuario {
        return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
 
+    public void actualizarConfiguracion(String pColor, String pSonido, String pLadrillo){
+        // TODO: implementar esto
+    }
+
+    public void actualizarPuntosMax(int pPuntos){
+        puntosMax=pPuntos;
+    }
 }
 
 

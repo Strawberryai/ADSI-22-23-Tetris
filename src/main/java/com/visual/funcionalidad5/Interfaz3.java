@@ -13,10 +13,12 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import java.util.Vector;
 
 public class Interfaz3 extends PlantillaInterfaces {
     /**
@@ -62,25 +64,34 @@ public class Interfaz3 extends PlantillaInterfaces {
         JSONObject array = Sistema.getInstance().obtenerPuntuaciones(nivel,usuario);
         JSONArray global = (JSONArray) array.get("global");
         JSONArray personal = (JSONArray) array.get("personal");
-        lista1.addElement("Ranking Global");
-        for (int i = global.length()-1; i >0; i--) {
-            JSONObject x=global.getJSONObject(i);
-            lista1.addElement(x.getString("usuario") +"\t"+ x.getInt("puntuacion"));
+        String[] columnNames = { "Usuario", "Puntuacion" };
+        DefaultTableModel modelPersonal = new DefaultTableModel(columnNames, 0);
+
+        for(int i= personal.length()-1;i>=0;i--)
+        {   JSONObject o=(JSONObject) personal.getJSONObject(i);
+            Vector<String> row = new Vector<String>();
+            row.add(o.getString("usuario"));
+            row.add(String.valueOf(o.getInt("puntuacion")));
+            modelPersonal.addRow( row );
         }
 
-        JList<String> listaGl = new JList<>(lista1);
-        listaGl.setBounds(100, 100, 200, 100);
+        JTable tableP = new JTable( modelPersonal );
+        JScrollPane scrollPane = new JScrollPane( tableP );
+        central.add(scrollPane);
 
-        DefaultListModel<String> lista2 = new DefaultListModel<>();
-        lista2.addElement("Ranking Personal");
-        for (int i = personal.length()-1; i > 0 ; i--) {
-            JSONObject x=personal.getJSONObject(i);
-            lista2.addElement(x.getString("usuario") +"\t "+"\t "+ "\t "+ "\t "+  x.getInt("puntuacion"));
+        DefaultTableModel modelGlobal = new DefaultTableModel(columnNames, 0);
+
+        for( int i= global.length()-1;i>=0;i--)
+        {   JSONObject o=(JSONObject) global.getJSONObject(i);
+            Vector<String> row = new Vector<String>();
+            row.add(o.getString("usuario"));
+            row.add(String.valueOf(o.getInt("puntuacion")));
+            modelGlobal.addRow( row );
         }
-        JList<String> listaPers = new JList<>(lista2);
-        listaPers.setBounds(100, 100, 200, 100);
-        central.add(listaGl);
-        central.add(listaPers);
+
+        JTable tableG = new JTable( modelGlobal );
+        JScrollPane scrollPane2 = new JScrollPane( tableG );
+        central.add(scrollPane2);
 
         if(nivel==1){
             JButton nivel2=new JButton("Nivel 2");
