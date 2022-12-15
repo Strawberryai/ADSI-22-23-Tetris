@@ -110,4 +110,12 @@ public class ListaUsuarios {
         if(usu != null)
             this.lista.remove(usu);
     }
+
+    public void imprimirLista(){
+        Iterator<Usuario> itr=getItr();
+        while(itr.hasNext()){
+            Usuario usu=itr.next();
+            System.out.println(usu.getNombre());
+        }
+    }
 }
