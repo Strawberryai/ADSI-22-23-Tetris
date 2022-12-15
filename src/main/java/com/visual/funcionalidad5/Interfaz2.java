@@ -58,8 +58,8 @@ public class Interfaz2 extends PlantillaInterfaces {
         String[] columnNames = { "Usuario", "Puntuacion" };
         DefaultTableModel modelPersonal = new DefaultTableModel(columnNames, 0);
 
-        for( Object obj : personal)
-        {   JSONObject o=(JSONObject) obj;
+        for(int i= personal.length()-1;i>=0;i--)
+        {   JSONObject o=(JSONObject) personal.getJSONObject(i);
             Vector<String> row = new Vector<String>();
             row.add(o.getString("usuario"));
             row.add(String.valueOf(o.getInt("puntuacion")));
@@ -72,8 +72,8 @@ public class Interfaz2 extends PlantillaInterfaces {
 
         DefaultTableModel modelGlobal = new DefaultTableModel(columnNames, 0);
 
-        for( Object obj : global)
-        {   JSONObject o=(JSONObject) obj;
+        for( int i= global.length()-1;i>=0;i--)
+        {   JSONObject o=(JSONObject) global.getJSONObject(i);
             Vector<String> row = new Vector<String>();
             row.add(o.getString("usuario"));
             row.add(String.valueOf(o.getInt("puntuacion")));

@@ -237,4 +237,12 @@ public class GestorUsuarios {
     public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
         nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
     }
+
+    //Método solo para las JUnit
+    public void actualizarPartidas(String pUsuario, int pPuntos){
+        datosAObjetos();
+        Usuario usu=buscarUsuario(pUsuario);
+        usu.actualizarPuntosMax(pPuntos);
+
+    }
 }

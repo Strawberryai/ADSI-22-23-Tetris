@@ -29,7 +29,6 @@ public class GestorPartida {
         try {
             if(res.next()){
                 codUsuario=res.getInt("ID");
-                GestorUsuarios.getInstance().imprimirLista();
                 GestorUsuarios.getInstance().datosAObjetos();
                 Usuario usu=GestorUsuarios.getInstance().buscarUsuario(pUsuario);
                 if(pPuntuacion> usu.obtenerPuntuacionMax()){
