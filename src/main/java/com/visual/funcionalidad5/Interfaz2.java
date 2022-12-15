@@ -56,20 +56,6 @@ public class Interfaz2 extends PlantillaInterfaces {
         JSONArray global = (JSONArray) array.get("global");
         JSONArray personal = (JSONArray) array.get("personal");
         String[] columnNames = { "Usuario", "Puntuacion" };
-        DefaultTableModel modelPersonal = new DefaultTableModel(columnNames, 0);
-
-        for(int i= personal.length()-1;i>=0;i--)
-        {   JSONObject o=(JSONObject) personal.getJSONObject(i);
-            Vector<String> row = new Vector<String>();
-            row.add(o.getString("usuario"));
-            row.add(String.valueOf(o.getInt("puntuacion")));
-            modelPersonal.addRow( row );
-        }
-
-        JTable tableP = new JTable( modelPersonal );
-        JScrollPane scrollPane = new JScrollPane( tableP );
-        central.add(scrollPane);
-
         DefaultTableModel modelGlobal = new DefaultTableModel(columnNames, 0);
 
         for( int i= global.length()-1;i>=0;i--)
@@ -83,6 +69,19 @@ public class Interfaz2 extends PlantillaInterfaces {
         JTable tableG = new JTable( modelGlobal );
         JScrollPane scrollPane2 = new JScrollPane( tableG );
         central.add(scrollPane2);
+        DefaultTableModel modelPersonal = new DefaultTableModel(columnNames, 0);
+
+        for(int i= personal.length()-1;i>=0;i--)
+        {   JSONObject o=(JSONObject) personal.getJSONObject(i);
+            Vector<String> row = new Vector<String>();
+            row.add(o.getString("usuario"));
+            row.add(String.valueOf(o.getInt("puntuacion")));
+            modelPersonal.addRow( row );
+        }
+
+        JTable tableP = new JTable( modelPersonal );
+        JScrollPane scrollPane = new JScrollPane( tableP );
+        central.add(scrollPane);
 
         return content;
     }
