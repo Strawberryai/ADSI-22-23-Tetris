@@ -19,6 +19,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
@@ -217,7 +218,12 @@ public class Board extends JPanel {
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
 
-            Tetris.finalizarPartida(numLinesRemoved);
+            try {
+                Tetris.finalizarPartida(numLinesRemoved);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
         }
     }

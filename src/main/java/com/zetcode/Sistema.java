@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
@@ -108,7 +109,7 @@ public class Sistema {
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
     }
-    public void acabarPartida(int puntuacion,String usuario,int nivel){
+    public java.sql.Timestamp acabarPartida(int puntuacion,String usuario,int nivel) throws SQLException{
         int codUsuario=-1;//si es 1 error
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
@@ -123,6 +124,7 @@ public class Sistema {
 
         } catch (SQLException e) {e.printStackTrace();}
         GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
+        return sqlTimestamp;
     }
     public void borrarSusPartidas(String usuario){
         Guardador eliminador=new Guardador();
@@ -134,19 +136,27 @@ public class Sistema {
         GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 
-  /*  public void comprobarPremio(Usuario pUsuario, Partida pPartida) {
-
-        if (pPartida.getVecesSuperada() + 1 == 5) {
-            Premio premio = new Premio("Amateur del nivel " + pPartida.getNivel(),5);
-            pUsuario.actualizarListaPremios(premio);
-            System.out.println("Premio otorgado xdxd");
+    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp) throws SQLException {
+        int vSuperada = GestorPartida.getInstance().obtenerVecesSuperada(pUsuario, nivel);
+        GestorPremios gestorPremios = GestorPremios.getInstance();
+        boolean acabaDeGanar = false;
+        int punt = 0;
+        int puntNec = nivel*2;
+        ResultSet resSQL = GestorBD.getInstance().executeQuery("SELECT PUNTUACION FROM Partida WHERE FECHAHORA = '" + sqlTimestamp + "'");
+        if (resSQL.next()) {
+            punt = resSQL.getInt("PUNTUACION");
+            if (punt >= puntNec) {
+                acabaDeGanar = true;
+            }
         }
-        /* Hasta donde está hecho, se decide aquí cómo es el premio tras superar X
-         * veces un nivel en concreto. Se crea el premio y se le otorga al usuario
-         * Estaría bien imprimirlo por terminal también. Falta todo lo que tiene que
-         * ver con la lógica de qué usuario tiene qué partidas ganadas. eoe
 
+        if (vSuperada % 1 == 0 && acabaDeGanar) {
+            new Premio("Ha superado el nivel " + nivel + " " + vSuperada + " veces");
+            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " " + vSuperada + " veces", sqlTimestamp);
+            return true;
+        }
+        return false;
     }
-    */
+    
 
 }

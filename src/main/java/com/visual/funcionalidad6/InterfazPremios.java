@@ -5,11 +5,15 @@ import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
+import com.zetcode.GestorBD;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 
@@ -17,9 +21,10 @@ public class InterfazPremios extends PlantillaInterfaces {
     /*Interfaz para representar la obetnción de un premio*/
 
     String usuario;
+    String descripcion;
     boolean esAdmin;
 
-    public InterfazPremios(String pUsuario, boolean pEsAdmin) {
+    public InterfazPremios(String pUsuario, boolean pEsAdmin, Timestamp sqlTimestamp) throws SQLException {
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
@@ -27,6 +32,14 @@ public class InterfazPremios extends PlantillaInterfaces {
         usuario = pUsuario;
         esAdmin = pEsAdmin;
 
+        GestorBD SGBD = GestorBD.getInstance();
+        ResultSet resSQL = SGBD.executeQuery("SELECT descripcion as descr FROM Premio NATURAL JOIN Gana WHERE FECHAHORA = '" + sqlTimestamp + "'");
+        if (resSQL.next()) {
+            this.descripcion = resSQL.getString("descr");
+        }
+
+        SGBD.imprimirTabla("Premio");
+        SGBD.imprimirTabla("Gana");
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Premio de prendida absoluta"), BorderLayout.CENTER);
     }
@@ -60,7 +73,7 @@ public class InterfazPremios extends PlantillaInterfaces {
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
 
-        main.add(new JLabel("Premio maquineo"));
+        main.add(new JLabel(descripcion));
         
 
         return main;
