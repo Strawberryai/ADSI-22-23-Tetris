@@ -212,7 +212,6 @@ public class Board extends JPanel {
 
         if (!tryMove(curPiece, curX, curY)) {
             //TODO: añadir sonido de gameover
-            Sonido.getMiSonido().pararSonido();
             Sonido.getMiSonido().ReproducirSonido("/audios/gameOver.wav");
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
@@ -305,15 +304,7 @@ public class Board extends JPanel {
 
               color = colors[shape.ordinal()];
         } else if (ladrillo.equals("rojo")) {
-             color= new Color(255, 0, 0);
-        }else if (ladrillo.equals("verde")) {
-            color= new Color(0, 204, 0);
-        }else if (ladrillo.equals("azul")) {
-            color= new Color(0, 0, 255);
-        }else if (ladrillo.equals("amarillo")) {
-            color= new Color(255, 255, 0);
-        }else if (ladrillo.equals("naranja")) {
-            color= new Color(255, 100, 0);
+             color= new Color(102, 204, 102);
         }
 
 

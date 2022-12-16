@@ -9,9 +9,12 @@ import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
+import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad5.Interfaz2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.*;
 import java.awt.*;
 
 /*
@@ -65,12 +68,6 @@ public class Tetris extends JFrame {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
-        }else if (pColor.equals("amarillo")) {
-            board.setBackground(Color.yellow);
-        }else if (pColor.equals("naranja")) {
-            board.setBackground(Color.ORANGE);
-        }else if (pColor.equals("negro")) {
-            board.setBackground(Color.BLACK);
         }
         this.setVisible(true);
     }
@@ -104,7 +101,7 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
         GestorBD.getInstance().imprimirTabla("Jugador");
-        Sonido.getMiSonido().ReproducirSonido("/audios/predeterminada.wav");
+        Sonido.getMiSonido().ReproducirSonido("/audios/Musica_fondo.wav");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
 

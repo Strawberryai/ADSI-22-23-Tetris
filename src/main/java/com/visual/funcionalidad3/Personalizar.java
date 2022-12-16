@@ -4,9 +4,7 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.*;
-import com.zetcode.GestorUsuarios;
 import com.zetcode.Sistema;
-import com.zetcode.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,26 +61,19 @@ public class Personalizar extends PlantillaInterfaces {
                 "predeterminado",
                 "azul",
                 "verde",
-                "rojo",
-                "negro",
-                "amarillo",
-                "naranja"
+                "rojo"
         };
         String sonidos[] = new String[]{
                 "predeterminado",
-                "Intriga",
-                "Epico",
-                "Positiva",
-                "Relajante"
+                "boom",
+                "cuack",
+                "casa"
         };
         String Ladrillos[] = new String[]{
                 "predeterminado",
                 "rojo",
                 "azul",
-                "verde",
-                "negro",
-                "amarillo",
-                "naranja"
+                "verde"
         };
 
         Colores = new JComboBox(colores);
@@ -127,6 +118,7 @@ public class Personalizar extends PlantillaInterfaces {
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();
                         Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
+<<<<<<< HEAD
                         Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
                         String musica = usu.getConfig().getSonido();
                         if(musica.equals("Positiva")){
@@ -144,6 +136,8 @@ public class Personalizar extends PlantillaInterfaces {
                         }
 
 
+=======
+>>>>>>> parent of 6994b5a... sacados
                     }
 
                 }
