@@ -63,13 +63,13 @@ public class ListaUsuarios {
         ordenar();
     }
 
-    public JSONArray obtenerMejoresJug(int pNivel){
+    public JSONArray obtenerMejoresJug(int pNivel) {
         JSONArray listaDef = new JSONArray();
-        Iterator<Usuario> itr=getItr();
-        Usuario x=null;
-        int min=0;
+        Iterator<Usuario> itr = getItr();
+        Usuario x;
+        int min = 0;
         int puntos;
-        JSONObject objetoACambiar,objetoNuevo;
+        JSONObject objetoACambiar=null, objetoNuevo=null;
         while(itr.hasNext()) {
             x = itr.next();
             JSONArray partidasOrdNivel = x.buscarMejoresPartidasJug(pNivel);
@@ -83,28 +83,38 @@ public class ListaUsuarios {
                     nuevo.put("puntuacion", puntos);
                     int z = 0;
                     boolean fin = false;
-                        while (!fin) {
-                            if (listaDef.getJSONObject(z).getInt("puntuacion") > puntos) {
-                                fin = true;
-                                objetoACambiar = listaDef.getJSONObject(z);
-                                listaDef.put(z, nuevo);
-                                z++;
-                                while (z+1 < listaDef.length())  {
-                                    objetoNuevo = listaDef.getJSONObject(z);
-                                    listaDef.put(z, objetoACambiar);
-                                    objetoACambiar=objetoNuevo;
-                                    z++;
-                                }
-                            }
+                    while (!fin) {
+                        if(j>0 && listaDef.getJSONObject(z).getInt("puntuacion") > puntos){
+                            fin = true;
+                            objetoACambiar = listaDef.getJSONObject(z);
+                            listaDef.put(z, nuevo);
                             z++;
+                            while (z < listaDef.length()) {
+                                objetoNuevo = listaDef.getJSONObject(z);
+                                listaDef.put(z, objetoACambiar);
+                                objetoACambiar = objetoNuevo;
+                                z++;
+                            }
+                            listaDef.put(objetoNuevo);
+                            j++;
+                            z++;
+                        }else{
+                            z++;
+                            if(z== listaDef.length()){
+                                fin=true;
+                                listaDef.put(nuevo);
+                                j++;
+                            }
                         }
-                        min = listaDef.getJSONObject(0).getInt("puntuacion");
                     }
-                    i++;
+                    min = listaDef.getJSONObject(0).getInt("puntuacion");
                 }
+                i++;
             }
+        }
         return listaDef;
     }
+
 
     public void eliminarJugador(String usuario){
         Usuario usu = this.buscarUsuario(usuario);
