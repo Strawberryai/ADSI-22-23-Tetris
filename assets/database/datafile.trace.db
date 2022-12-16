@@ -20,3 +20,6 @@ SELECT * FROM Configuracion WHERE   [42001-210]
 2022-12-16 14:57:49 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
 SELECT * FROM Jugador [42104-210]
+2022-12-16 16:57:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
+SELECT * FROM Jugador [42104-210]
