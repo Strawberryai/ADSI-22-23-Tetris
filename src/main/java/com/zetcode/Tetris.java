@@ -73,7 +73,7 @@ public class Tetris extends JFrame {
         add(statusbar, BorderLayout.SOUTH);
         var boardc = new Board(this,usuario);
         add(boardc);
-        boardc.cargar(isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
+        boardc.cargar(BOARD_HEIGHT, BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
 
         setTitle("Tetris");
         setSize(200, 400);
