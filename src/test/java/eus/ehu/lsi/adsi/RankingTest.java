@@ -64,6 +64,15 @@ public class RankingTest {
         ob=arr.getJSONObject(arr.length()-1);
         assertFalse(ob.getString("usuario").equals("Mario"));
 
+        pB=new Partida(fecha,2);
+        t2=new Puntuacion(10,pB);
+        y.anadirListaPuntuacion(t2);
+        arr=Ranking.getInstance().buscarMejoresJugadores(2);
+        ob=arr.getJSONObject(0);
+        System.out.println(arr.getJSONObject(0));
+        assertTrue(ob.getString("usuario").equals("Manuel"));
+
+
     }
 
 
