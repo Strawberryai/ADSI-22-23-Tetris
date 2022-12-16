@@ -4,7 +4,9 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.*;
+import com.zetcode.GestorUsuarios;
 import com.zetcode.Sistema;
+import com.zetcode.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,19 +63,26 @@ public class Personalizar extends PlantillaInterfaces {
                 "predeterminado",
                 "azul",
                 "verde",
-                "rojo"
+                "rojo",
+                "negro",
+                "amarillo",
+                "naranja"
         };
         String sonidos[] = new String[]{
                 "predeterminado",
-                "boom",
-                "cuack",
-                "casa"
+                "Intriga",
+                "Epico",
+                "Positiva",
+                "Relajante"
         };
         String Ladrillos[] = new String[]{
                 "predeterminado",
                 "rojo",
                 "azul",
-                "verde"
+                "verde",
+                "negro",
+                "amarillo",
+                "naranja"
         };
 
         Colores = new JComboBox(colores);
@@ -118,7 +127,7 @@ public class Personalizar extends PlantillaInterfaces {
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();
                         Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
-<<<<<<< HEAD
+
                         Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
                         String musica = usu.getConfig().getSonido();
                         if(musica.equals("Positiva")){
@@ -135,9 +144,6 @@ public class Personalizar extends PlantillaInterfaces {
                             com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/relajanteC.wav");
                         }
 
-
-=======
->>>>>>> parent of 6994b5a... sacados
                     }
 
                 }

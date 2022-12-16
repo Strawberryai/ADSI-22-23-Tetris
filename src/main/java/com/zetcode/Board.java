@@ -305,6 +305,8 @@ public class Board extends JPanel {
               color = colors[shape.ordinal()];
         } else if (ladrillo.equals("rojo")) {
              color= new Color(102, 204, 102);
+        }else if (ladrillo.equals("rojo")) {
+            color= new Color(102, 204, 102);
         }
 
 
