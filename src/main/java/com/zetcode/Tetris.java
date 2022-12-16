@@ -68,8 +68,11 @@ public class Tetris extends JFrame {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
+<<<<<<< HEAD
         }else if (pColor.equals("negro")) {
             board.setBackground(Color.BLACK);
+=======
+>>>>>>> parent of 5f49f50... nose
         }
         this.setVisible(true);
     }

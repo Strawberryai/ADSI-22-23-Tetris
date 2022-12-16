@@ -305,8 +305,11 @@ public class Board extends JPanel {
               color = colors[shape.ordinal()];
         } else if (ladrillo.equals("rojo")) {
              color= new Color(102, 204, 102);
+<<<<<<< HEAD
         }else if (ladrillo.equals("rojo")) {
             color= new Color(102, 204, 102);
+=======
+>>>>>>> parent of 5f49f50... nose
         }
 
 

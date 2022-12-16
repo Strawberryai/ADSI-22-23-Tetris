@@ -41,6 +41,7 @@ public class Sonido extends JFrame implements ActionListener{
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+            System.out.println("cambios");
         } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             System.out.println("Error al reproducir el sonido.");
         }
