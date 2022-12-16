@@ -19,6 +19,7 @@ public class GestorPartida {
         database.executeStatement("INSERT INTO Partida (ID_JUGADOR, NIVEL, PUNTUACION,FECHAHORA) VALUES ('" + pCodUsuario+ "', '" + pNivel + "', '" + pPuntuacion + "', '" + pFecha + "')");
         
         database.imprimirTabla("PARTIDA");
+        database.imprimirTabla("JUGADOR");
     }
 
     public int obtenerVecesSuperada(String pUsuario, int nivel) throws SQLException {
