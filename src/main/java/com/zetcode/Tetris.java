@@ -19,6 +19,7 @@ import com.visual.funcionalidad6.InterfazPremios;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.*;
 import java.awt.*;
 
 /*
@@ -111,8 +112,6 @@ public class Tetris extends JFrame {
             game.setVisible(true);
         });*/
         GestorBD.getInstance().imprimirTabla("Jugador");
-        //Sonido.getMiSonido().ReproducirSonido("/audios/predeterminada.wav");
-        Sonido.getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
 
