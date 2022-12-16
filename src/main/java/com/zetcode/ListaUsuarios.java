@@ -69,39 +69,40 @@ public class ListaUsuarios {
         Usuario x=null;
         int min=0;
         int puntos;
-        while(itr.hasNext()){
-            x=itr.next();
-            JSONArray partidasOrdNivel=x.buscarMejoresPartidasJug(pNivel);
-            int i=0;
-            int j=0; //jsonObjects en el array
-            while(i< partidasOrdNivel.length()) {
-                puntos=partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
-                if(puntos>min || j<25){
-                    JSONObject nuevo=new JSONObject();
+        JSONObject objetoACambiar,objetoNuevo;
+        while(itr.hasNext()) {
+            x = itr.next();
+            JSONArray partidasOrdNivel = x.buscarMejoresPartidasJug(pNivel);
+            int i = 0;
+            int j = listaDef.length(); //jsonObjects en el array
+            while (i < partidasOrdNivel.length()) {
+                puntos = partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
+                if (puntos > min || j < 25) {
+                    JSONObject nuevo = new JSONObject();
                     nuevo.put("usuario", x.getNombre());
                     nuevo.put("puntuacion", puntos);
-                    int z=0;
-                    boolean fin=false;
-                    while(z<listaDef.length() && !fin && j==25){
-                        if(listaDef.getJSONObject(z).getInt("puntuacion")<puntos){
-                              while(z<listaDef.length()){
-                                  if(listaDef.getJSONObject(z).getInt("puntuacion")==min){
-                                      listaDef.remove(z);
-                                      j--;
-                                      fin=true;
-                                  }
-                              }
+                    int z = 0;
+                    boolean fin = false;
+                        while (!fin) {
+                            if (listaDef.getJSONObject(z).getInt("puntuacion") > puntos) {
+                                fin = true;
+                                objetoACambiar = listaDef.getJSONObject(z);
+                                listaDef.put(z, nuevo);
+                                z++;
+                                while (z+1 < listaDef.length())  {
+                                    objetoNuevo = listaDef.getJSONObject(z);
+                                    listaDef.put(z, objetoACambiar);
+                                    objetoACambiar=objetoNuevo;
+                                    z++;
+                                }
+                            }
+                            z++;
                         }
-                        z++;
+                        min = listaDef.getJSONObject(0).getInt("puntuacion");
                     }
-                    listaDef.put(nuevo);
-                    j++;
-                    min=puntos;
+                    i++;
                 }
-                i++;
             }
-        }
-
         return listaDef;
     }
 
