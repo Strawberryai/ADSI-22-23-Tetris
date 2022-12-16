@@ -1,6 +1,9 @@
 package com.zetcode;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -95,8 +98,15 @@ public class Tetris extends JFrame {
 
     public static void acabar(){tetris.setVisible(false);}
 
-    public static void finalizarPartida(int puntuacion){tetris.setVisible(false);
+    public static void finalizarPartida(int puntuacion) throws SQLException {
+        
+        tetris.setVisible(false);
         GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
-        Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
+        Timestamp sqlTimestamp = Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
+        boolean premio = Sistema.getInstance().comprobarPremio(tetris.usuario, 1, sqlTimestamp); 
+        System.out.println(tetris.usuario);
+        if (premio) {
+            GestorPaneles.getInstance().bind(new InterfazPremios(tetris.usuario,tetris.esAdmin, sqlTimestamp));
+        }
     }
     }

@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
@@ -108,11 +109,54 @@ public class Sistema {
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
     }
-    public void acabarPartida(int puntuacion,String usuario,int nivel){
-        GestorPartida.getInstance().acabarPartida(puntuacion,usuario,nivel);
+    public java.sql.Timestamp acabarPartida(int puntuacion,String usuario,int nivel) throws SQLException{
+        int codUsuario=-1;//si es 1 error
+        java.util.Date date = new java.util.Date();
+        long t = date.getTime();
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(t);
+        GestorBD BD=GestorBD.getInstance();
+        ResultSet res=BD.executeQuery("SELECT ID FROM Jugador WHERE usuario='" + usuario + "'");
+        try {
+           if(res.next()){
+               codUsuario=res.getInt("ID");
+           }
+
+
+        } catch (SQLException e) {e.printStackTrace();}
+        GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
+        return sqlTimestamp;
     }
     public void borrarSusPartidas(String usuario){
         Guardador eliminador=new Guardador();
         eliminador.eliminarSusPartidas(usuario);
     }
+
+    public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
+    }
+
+    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp) throws SQLException {
+        int vSuperada = GestorPartida.getInstance().obtenerVecesSuperada(pUsuario, nivel);
+        GestorPremios gestorPremios = GestorPremios.getInstance();
+        boolean acabaDeGanar = false;
+        int punt = 0;
+        int puntNec = nivel*2;
+        ResultSet resSQL = GestorBD.getInstance().executeQuery("SELECT PUNTUACION FROM Partida WHERE FECHAHORA = '" + sqlTimestamp + "'");
+        if (resSQL.next()) {
+            punt = resSQL.getInt("PUNTUACION");
+            if (punt >= puntNec) {
+                acabaDeGanar = true;
+            }
+        }
+
+        if (vSuperada % 1 == 0 && acabaDeGanar) {
+            new Premio("Ha superado el nivel " + nivel + " " + vSuperada + " veces");
+            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " " + vSuperada + " veces", sqlTimestamp);
+            return true;
+        }
+        return false;
+    }
+    
+
 }
