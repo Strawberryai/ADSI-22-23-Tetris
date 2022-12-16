@@ -90,7 +90,6 @@ public class Interfaz2 extends PlantillaInterfaces {
                         // Si es un usuario válido entramos en el sistema. Si no se muestra un error
                         if(res.getBoolean("identificado")){
                             //GestorPaneles.getInstance().bind(new Interfaz9(usuario));
-                            Sonido.getMiSonido().ReproducirSonido("/audios/Musica_fondo.wav");
                             Sistema.getInstance().cargarDatosUsuarios();
                             GestorPaneles.getInstance().bind(new Interfaz9(usuario, res.getBoolean("esAdmin")));
                         }else{

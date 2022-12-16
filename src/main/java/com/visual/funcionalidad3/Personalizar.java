@@ -4,7 +4,9 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.*;
+import com.zetcode.GestorUsuarios;
 import com.zetcode.Sistema;
+import com.zetcode.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,19 +63,26 @@ public class Personalizar extends PlantillaInterfaces {
                 "predeterminado",
                 "azul",
                 "verde",
-                "rojo"
+                "rojo",
+                "negro",
+                "amarillo",
+                "naranja"
         };
         String sonidos[] = new String[]{
                 "predeterminado",
-                "boom",
-                "cuack",
-                "casa"
+                "Intriga",
+                "Epico",
+                "Positiva",
+                "Relajante"
         };
         String Ladrillos[] = new String[]{
                 "predeterminado",
                 "rojo",
                 "azul",
-                "verde"
+                "verde",
+                "negro",
+                "amarillo",
+                "naranja"
         };
 
         Colores = new JComboBox(colores);
@@ -118,6 +127,23 @@ public class Personalizar extends PlantillaInterfaces {
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();
                         Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
+                        Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
+                        String musica = usu.getConfig().getSonido();
+                        if(musica.equals("Positiva")){
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/positivaC.wav");
+                        } else if (musica.equals("Intriga")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/intrigaC.wav");
+                        }else if (musica.equals("Epico")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/epica.wav");
+                        }else if (musica.equals("Relajante")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/relajanteC.wav");
+                        }
+
+
                     }
 
                 }

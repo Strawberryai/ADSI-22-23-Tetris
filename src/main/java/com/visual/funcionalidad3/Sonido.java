@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 
 public class Sonido extends JFrame implements ActionListener{
     private static Sonido miSonido;
+    private Clip clip;
+    private AudioInputStream audioInputStream;
     JButton boton1 = new JButton("Pulsame");
     /*  public Sonido(){
           super("Pulse el boton");
@@ -32,24 +34,51 @@ public class Sonido extends JFrame implements ActionListener{
     public static void main(String[] Dar10){
         Sonido sonido = new Sonido();
 
-        getMiSonido().ReproducirSonido("/audios/Escudo.wav");
+        getMiSonido().ReproducirSonido("/audios/gameOver.wav");
         System.out.println("Hola esto es una prueba");
     }
     public void ReproducirSonido(String nombreSonido){
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
-            Clip clip = AudioSystem.getClip();
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+            System.out.println("se esta reproduciendo: "+nombreSonido);
         } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            ex.printStackTrace();
             System.out.println("Error al reproducir el sonido.");
         }
+    }
+
+    public void reproducirSondoEnLoop(String nombreSonido) {
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Thread.sleep(3600000);
+            System.out.println("se esta reproduciendo: "+nombreSonido);
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException | java.lang.InterruptedException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al reproducir el sonido.");
+        }
+    }
+    public void pararSonido(){
+
+           /* audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);*/
+            clip.stop();
+            //clip.flush();
+            //clip.close();
+            System.out.println("se ha parado la cancion: ");
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == boton1){
 
-            ReproducirSonido("src/Resources/Impacto_Arma.wav");
+            ReproducirSonido("src/Resources/gameOver.wav");
         }
     }
     private Sonido() {
