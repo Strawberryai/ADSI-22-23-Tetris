@@ -5,7 +5,7 @@ import java.util.Date;
 public class GestorNivel {
 
     private static GestorNivel miGestorNivel;
-    private static int nivel;
+    public static int nivel;
 
     private GestorNivel(){
         nivel = 1;
@@ -14,15 +14,14 @@ public class GestorNivel {
         if(GestorNivel.miGestorNivel == null) GestorNivel.miGestorNivel = new GestorNivel();
         return GestorNivel.miGestorNivel;
     }
-    public void actualizarNivel(int pNivel,int pCodUsua){
+    public void actualizarNivel(int pNivel){
+        setNivel(pNivel);
         Board.getInstance().modificarBoardPorNivel(pNivel);
-        GestorBD database = GestorBD.getInstance();
-        //database.executeStatement("INSERT INTO Partida (ID_JUGADOR, NIVEL, PUNTUACION,FECHAHORA) VALUES ('" + pCodUsuario+ "', '" + pNivel + "', ')");
-        database.imprimirTabla("PARTIDA");
-    }
-    public int obtenerNivel(int pNivel, int pCodUsu){
-      int x = 1;
-      return x;
+
 
     }
+    public void setNivel(int pNivel){
+        GestorNivel.nivel = pNivel;
+    }
+
 }

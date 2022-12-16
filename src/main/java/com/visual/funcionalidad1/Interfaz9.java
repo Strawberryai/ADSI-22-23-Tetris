@@ -7,6 +7,7 @@ import com.visual.funcionalidad2.InterfazNivel;
 import com.visual.funcionalidad3.Personalizar;
 import com.visual.funcionalidad4.InterfazCargarPartida;
 import com.visual.funcionalidad5.Interfaz2;
+import com.zetcode.Board;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -91,9 +92,6 @@ public class Interfaz9 extends PlantillaInterfaces {
         verRanking.addActionListener(mouseEventHandler());
         content.add(verRanking);
 
-        JButton ENivel = new JButton("Elegir Nivel");
-        ENivel.addActionListener(mouseEventHandler());
-        content.add(ENivel);
 
         JButton CPartida = new JButton("Cargar Partida");
         CPartida.addActionListener(mouseEventHandler());
@@ -135,10 +133,8 @@ public class Interfaz9 extends PlantillaInterfaces {
                     else if(Objects.equals(button.getText(),"Jugar Partida")){
                         //System.out.println("Jugar Partida");
                         //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
-                        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
-                    } else if (Objects.equals(button.getText(),"Elegir Nivel")) {
-                        System.out.println("Elegir nivel");
                         GestorPaneles.getInstance().bind(new InterfazNivel(usuario, esAdmin));
+                        //Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
 
                     } else if(Objects.equals(button.getText(),"Ver Ranking")){
                         GestorPaneles.getInstance().bind(new Interfaz2(usuario, esAdmin));

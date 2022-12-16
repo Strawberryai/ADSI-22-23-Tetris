@@ -19,35 +19,55 @@ public class InterfazNivel extends PlantillaInterfaces {
      * Interfaz de selección de nivel;
      * Se presentan tres campos; uno para cada dificultad de nivel: ;
      * fácil, intermedio y difícil ;
+     * Un botón para aplicar la dificultad seleccionada: Elegir nivel;
      */
     private String usuario;
     private boolean esAdmin;
-    private int level;
+    private int nivel;
+
+    JRadioButton nFacil;
+    JRadioButton nIntermedio;
+    JRadioButton nDificl;
+
     public InterfazNivel(String pUsuario, Boolean pEsAdmin){
         RecursosVisuales rv = RecursosVisuales.getInstance();
         setBackground(Color.lightGray);
         setLayout(new BorderLayout());
+
         usuario = pUsuario;
         esAdmin = pEsAdmin;
-        level = 1;
 
         add(rv.getTitle(), BorderLayout.NORTH);
         add(getMainPanel("Elegir nivel"), BorderLayout.CENTER);
     }
-    public int getLevel(){ return level; }
-    public void setLevel(int pInt){ level=pInt;}
+    private int getNivelSelected() {
+        int nivel = 0;
+        if (nFacil.isSelected()){
+            nivel = 1;
+        } else if (nIntermedio.isSelected()) {
+            nivel = 2;
+        } else if (nDificl.isSelected()) {
+            nivel = 3;
+        }
+        return nivel;
+    }
+    public void deseleccionarBotones(int pNiv){
+        if (pNiv == 1){
 
-    protected JPanel getSubtitlePanel(String subtitle){
-        // Creamos el panel del subtitulo (flowlayout)
-        JPanel subTitlePanel = new JPanel();
-        subTitlePanel.setLayout(new FlowLayout());
-        JLabel subTitle = new JLabel(subtitle);
-        subTitle.setFont(RecursosVisuales.getInstance().subTitleFont);
+            nIntermedio.setEnabled(false);
+            nDificl.setEnabled(false);
+        }
+        else if (pNiv == 2){
+            nFacil.setEnabled(false);
 
-        subTitlePanel.add(subTitle);
-        subTitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
+            nDificl.setEnabled(false);
+        }
+        else if (pNiv == 3){
+            nFacil.setEnabled(false);
+            nIntermedio.setEnabled(false);
 
-        return subTitlePanel;
+        }
+
     }
 
     @Override
@@ -59,11 +79,11 @@ public class InterfazNivel extends PlantillaInterfaces {
         ButtonGroup grupoNiveles = new ButtonGroup();
 
         // creamos los botones de los niveles
-        JRadioButton nFacil = new JRadioButton("Facil");
+        nFacil = new JRadioButton("Facil");
         nFacil.addActionListener(mouseEventHandler());
-        JRadioButton nIntermedio = new JRadioButton("Intermedio");
+        nIntermedio = new JRadioButton("Intermedio");
         nIntermedio.addActionListener(mouseEventHandler());
-        JRadioButton nDificl = new JRadioButton("Dificil");
+        nDificl = new JRadioButton("Dificil");
         nDificl.addActionListener(mouseEventHandler());
 
         // los añadimos al group button
@@ -76,11 +96,50 @@ public class InterfazNivel extends PlantillaInterfaces {
         content.add(nDificl);
 
         // boton de seleccionar nivel
-        JButton selectLevel = new JButton("Seleccionar nivel");
+        JButton selectLevel = new JButton("Jugar Partida");
         selectLevel.addActionListener(mouseEventHandler());
         content.add(selectLevel);
 
         return content;
+    }
+    public int getWidthPorNivel(int pNivel){
+        int statX = 10;
+        if(pNivel == 1){
+            statX = 10;
+
+        } else if (pNivel == 2) {
+            statX = 12;
+        }
+        else if(pNivel == 3){
+            statX = 14;
+        }
+        return (statX);
+    }
+    public int getHeightPorNivel(int pNivel){
+        int statY = 22;
+        if(pNivel == 1){
+            statY = 22;
+
+        } else if (pNivel == 2) {
+            statY = 21;
+        }
+        else if(pNivel == 3){
+            statY = 20;
+        }
+        return (statY);
+    }
+    public int getPeriodPorNivel(int pNivel){
+        int statV= 300;
+        if(pNivel == 1){
+            statV = 300;
+
+        } else if (pNivel == 2) {
+            statV = 150;
+        }
+        else if(pNivel == 3){
+            statV = 75;
+        }
+        return (statV);
     }
 
     @Override
@@ -90,21 +149,51 @@ public class InterfazNivel extends PlantillaInterfaces {
             public void actionPerformed(ActionEvent e) {
                 Object o = e.getSource();
 
+                if(o instanceof  JRadioButton){
+                    JRadioButton button = (JRadioButton) o;
+                    if(Objects.equals(button.getText(), "Facil")){
+                        setNivel(1);
+                        System.out.println(nivel);
+                    }
+                    else if(Objects.equals(button.getText(), "Intermedio")){
+                        setNivel(2);
+                        System.out.println(nivel);
+                    }
+                    else if(Objects.equals(button.getText(), "Dificil")){
+                        setNivel(3);
+                        System.out.println(nivel);
+                    }
+                }
+
                 if(o instanceof JButton){
                     JButton button = (JButton) o;
 
                     if ((Objects.equals(button.getText(), "Volver"))){
                         // Volvemos a la interfaz del usuario logeado
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
-                    } else if ((Objects.equals(button.getText(), "Seleccionar nivel"))) {
-                        if(true){
-                            Sistema.getInstance().actualizarNivel(usuario,esAdmin,getLevel());
+                    } else if ((Objects.equals(button.getText(), "Jugar Partida"))) {
+                            //int nivel = getNivelSelected();
+                            System.out.println(nivel);
+                        if (nivel > 0){
+                                //Sistema.getInstance().actualizarNivel(usuario,esAdmin, nivel);
+                                button.setEnabled(false);
+                                deseleccionarBotones(nivel);
+                                Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, getHeightPorNivel(nivel), getWidthPorNivel(nivel), getPeriodPorNivel(nivel));
+                            }
+                        else{
+
+                        }
 
                         }
                     }
                 }
-            }
+
         };
     }
-
+    public int getNivel() {
+        return nivel;
+    }
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
 }

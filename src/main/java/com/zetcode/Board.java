@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class Board extends JPanel {
     private String usuario;
     private static Board miPartida;
-    private int BOARD_WIDTH = 10;
-    private int BOARD_HEIGHT = 22;
-    private int PERIOD_INTERVAL = 300;
+    private int BOARD_WIDTH ;
+    private int BOARD_HEIGHT ;
+    private int PERIOD_INTERVAL ;
 
     private Timer timer;
     private boolean isFallingFinished = false;
@@ -41,9 +41,18 @@ public class Board extends JPanel {
     public static Board getInstance(){
         return Board.miPartida;
     }
+
     public Board(Tetris parent,String usuario) {
         miPartida=this;
         miPartida.usuario=usuario;
+        initBoard(parent);
+    }
+    public Board(Tetris parent,String usuario, int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
+        miPartida=this;
+        miPartida.usuario=usuario;
+        miPartida.BOARD_HEIGHT = BOARD_HEIGHT;
+        miPartida.BOARD_WIDTH = BOARD_WIDTH;
+        miPartida.PERIOD_INTERVAL = PERIOD_INTERVAL;
         initBoard(parent);
     }
     public static String guardar() throws IOException {
@@ -53,8 +62,22 @@ public class Board extends JPanel {
         guardador.setAllGuardador(miPartida.BOARD_HEIGHT,miPartida.BOARD_WIDTH, miPartida.PERIOD_INTERVAL, miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
         return (mapper.writeValueAsString(guardador));
     }
-    public  void cargar(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
+
+    public int getBOARD_WIDTH() {
+        return BOARD_WIDTH;
+    }
+
+    public int getBOARD_HEIGHT() {
+        return BOARD_HEIGHT;
+    }
+
+    public int getPERIOD_INTERVAL() {
+        return PERIOD_INTERVAL;
+    }
+
+    public  void cargar(int BOARD_WIDTH, int BOARD_HEIGHT, int PERIOD_INTERVAL, boolean isFallingFinished, boolean isPaused, int numLinesRemoved, int curX, int curY, Shape curPiece, Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
+        this.modificarBoard(BOARD_HEIGHT, BOARD_WIDTH, PERIOD_INTERVAL);
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
         this.curX=curX;
@@ -71,13 +94,14 @@ public class Board extends JPanel {
             modificarBoard(10,22,300);
 
         } else if (pNivel == 2) {
-            modificarBoard(12,21,150);
+            modificarBoard(12,20,150);
         }
         else if(pNivel == 3){
-            modificarBoard(14,20,75);
+            modificarBoard(14,18,75);
         }
     }
-    private void modificarBoard(int pX, int pY, int pV){
+    public void modificarBoard(int pX, int pY, int pV){
+        miPartida = this;
         this.BOARD_WIDTH = pX;
         this.BOARD_HEIGHT = pY;
         this.PERIOD_INTERVAL = pV;
