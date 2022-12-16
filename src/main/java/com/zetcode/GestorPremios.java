@@ -17,6 +17,7 @@ public class GestorPremios {
     }
     public void anadirPremio(String pUsuario, int pNivel,int pRecompensa, String pDescr, Timestamp sqlTimestamp) throws SQLException{
         int ID = 0;
+        int idPremio = 0;
         Date fechaUltima;
         GestorBD SGBD = GestorBD.getInstance();
         ResultSet resSQL = SGBD.executeQuery("SELECT ID FROM JUGADOR WHERE usuario = '" + pUsuario + "'");
@@ -26,7 +27,8 @@ public class GestorPremios {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }  
+        }
+        
         SGBD.executeStatement("INSERT INTO Premio (recompensa, descripcion) VALUES ("+pRecompensa+", '"+pDescr+"')");
         SGBD.executeStatement("INSERT INTO GANA VALUES ("+ID+", '"+sqlTimestamp+"', "+pNivel+")");
 

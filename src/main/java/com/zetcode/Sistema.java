@@ -152,7 +152,7 @@ public class Sistema {
 
         if (vSuperada % 1 == 0 && acabaDeGanar) {
             new Premio("Ha superado el nivel " + nivel + " " + vSuperada + " veces");
-            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " " + vSuperada + " veces", sqlTimestamp);
+            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " , máquina", sqlTimestamp);
             return true;
         }
         return false;

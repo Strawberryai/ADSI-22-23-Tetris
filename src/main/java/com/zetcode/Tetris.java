@@ -13,6 +13,8 @@ import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
+import com.visual.funcionalidad6.InterfazPremios;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
