@@ -16,15 +16,14 @@ import java.awt.*;
 
 /*
 Java Tetris game clone
-
 Author: Jan Bodnar
 Website: https://zetcode.com
  */
 public class Tetris extends JFrame {
     private String usuario;
     private  boolean esAdmin;
-	private static Tetris tetris=null;
-	private static final Logger logger = LogManager.getLogger(Tetris.class);
+    private static Tetris tetris=null;
+    private static final Logger logger = LogManager.getLogger(Tetris.class);
 
     private JLabel statusbar;
 
@@ -97,14 +96,14 @@ public class Tetris extends JFrame {
 
     public static void main(String[] args) {
 
-    	logger.info("Playing");
+        logger.info("Playing");
         /*EventQueue.invokeLater(() -> {
-
             var game = new Tetris();
             game.setVisible(true);
         });*/
         GestorBD.getInstance().imprimirTabla("Jugador");
-        Sonido.getMiSonido().ReproducirSonido("/audios/predeterminada.wav");
+        //Sonido.getMiSonido().ReproducirSonido("/audios/predeterminada.wav");
+        Sonido.getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
 
@@ -114,4 +113,4 @@ public class Tetris extends JFrame {
         GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
         Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
     }
-    }
+}

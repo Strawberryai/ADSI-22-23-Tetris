@@ -34,7 +34,8 @@ public class Sonido extends JFrame implements ActionListener{
     public static void main(String[] Dar10){
         Sonido sonido = new Sonido();
 
-        getMiSonido().ReproducirSonido("/audios/gameOver.wav");
+        //getMiSonido().ReproducirSonido("/audios/epica.wav");
+        getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
         System.out.println("Hola esto es una prueba");
     }
     public void ReproducirSonido(String nombreSonido){
@@ -43,7 +44,6 @@ public class Sonido extends JFrame implements ActionListener{
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-            System.out.println("se esta reproduciendo: "+nombreSonido);
         } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             ex.printStackTrace();
             System.out.println("Error al reproducir el sonido.");
@@ -56,9 +56,9 @@ public class Sonido extends JFrame implements ActionListener{
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-            Thread.sleep(3600000);
+          //  Thread.sleep(3600000);
             System.out.println("se esta reproduciendo: "+nombreSonido);
-        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException | java.lang.InterruptedException ex) {
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException  ex) {
             ex.printStackTrace();
             System.out.println("Error al reproducir el sonido.");
         }
@@ -68,10 +68,10 @@ public class Sonido extends JFrame implements ActionListener{
            /* audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);*/
-            clip.stop();
-            //clip.flush();
-            //clip.close();
-            System.out.println("se ha parado la cancion: ");
+        clip.stop();
+        //clip.flush();
+        //clip.close();
+        System.out.println("se ha parado la cancion: ");
 
     }
     @Override

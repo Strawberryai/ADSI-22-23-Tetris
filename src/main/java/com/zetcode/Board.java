@@ -214,6 +214,17 @@ public class Board extends JPanel {
             //TODO: añadir sonido de gameover
             Sonido.getMiSonido().pararSonido();
             Sonido.getMiSonido().ReproducirSonido("/audios/gameOver.wav");
+            Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
+            String musica = usu.getConfig().getSonido();
+            if(musica.equals("Positiva")){
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/positivaC.wav");
+            } else if (musica.equals("Intriga")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/intrigaC.wav");
+            }else if (musica.equals("Epico")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/epica.wav");
+            }else if (musica.equals("Relajante")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/relajanteC.wav");
+            }
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
 
@@ -303,9 +314,9 @@ public class Board extends JPanel {
                     new Color(102, 204, 204), new Color(218, 170, 0),
             };
 
-              color = colors[shape.ordinal()];
+            color = colors[shape.ordinal()];
         } else if (ladrillo.equals("rojo")) {
-             color= new Color(255, 0, 0);
+            color= new Color(255, 0, 0);
         }else if (ladrillo.equals("verde")) {
             color= new Color(0, 204, 0);
         }else if (ladrillo.equals("azul")) {

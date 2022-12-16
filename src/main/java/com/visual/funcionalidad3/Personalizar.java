@@ -132,16 +132,20 @@ public class Personalizar extends PlantillaInterfaces {
                         String musica = usu.getConfig().getSonido();
                         if(musica.equals("Positiva")){
                             com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
-                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/positivaC.wav");
+                           // com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/positivaC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/positivaC.wav");
                         } else if (musica.equals("Intriga")) {
                             com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
-                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/intrigaC.wav");
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/intrigaC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/intrigaC.wav");
                         }else if (musica.equals("Epico")) {
                             com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
-                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/epica.wav");
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/epica.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/epica.wav");
                         }else if (musica.equals("Relajante")) {
                             com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
-                            com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/relajanteC.wav");
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/relajanteC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/relajanteC.wav");
                         }
 
                     }

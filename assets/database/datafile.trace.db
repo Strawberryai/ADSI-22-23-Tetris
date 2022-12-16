@@ -17,3 +17,6 @@ SELECT * FROM Configuracion WHERE   [42001-210]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM Configuracion WHERE  [*]"; se esperaba "INTERSECTS, NOT, EXISTS, UNIQUE, INTERSECTS"
 Syntax error in SQL statement "SELECT * FROM Configuracion WHERE  [*]"; expected "INTERSECTS, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
 SELECT * FROM Configuracion WHERE   [42001-210]
+2022-12-16 14:57:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
+SELECT * FROM Jugador [42104-210]
