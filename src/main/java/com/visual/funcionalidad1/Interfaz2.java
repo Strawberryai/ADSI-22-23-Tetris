@@ -3,6 +3,7 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Sistema;
 import org.json.JSONObject;
 
@@ -89,6 +90,7 @@ public class Interfaz2 extends PlantillaInterfaces {
                         // Si es un usuario válido entramos en el sistema. Si no se muestra un error
                         if(res.getBoolean("identificado")){
                             //GestorPaneles.getInstance().bind(new Interfaz9(usuario));
+                            Sistema.getInstance().cargarDatosUsuarios();
                             GestorPaneles.getInstance().bind(new Interfaz9(usuario, res.getBoolean("esAdmin")));
                         }else{
                             GestorPaneles.getInstance().bind(new Interfaz3());

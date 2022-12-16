@@ -5,20 +5,15 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
-import org.json.simple.JSONValue;
 
 
 public class Sistema {
@@ -109,7 +104,7 @@ public class Sistema {
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
     }
-    public java.sql.Timestamp acabarPartida(int puntuacion,String usuario,int nivel) throws SQLException{
+    public Timestamp acabarPartida(int puntuacion, String usuario, int nivel){
         int codUsuario=-1;//si es 1 error
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
@@ -157,6 +152,9 @@ public class Sistema {
         }
         return false;
     }
-    
 
+
+    public void cargarDatosUsuarios(){
+        GestorUsuarios.getInstance().datosAObjetos();
+    }
 }
