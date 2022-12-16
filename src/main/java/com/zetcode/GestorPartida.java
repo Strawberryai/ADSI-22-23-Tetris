@@ -3,6 +3,7 @@ package com.zetcode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class GestorPartida {
@@ -39,7 +40,7 @@ public class GestorPartida {
         }
     }
 
-    public void acabarPartida(int pPuntuacion, String pUsuario, int pNivel){
+    public Timestamp acabarPartida(int pPuntuacion, String pUsuario, int pNivel){
         int codUsuario=-1;//si es 1 error
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
@@ -61,5 +62,8 @@ public class GestorPartida {
         } catch (SQLException e) {e.printStackTrace();}
 
         guardarPartida(sqlTimestamp,pNivel,pPuntuacion,codUsuario);
+        
+        System.out.println("Se ha guardado la partida");
+        return sqlTimestamp;
     }
 }
