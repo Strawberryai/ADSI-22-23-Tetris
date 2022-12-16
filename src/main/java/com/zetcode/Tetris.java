@@ -35,21 +35,21 @@ public class Tetris extends JFrame {
         this.esAdmin=esAdmin;
         System.out.println(this.usuario);
         if (cargar){
-            initUICargar(BOARD_WIDTH,BOARD_HEIGHT,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
+            initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI(BOARD_WIDTH,BOARD_HEIGHT,PERIOD_INTERVAL);
+            initUI();
         }
         tetris=this;
 
     }
 
-    private void initUI(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
+    private void initUI() {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario, BOARD_HEIGHT,BOARD_WIDTH, PERIOD_INTERVAL);
+        var board = new Board(this,usuario);
         add(board);
         board.start();
 
@@ -72,10 +72,9 @@ public class Tetris extends JFrame {
         statusbar = new JLabel(Integer.toString(numLinesRemoved));
         add(statusbar, BorderLayout.SOUTH);
         var boardc = new Board(this,usuario);
-        boardc.modificarBoard(BOARD_WIDTH, BOARD_HEIGHT, PERIOD_INTERVAL);
         add(boardc);
+        boardc.cargar(isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
 
-        boardc.cargar(BOARD_WIDTH, BOARD_HEIGHT, PERIOD_INTERVAL, isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         setTitle("Tetris");
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -91,7 +90,7 @@ public class Tetris extends JFrame {
 
     public static void main(String[] args) {
 
-    	logger.info("Playing");
+        logger.info("Playing");
         /*EventQueue.invokeLater(() -> {
 
             var game = new Tetris();

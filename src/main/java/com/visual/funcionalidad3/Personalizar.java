@@ -4,7 +4,9 @@ import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
 import com.visual.funcionalidad1.*;
+import com.zetcode.GestorUsuarios;
 import com.zetcode.Sistema;
+import com.zetcode.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,19 +60,29 @@ public class Personalizar extends PlantillaInterfaces {
         panel.add(panelBoton, BorderLayout.SOUTH);
 
         String colores[] = new String[]{
+                "predeterminado",
                 "azul",
                 "verde",
-                "rojo"
+                "rojo",
+                "negro",
+                "amarillo",
+                "naranja"
         };
         String sonidos[] = new String[]{
-                "boom",
-                "cuack",
-                "casa"
+                "predeterminado",
+                "Intriga",
+                "Epico",
+                "Positiva",
+                "Relajante"
         };
         String Ladrillos[] = new String[]{
-                "basico",
-                "moderno",
-                "retro"
+                "predeterminado",
+                "rojo",
+                "azul",
+                "verde",
+                "negro",
+                "amarillo",
+                "naranja"
         };
 
         Colores = new JComboBox(colores);
@@ -111,17 +123,31 @@ public class Personalizar extends PlantillaInterfaces {
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario, esAdmin));
 
                     }else if (Objects.equals(button.getText(), "Actualizar configracion")) {
-                        actualizar.setBackground(Color.GREEN);
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        actualizar.setBackground(Color.ORANGE);
                         String pColor = (String) Colores.getSelectedItem();
                         String pSonido = (String) Sonido.getSelectedItem();
                         String pLadrillo = (String) Ladrillo.getSelectedItem();
                         Sistema.getInstance().actualizarConfiguracion(usuario,pColor, pSonido, pLadrillo);
+
+                        Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
+                        String musica = usu.getConfig().getSonido();
+                        if(musica.equals("Positiva")){
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                           // com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/positivaC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/positivaC.wav");
+                        } else if (musica.equals("Intriga")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/intrigaC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/intrigaC.wav");
+                        }else if (musica.equals("Epico")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/epica.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/epica.wav");
+                        }else if (musica.equals("Relajante")) {
+                            com.visual.funcionalidad3.Sonido.getMiSonido().pararSonido();
+                            //com.visual.funcionalidad3.Sonido.getMiSonido().ReproducirSonido("/audios/relajanteC.wav");
+                            com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/relajanteC.wav");
+                        }
+
                     }
 
                 }
