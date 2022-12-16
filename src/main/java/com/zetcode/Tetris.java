@@ -10,6 +10,8 @@ import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
+import com.visual.funcionalidad7.InterfazD;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,5 +100,6 @@ public class Tetris extends JFrame {
     public static void finalizarPartida(int puntuacion){tetris.setVisible(false);
         GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
         Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
+        GestorPaneles.getInstance().bind(new InterfazD(tetris.usuario,tetris.esAdmin,puntuacion));
     }
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import twitter4j.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,6 +19,14 @@ import java.util.Date;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.simple.JSONValue;
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 
 
 public class Sistema {
@@ -104,6 +113,13 @@ public class Sistema {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
 
+    //public void publicarResultadoFacebook(){
+    //    
+    //}
+
+    //public void publicarResultadoInstagram(){
+        
+    //}
 
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
@@ -125,3 +141,4 @@ public class Sistema {
         GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
     }
 }
+

@@ -21,6 +21,7 @@ public class RecursosVisuales {
     private JLabel blueSprite;
     private JLabel orangeSprite;
 
+
     // Fuentes del sistema
     public Font titleFont;
     public Font subTitleFont;
