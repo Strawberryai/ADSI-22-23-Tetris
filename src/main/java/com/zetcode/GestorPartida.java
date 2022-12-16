@@ -17,6 +17,7 @@ public class GestorPartida {
         GestorBD database = GestorBD.getInstance();
         database.executeStatement("INSERT INTO Partida (ID_JUGADOR, NIVEL, PUNTUACION,FECHAHORA) VALUES ('" + pCodUsuario+ "', '" + pNivel + "', '" + pPuntuacion + "', '" + pFecha + "')");
         database.imprimirTabla("PARTIDA");
+        database.imprimirTabla("JUGADOR");
     }
 
     public void acabarPartida(int pPuntuacion, String pUsuario, int pNivel){

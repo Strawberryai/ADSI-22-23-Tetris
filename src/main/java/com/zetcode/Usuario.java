@@ -51,6 +51,7 @@ public class Usuario {
         JSONArray listaA=new JSONArray();
         int i=0;
         listaPuntos.ordenarLista(listaPuntos.getLista());
+        System.out.println(listaPuntos.size()+" Num en lista Personal");
         while(i<listaPuntos.size()){
             JSONObject partida=new JSONObject();
             partida.put("usuario",usuario);
@@ -62,6 +63,7 @@ public class Usuario {
     }
 
     public JSONArray buscarMejoresPartidasJug(int pNivel){
+        System.out.println(listaPuntos.size()+" Num en lista Puntos Global");
        return listaPuntos.buscarMejoresPartidasJug(pNivel, usuario);
     }
 

@@ -85,7 +85,6 @@ public class Sistema {
         ranking.put("global",puntGlobal);
         ranking.put("personal",puntPers);
         return ranking;
-
     }
 
     public JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
@@ -94,7 +93,9 @@ public class Sistema {
         JSONObject elRanking=new JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
         JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        System.out.println(puntPers.length());
         JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        System.out.println(puntGlobales.toString());
         elRanking.put("global", puntGlobales);
         elRanking.put("personal", puntPers);
         return elRanking;

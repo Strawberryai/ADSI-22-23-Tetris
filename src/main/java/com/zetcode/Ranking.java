@@ -17,6 +17,7 @@ public class Ranking {
     }
 
     public JSONArray buscarMejoresJugadores(int pNivel){
+        miLista.imprimirLista();
         return miLista.obtenerMejoresJug(pNivel);
     }
 

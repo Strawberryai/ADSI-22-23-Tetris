@@ -55,6 +55,7 @@ public class RankingTest {
         JSONArray arr=Ranking.getInstance().buscarMejoresJugadores(2);
         JSONObject ob=arr.getJSONObject(arr.length()-1);
         assertTrue(ob.getString("usuario").equals("Mario"));
+
         Date fecha=new Date();
         pB=new Partida(fecha,2);
         t2=new Puntuacion(20,pB);
@@ -64,6 +65,21 @@ public class RankingTest {
         ob=arr.getJSONObject(arr.length()-1);
         assertFalse(ob.getString("usuario").equals("Mario"));
 
+
+        pC=new Partida(fecha,2);
+        t3=new Puntuacion(5,pC);
+        z.anadirListaPuntuacion(t3);
+        arr=Ranking.getInstance().buscarMejoresJugadores(2);
+        ob=arr.getJSONObject(2);
+        assertFalse(ob.getString("usuario").equals("Dario"));
+
+        pC=new Partida(fecha,2);
+        t3=new Puntuacion(12,pC);
+        z.anadirListaPuntuacion(t3);
+
+        arr=Ranking.getInstance().buscarMejoresJugadores(2);
+        ob=arr.getJSONObject(1);
+        assertTrue(ob.getString("usuario").equals("Dario"));
     }
 
 

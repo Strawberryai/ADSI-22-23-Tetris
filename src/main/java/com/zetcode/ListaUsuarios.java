@@ -42,7 +42,7 @@ public class ListaUsuarios {
         Collections.sort(lista, cm1);
     }
 
-    public org.json.JSONArray obtenerPuntuacionesMax() {
+    public JSONArray obtenerPuntuacionesMax() {
         ordenar();
         JSONArray listaPuntos = new JSONArray();
         Iterator<Usuario> itr = this.getItr();
@@ -70,15 +70,14 @@ public class ListaUsuarios {
         Usuario x;
         int min = 0;
         int puntos;
-        JSONObject objetoACambiar, objetoNuevo;
-            while(itr.hasNext()) {
+        JSONObject objetoACambiar=null, objetoNuevo=null;
+        while(itr.hasNext()) {
             x = itr.next();
             JSONArray partidasOrdNivel = x.buscarMejoresPartidasJug(pNivel);
             int i = 0;
             int j = listaDef.length(); //jsonObjects en el array
             while (i < partidasOrdNivel.length()) {
                 puntos = partidasOrdNivel.getJSONObject(i).getInt("puntuacion");
-                System.out.println(puntos);
                 if (puntos > min || j < 25) {
                     JSONObject nuevo = new JSONObject();
                     nuevo.put("usuario", x.getNombre());
@@ -86,23 +85,27 @@ public class ListaUsuarios {
                     int z = 0;
                     boolean fin = false;
                     while (!fin) {
-                        if(j>0){
-                            if (listaDef.getJSONObject(z).getInt("puntuacion") > puntos) {
+                        if(j>0 && listaDef.getJSONObject(z).getInt("puntuacion") > puntos){
                                 fin = true;
                                 objetoACambiar = listaDef.getJSONObject(z);
                                 listaDef.put(z, nuevo);
                                 z++;
-                                while (z + 1 < listaDef.length()) {
+                                while (z < listaDef.length()) {
                                     objetoNuevo = listaDef.getJSONObject(z);
                                     listaDef.put(z, objetoACambiar);
                                     objetoACambiar = objetoNuevo;
                                     z++;
                                 }
-                            }
+                                listaDef.put(objetoNuevo);
+                                j++;
                         z++;
                     }else{
-                            listaDef.put(nuevo);
-                            fin=true;
+                            z++;
+                            if(z== listaDef.length()){
+                                fin=true;
+                                listaDef.put(nuevo);
+                                j++;
+                            }
                         }
                     }
                     min = listaDef.getJSONObject(0).getInt("puntuacion");
@@ -110,7 +113,7 @@ public class ListaUsuarios {
                 i++;
             }
         }
-            return listaDef;
+        return listaDef;
     }
 
     public void eliminarJugador(String usuario){
@@ -120,6 +123,7 @@ public class ListaUsuarios {
     }
 
     public void imprimirLista(){
+        System.out.println("Se va a imprimir la lista");
         Iterator<Usuario> itr=getItr();
         while(itr.hasNext()){
             Usuario usu=itr.next();

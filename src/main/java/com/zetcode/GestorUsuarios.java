@@ -164,7 +164,7 @@ public class GestorUsuarios {
                     Usuario x = new Usuario(nomUsu, pass,email, puntosMax, esAdmin, config);
                     lista.add(x);
                     ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador='" + id + "'");
-
+                    partida=true;
                     while (partida) {
                         try {
                             partida = resPartida.next();
