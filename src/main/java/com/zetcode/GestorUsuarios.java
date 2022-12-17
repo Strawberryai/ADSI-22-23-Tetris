@@ -194,6 +194,7 @@ public class GestorUsuarios {
         return lista.buscarUsuario(pUsuario);
     }
 
+
     public String borrarUsuario(String usuario) {
         String error = "";
 
