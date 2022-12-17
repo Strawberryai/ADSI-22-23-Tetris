@@ -50,13 +50,16 @@ public class Sistema {
         });
         return cargador;
     }
-    public void jugarNuevaPartida(String pUsuario,boolean esAdmin){
+    public void jugarNuevaPartida(String pUsuario,boolean esAdmin, int Height, int Width, int Period){
         EventQueue.invokeLater(() -> {
-
-            var game = new Tetris(10,22,300,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
+            var game = new Tetris(Height,Width,Period,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
             game.setVisible(true);
         });
     }
+    /*public void actualizarNivel(String pUsuario, boolean esAdmin, int pNivel){
+        GestorNivel.getInstance().actualizarNivel(pNivel);
+    }
+    */
 
     public String validarRegistro(String usuario, String mail, String pass) {
         return GestorUsuarios.getInstance().validarRegistro(usuario, mail, pass);
