@@ -185,20 +185,14 @@ public class GestorUsuarios {
                 e.printStackTrace();
             }
         }
-        System.out.println("Prueba");
         Ranking.getInstance().resetearLista(lista);
 
     }
 
     public Usuario buscarUsuario(String pUsuario){
-        System.out.println("lista");
-        lista.imprimirLista();
         return lista.buscarUsuario(pUsuario);
     }
 
-    public void imprimirLista(){
-        lista.imprimirLista();
-    }
 
     public String borrarUsuario(String usuario) {
         String error = "";

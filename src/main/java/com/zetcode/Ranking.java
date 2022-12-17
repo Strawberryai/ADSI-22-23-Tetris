@@ -17,7 +17,7 @@ public class Ranking {
     }
 
     public JSONArray buscarMejoresJugadores(int pNivel){
-        miLista.imprimirLista();
+        GestorBD.getInstance().imprimirTabla("PARTIDA");
         return miLista.obtenerMejoresJug(pNivel);
     }
 

@@ -2,6 +2,9 @@
 2022-12-12 21:48:44 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
 SELECT * FROM Jugador [42104-210]
+2022-12-16 20:49:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
+SELECT * FROM Jugador [42104-210]
 =======
 2022-12-10 18:48:10 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "CONFIGURACION" ya existe
