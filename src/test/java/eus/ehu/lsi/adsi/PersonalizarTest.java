@@ -3,6 +3,8 @@ package eus.ehu.lsi.adsi;
 import com.zetcode.*;
 import junit.framework.TestCase;
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class PersonalizarTest {
@@ -16,7 +18,7 @@ public class PersonalizarTest {
     String sonido;
     String ladrillo;
     
-    public PersonalizarTest() {
+   /* public PersonalizarTest() {
         usu1 = new Usuario("U1", "123", "usuario1@gmail.com", 1,false, 1 );
         usu2 = new Usuario("U2", "123", "usuario2@gmail.com", 1,false, 1 );
         usu3 = new Usuario("U3", "123", "usuario3@gmail.com", 1,false, 1 );
@@ -29,8 +31,26 @@ public class PersonalizarTest {
         GestorUsuarios.getInstance().anadirUsuario(usu4);
         usu1.actualizarConfiguracion(conf1.getColor(),conf1.getSonido(),conf1.getLadrillo());
         usu1.getConfig();
-    }
+    }*/
 
+    @Before
+    public void setUp(){
+        usu1 = new Usuario("U1", "123", "usuario1@gmail.com", 1,false, 1 );
+        usu2 = new Usuario("U2", "123", "usuario2@gmail.com", 1,false, 1 );
+        usu3 = new Usuario("U3", "123", "usuario3@gmail.com", 1,false, 1 );
+        usu4 = new Usuario("U4", "123", "usuario4@gmail.com", 1,false, 1 );
+
+        conf1= new Configuracion(1, "rojo","Epico","verde");
+        conf2= new Configuracion(2, "azul","Intriga","amarillo");
+
+        GestorUsuarios.getInstance().anadirUsuario(usu1);
+        GestorUsuarios.getInstance().anadirUsuario(usu2);
+        GestorUsuarios.getInstance().anadirUsuario(usu3);
+        GestorUsuarios.getInstance().anadirUsuario(usu4);
+
+        usu1.actualizarConfiguracion(conf1.getColor(),conf1.getSonido(),conf1.getLadrillo());
+        usu1.getConfig();
+    }
     @Test
     public void test1(){// el usuario pulsa actualizar sin seleccionar ninguna elección
         color= usu1.getConfig().getColor();

@@ -275,13 +275,7 @@ public class Board extends JPanel {
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
-
-            try {
-                Tetris.finalizarPartida(numLinesRemoved);
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Tetris.finalizarPartida(numLinesRemoved);
 
         }
     }
