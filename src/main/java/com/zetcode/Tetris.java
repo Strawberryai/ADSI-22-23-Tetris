@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
@@ -65,13 +66,22 @@ public class Tetris extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
-       /* if (pColor.equals("azul")){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(usuario);
+        Configuracion nueva = nuevo.getConfig();
+        String pColor= nueva.getColor();
+        if (pColor.equals("azul")){
             board.setBackground(Color.blue);
         } else if (pColor.equals("verde")) {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
-        }*/
+        }else if (pColor.equals("amarillo")) {
+            board.setBackground(Color.yellow);
+        }else if (pColor.equals("naranja")) {
+            board.setBackground(Color.ORANGE);
+        }else if (pColor.equals("negro")) {
+            board.setBackground(Color.BLACK);
+        }
         this.setVisible(true);
     }
     private void initUICargar(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL,boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
@@ -103,6 +113,7 @@ public class Tetris extends JFrame {
             var game = new Tetris();
             game.setVisible(true);
         });*/
+        Sonido.getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
         GestorBD.getInstance().imprimirTabla("Jugador");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }
