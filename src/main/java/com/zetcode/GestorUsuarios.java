@@ -240,4 +240,7 @@ public class GestorUsuarios {
         usu.actualizarPuntosMax(pPuntos);
 
     }
+    public void anadirUsuario(Usuario pUsuario){
+       lista.add(pUsuario);
+    }
 }
