@@ -56,10 +56,10 @@ public class Sistema {
             game.setVisible(true);
         });
     }
-    /*public void actualizarNivel(String pUsuario, boolean esAdmin, int pNivel){
-        GestorNivel.getInstance().actualizarNivel(pNivel);
+    public void actualizarNivel(String pUsuario,boolean esAdmin, int pNivel){
+        GestorNivel.getInstance().actualizarNivel(pUsuario,esAdmin, pNivel);
     }
-    */
+
 
     public String validarRegistro(String usuario, String mail, String pass) {
         return GestorUsuarios.getInstance().validarRegistro(usuario, mail, pass);

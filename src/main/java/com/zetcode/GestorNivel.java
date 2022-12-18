@@ -14,9 +14,9 @@ public class GestorNivel {
         if(GestorNivel.miGestorNivel == null) GestorNivel.miGestorNivel = new GestorNivel();
         return GestorNivel.miGestorNivel;
     }
-    public void actualizarNivel(int pNivel){
+    public void actualizarNivel(String pUsuario,boolean esAdmin, int pNivel){
         setNivel(pNivel);
-        Board.getInstance().modificarBoardPorNivel(pNivel);
+        Board.getInstance().modificarBoard(pUsuario,esAdmin, pNivel);
 
 
     }

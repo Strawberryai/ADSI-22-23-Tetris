@@ -90,8 +90,8 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardPorNivel(int pNivel){
-
+    public void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
+        //int Height, Width,Period;
         if(pNivel == 1){
             modificarBoard(10,22,300);
 
@@ -102,12 +102,56 @@ public class Board extends JPanel {
             modificarBoard(14,18,75);
         }
     }
-    public void modificarBoard(int pX, int pY, int pV){
+    public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
         miPartida = this;
-        this.BOARD_WIDTH = pX;
-        this.BOARD_HEIGHT = pY;
-        this.PERIOD_INTERVAL = pV;
+        int WIDTH = getWidthPorNivel(pNivel);
+        int HEIGHT = getBOARD_HEIGHT(pNivel);
+        int PINTERVAL = getPeriodPorNivel(pNivel);
+        this.BOARD_WIDTH = WIDTH;
+        this.BOARD_HEIGHT = HEIGHT;
+        this.PERIOD_INTERVAL = PINTERVAL;
 
+
+
+    }
+    public int getWidthPorNivel(int pNivel){
+        int statX = 10;
+        if(pNivel == 1){
+            statX = 10;
+
+        } else if (pNivel == 2) {
+            statX = 12;
+        }
+        else if(pNivel == 3){
+            statX = 14;
+        }
+        return (statX);
+    }
+    public int getHeightPorNivel(int pNivel){
+        int statY = 22;
+        if(pNivel == 1){
+            statY = 22;
+
+        } else if (pNivel == 2) {
+            statY = 21;
+        }
+        else if(pNivel == 3){
+            statY = 20;
+        }
+        return (statY);
+    }
+    public int getPeriodPorNivel(int pNivel){
+        int statV= 300;
+        if(pNivel == 1){
+            statV = 300;
+
+        } else if (pNivel == 2) {
+            statV = 150;
+        }
+        else if(pNivel == 3){
+            statV = 75;
+        }
+        return (statV);
     }
 
     private void initBoard(Tetris parent) {
