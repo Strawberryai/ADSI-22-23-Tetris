@@ -2,10 +2,7 @@ package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.visual.GestorPaneles;
-import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
@@ -18,10 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
     private String usuario;
@@ -79,7 +73,9 @@ public class Board extends JPanel {
 
     public  void cargar(int BOARD_WIDTH, int BOARD_HEIGHT, int PERIOD_INTERVAL, boolean isFallingFinished, boolean isPaused, int numLinesRemoved, int curX, int curY, Shape curPiece, Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
-        this.modificarBoard(BOARD_HEIGHT, BOARD_WIDTH, PERIOD_INTERVAL);
+        this.BOARD_HEIGHT = BOARD_HEIGHT;
+        this.BOARD_WIDTH = BOARD_WIDTH;
+        this.PERIOD_INTERVAL = PERIOD_INTERVAL;
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
         this.curX=curX;
@@ -90,7 +86,7 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
+    /* ublic void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
         //int Height, Width,Period;
         if(pNivel == 1){
             modificarBoard(10,22,300);
@@ -102,14 +98,16 @@ public class Board extends JPanel {
             modificarBoard(14,18,75);
         }
     }
+    */
     public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
         miPartida = this;
         int WIDTH = getWidthPorNivel(pNivel);
-        int HEIGHT = getBOARD_HEIGHT(pNivel);
+        int HEIGHT = getWidthPorNivel(pNivel);
         int PINTERVAL = getPeriodPorNivel(pNivel);
         this.BOARD_WIDTH = WIDTH;
         this.BOARD_HEIGHT = HEIGHT;
         this.PERIOD_INTERVAL = PINTERVAL;
+        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, HEIGHT, WIDTH, PINTERVAL);
 
 
 
