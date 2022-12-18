@@ -4,6 +4,7 @@ import com.zetcode.*;
 import junit.framework.TestCase;
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +50,10 @@ public class PersonalizarTest {
         GestorUsuarios.getInstance().anadirUsuario(usu4);
 
         usu1.actualizarConfiguracion(conf1.getColor(),conf1.getSonido(),conf1.getLadrillo());
-        usu1.getConfig();
+    }
+    @After
+    public void setDown(){
+        usu1.actualizarConfiguracion(conf1.getColor(),conf1.getSonido(),conf1.getLadrillo());
     }
     @Test
     public void test1(){// el usuario pulsa actualizar sin seleccionar ninguna elección
