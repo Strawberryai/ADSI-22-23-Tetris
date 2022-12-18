@@ -10,7 +10,7 @@ import org.junit.Test;
 public class NivelTest {
     int nivel;
     Board board;
-    Guardador gBoard;
+    //Guardador gBoard;
     String usuario;
 
 
@@ -29,13 +29,13 @@ public class NivelTest {
         board.modificarBoard(usuario, false, 1);
         board.modificarBoardSet(1);
         //GestorNivel.getInstance().actualizarNivel(usuario, false, 1 );
-        assertTrue(board.getBOARD_HEIGHT()==10);
-        assertTrue(board.getBOARD_WIDTH()==22);
-        assertTrue(board.getPERIOD_INTERVAL()==300);
+        assertEquals(board.getBOARD_HEIGHT(),10);
+        assertEquals(board.getBOARD_WIDTH(),22);
+        assertEquals(board.getPERIOD_INTERVAL(),300);
         board.modificarBoardSet(3);
-        assertFalse(board.getBOARD_HEIGHT()==10);
-        assertFalse(board.getBOARD_WIDTH()==22);
-        assertFalse(board.getPERIOD_INTERVAL()==300);
+        assertNotEquals(board.getBOARD_HEIGHT(),10);
+        assertNotEquals(board.getBOARD_WIDTH(),22);
+        assertNotEquals(board.getPERIOD_INTERVAL(),00);
 
 
     }
