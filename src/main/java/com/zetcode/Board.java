@@ -86,19 +86,24 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    /* public void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
+    public void modificarBoardSet(int pNivel){
         //int Height, Width,Period;
         if(pNivel == 1){
-            modificarBoard(10,22,300);
+            modificarXYV(10,22,300);
 
         } else if (pNivel == 2) {
-            modificarBoard(12,20,150);
+            modificarXYV(12,20,150);
         }
         else if(pNivel == 3){
-            modificarBoard(14,18,75);
+            modificarXYV(14,18,75);
         }
     }
-    */
+    public void modificarXYV(int x, int y, int v){
+        this.BOARD_WIDTH = x;
+        this.BOARD_HEIGHT = y;
+        this.PERIOD_INTERVAL = v;
+
+    }
     public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
         miPartida = this;
         int WIDTH = getWidthPorNivel(pNivel);

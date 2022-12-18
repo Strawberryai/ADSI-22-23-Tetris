@@ -25,10 +25,6 @@ public class GestorNivel {
             int Period = this.getPeriodPorNivel(pNivel);
             Sistema.getInstance().jugarNuevaPartida(pUsuario, esAdmin, Height, Width, Period);
         }
-
-
-
-
     }
     public int getWidthPorNivel(int pNivel){
         int statX = 10;
