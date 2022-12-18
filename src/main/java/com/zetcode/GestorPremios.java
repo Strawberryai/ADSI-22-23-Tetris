@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.yaml.snakeyaml.events.Event.ID;
@@ -10,12 +11,19 @@ import org.yaml.snakeyaml.events.Event.ID;
 public class GestorPremios {
 
     private static GestorPremios miGestor;
-    private GestorPremios(){}
+    ArrayList<Premio> lista;
+    private GestorPremios(){lista = new ArrayList<Premio>();}
     public static GestorPremios getInstance(){
         if(GestorPremios.miGestor == null) GestorPremios.miGestor = new GestorPremios();
         return GestorPremios.miGestor;
     }
-    public void anadirPremio(String pUsuario, int pNivel,int pRecompensa, String pDescr, Timestamp sqlTimestamp) throws SQLException{
+    public void anadirPremio(Premio pPremio) throws SQLException{
+        this.lista.add(pPremio);
+        String pUsuario = pPremio.getUsuario();
+        int pRecompensa = pPremio.getRecompensa();
+        String pDescr = pPremio.getDescripcion();
+        Timestamp sqlTimestamp = pPremio.getSqlTimestamp();
+        int pNivel = pPremio.getNivel();
         int ID = 0;
         int idPremio = 0;
         Date fechaUltima;

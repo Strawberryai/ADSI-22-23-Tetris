@@ -139,7 +139,7 @@ public class Sistema {
         GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 
-    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp) throws SQLException {
+    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp, int premioAlDe) throws SQLException {
         int vSuperada = GestorPartida.getInstance().obtenerVecesSuperada(pUsuario, nivel);
         GestorPremios gestorPremios = GestorPremios.getInstance();
         boolean acabaDeGanar = false;
@@ -153,9 +153,9 @@ public class Sistema {
             }
         }
 
-        if (vSuperada % 1 == 0 && acabaDeGanar) {
-            new Premio("Ha superado el nivel " + nivel + " " + vSuperada + " veces");
-            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " , máquina", sqlTimestamp);
+        if (vSuperada % premioAlDe == 0 && acabaDeGanar) {
+            Premio premio = new Premio("Ha superado el nivel"+nivel, pUsuario, nivel, nivel, sqlTimestamp);
+            gestorPremios.anadirPremio(Premio);
             return true;
         }
         return false;

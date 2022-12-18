@@ -274,7 +274,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void pieceDropped() {
+    private void pieceDropped() throws SQLException {
 
         for (int i = 0; i < 4; i++) {
 
@@ -291,7 +291,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void newPiece() {
+    private void newPiece() throws SQLException {
 
         curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
