@@ -280,7 +280,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void pieceDropped() throws SQLException {
+    private void pieceDropped(){
 
         for (int i = 0; i < 4; i++) {
 
@@ -297,7 +297,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void newPiece() throws SQLException {
+    private void newPiece(){
 
         curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
@@ -323,7 +323,11 @@ public class Board extends JPanel {
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
-            Tetris.finalizarPartida(numLinesRemoved);
+            try {
+                Tetris.finalizarPartida(numLinesRemoved);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         }
     }

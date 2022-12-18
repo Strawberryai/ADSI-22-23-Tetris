@@ -27,4 +27,9 @@ public class LoginTests {
         res = sis.comprobarUsuario("USUARioRandomquenuncaVaAestarRegistrado", "1234");
         assertFalse(res.getBoolean("identificado"));
     }
+
+    @Test
+    public void registro(){
+        Sistema sis = Sistema.getInstance();
+    }
 }
