@@ -38,18 +38,18 @@ public class Tetris extends JFrame {
             initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI();
+            initUI( BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL);
         }
         tetris=this;
 
     }
 
-    private void initUI() {
+    private void initUI(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario);
+        var board = new Board(this,usuario, BOARD_HEIGHT, BOARD_WIDTH,PERIOD_INTERVAL);
         add(board);
         board.start();
 
