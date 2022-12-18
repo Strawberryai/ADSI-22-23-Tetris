@@ -86,7 +86,7 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    /* ublic void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
+    /* public void modificarBoardPorNivel(int pNivel, int Height, int Width, int Period){
         //int Height, Width,Period;
         if(pNivel == 1){
             modificarBoard(10,22,300);
