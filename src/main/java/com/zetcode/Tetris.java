@@ -116,7 +116,7 @@ public class Tetris extends JFrame {
         Timestamp sqlTimestamp = Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
         Boolean premio = Sistema.getInstance().comprobarPremio(tetris.usuario, 1, sqlTimestamp, 1);
         if (premio) {
-            GestorPremios.getInstance().anadirPremio(tetris.usuario, 1, 1, "Has ganado el nivel 1", sqlTimestamp);
+            new InterfazPremios(tetris.usuario, tetris.esAdmin, sqlTimestamp);
         }
         GestorPaneles.getInstance().bind(new InterfazD(tetris.usuario,tetris.esAdmin,puntuacion));
     }
