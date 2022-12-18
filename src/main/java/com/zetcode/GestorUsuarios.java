@@ -231,4 +231,7 @@ public class GestorUsuarios {
     public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
         nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
     }
+    public void anadirUsuario(Usuario pUsuario){
+       lista.add(pUsuario);
+    }
 }

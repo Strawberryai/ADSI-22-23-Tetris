@@ -35,12 +35,11 @@ public class Usuario {
 
     private Configuracion cargarConfiguracion(int pCodC){
         GestorBD dataase = GestorBD.getInstance();
-        ResultSet res = dataase.executeQuery("SELECT * FROM Configuracion");
+        ResultSet res = dataase.executeQuery("SELECT * FROM Configuracion WHERE CodC='" + pCodC + "'");
         String color="predeterminado";
         String ladrillo = "predeterminado";
         String sonido = "predeterminado";
         boolean usuario ;
-
         try {
             usuario=res.next();
             if(usuario){
@@ -53,6 +52,7 @@ public class Usuario {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+       // System.out.println(color +","+ladrillo+","+sonido);
         //TODO: meter los datos
         return new Configuracion(pCodC,color, ladrillo, sonido);
     }

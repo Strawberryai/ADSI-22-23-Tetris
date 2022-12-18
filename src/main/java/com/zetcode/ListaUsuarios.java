@@ -27,6 +27,7 @@ public class ListaUsuarios {
             x=itr.next();
             if(x.tieneMismoNombre(pUsu)){
                 enc=true;
+                return x;
             }
         }
         return x;
