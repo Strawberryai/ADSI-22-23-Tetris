@@ -10,11 +10,10 @@ import javax.swing.JLabel;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
-import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
-import com.visual.funcionalidad7.InterfazD;
+import com.visual.funcionalidad6.InterfazPremios;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,18 +43,18 @@ public class Tetris extends JFrame {
             initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI( BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL);
+            initUI();
         }
         tetris=this;
 
     }
 
-    private void initUI(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
+    private void initUI() {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario, BOARD_HEIGHT, BOARD_WIDTH,PERIOD_INTERVAL);
+        var board = new Board(this,usuario);
         add(board);
         board.start();
 
@@ -104,7 +103,6 @@ public class Tetris extends JFrame {
         });*/
         GestorBD.getInstance().imprimirTabla("Jugador");
         GestorPaneles.getInstance().bind(new Interfaz1());
-        Sonido.getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
     }
 
     public static void acabar(){tetris.setVisible(false);}
@@ -116,7 +114,7 @@ public class Tetris extends JFrame {
         Timestamp sqlTimestamp = Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
         Boolean premio = Sistema.getInstance().comprobarPremio(tetris.usuario, 1, sqlTimestamp, 1);
         if (premio) {
-            GestorPremios.getInstance().anadirPremio(tetris.usuario, 1, 1, "Has ganado el nivel 1", sqlTimestamp);
+            GestorPaneles.getInstance().bind(new InterfazPremios(tetris.usuario, tetris.esAdmin, sqlTimestamp));
         }
         GestorPaneles.getInstance().bind(new InterfazD(tetris.usuario,tetris.esAdmin,puntuacion));
     }
