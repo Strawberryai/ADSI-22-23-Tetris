@@ -42,10 +42,6 @@ public class InterfazD extends PlantillaInterfaces {
         JPanel submain = new JPanel();
         submain.setLayout(new BorderLayout());
 
-        JButton returnButton = new JButton("Aceptar");
-        returnButton.addActionListener(mouseEventHandler());
-        submain.add(returnButton, BorderLayout.EAST);
-
         JPanel subTitlePanel = new JPanel();
         subTitlePanel.setLayout(new FlowLayout());
         JLabel subTitle = new JLabel(subtitle);
