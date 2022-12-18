@@ -94,6 +94,25 @@ public class Board extends JPanel {
         modificarBoard(pX, pY, pV);
         Sistema.getInstance().jugarNuevaPartida(pUsu, esAdmin, pX, pY, pV);
     }
+    public void modificarBoardSet(int pNivel){
+        if(pNivel==1){
+            this.BOARD_HEIGHT = 10;
+            this.BOARD_WIDTH = 22;
+            this.PERIOD_INTERVAL = 300;
+        }
+        else if(pNivel==1){
+            this.BOARD_HEIGHT = 12;
+            this.BOARD_WIDTH = 21;
+            this.PERIOD_INTERVAL = 150;
+
+        }
+        else if(pNivel==1){
+            this.BOARD_HEIGHT = 14;
+            this.BOARD_WIDTH = 20;
+            this.PERIOD_INTERVAL = 75;
+        }
+
+    }
 
     public void modificarBoard(int pX, int pY, int pV){
         miPartida = this;

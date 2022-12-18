@@ -27,16 +27,14 @@ public class NivelTest {
     @Test
     public void test1(){
         //board.modificarBoard(usuario, false, 1);
-        //board.modificarBoardSet(1);
-        //GestorNivel.getInstance().actualizarNivel(usuario, false, 1 );
+        board.modificarBoardSet(1);
+        GestorNivel.getInstance().actualizarNivel(usuario, false, 1 );
         assertEquals(board.getBOARD_HEIGHT(),10);
         assertEquals(board.getBOARD_WIDTH(),22);
         assertEquals(board.getPERIOD_INTERVAL(),300);
-        //board.modificarBoardSet(3);
+        board.modificarBoardSet(3);
         assertNotEquals(board.getBOARD_HEIGHT(),10);
         assertNotEquals(board.getBOARD_WIDTH(),22);
         assertNotEquals(board.getPERIOD_INTERVAL(),00);
-
-
     }
 }
