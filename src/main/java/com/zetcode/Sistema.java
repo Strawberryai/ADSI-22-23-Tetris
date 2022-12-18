@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import twitter4j.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,6 +19,14 @@ import java.sql.Timestamp;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.simple.JSONValue;
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 
 
 public class Sistema {
@@ -56,10 +65,10 @@ public class Sistema {
             game.setVisible(true);
         });
     }
-    /*public void actualizarNivel(String pUsuario, boolean esAdmin, int pNivel){
-        GestorNivel.getInstance().actualizarNivel(pNivel);
+    public void actualizarNivel(String pUsuario,boolean esAdmin, int pNivel){
+        GestorNivel.getInstance().actualizarNivel(pUsuario,esAdmin, pNivel);
     }
-    */
+
 
     public String validarRegistro(String usuario, String mail, String pass) {
         return GestorUsuarios.getInstance().validarRegistro(usuario, mail, pass);
@@ -108,6 +117,13 @@ public class Sistema {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
 
+    //public void publicarResultadoFacebook(){
+    //    
+    //}
+
+    //public void publicarResultadoInstagram(){
+        
+    //}
 
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
@@ -139,7 +155,7 @@ public class Sistema {
         GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
     }
 
-    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp) throws SQLException {
+    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp, int premioAlDe) throws SQLException {
         int vSuperada = GestorPartida.getInstance().obtenerVecesSuperada(pUsuario, nivel);
         GestorPremios gestorPremios = GestorPremios.getInstance();
         boolean acabaDeGanar = false;
@@ -153,9 +169,9 @@ public class Sistema {
             }
         }
 
-        if (vSuperada % 1 == 0 && acabaDeGanar) {
-            new Premio("Ha superado el nivel " + nivel + " " + vSuperada + " veces");
-            gestorPremios.anadirPremio(pUsuario, nivel, nivel, "Has superado el nivel " + nivel + " , máquina", sqlTimestamp);
+        if (vSuperada % premioAlDe == 0 && acabaDeGanar) {
+            Premio premio = new Premio("Ha superado el nivel"+nivel, pUsuario, nivel, nivel, sqlTimestamp);
+            gestorPremios.anadirPremio(Premio);
             return true;
         }
         return false;
@@ -166,3 +182,4 @@ public class Sistema {
         GestorUsuarios.getInstance().datosAObjetos();
     }
 }
+

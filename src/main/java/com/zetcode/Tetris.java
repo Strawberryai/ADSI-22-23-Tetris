@@ -1,6 +1,9 @@
 package com.zetcode;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -11,6 +14,8 @@ import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
+import com.visual.funcionalidad7.InterfazD;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,18 +44,18 @@ public class Tetris extends JFrame {
             initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI();
+            initUI( BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL);
         }
         tetris=this;
 
     }
 
-    private void initUI() {
+    private void initUI(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario);
+        var board = new Board(this,usuario, BOARD_HEIGHT, BOARD_WIDTH,PERIOD_INTERVAL);
         add(board);
         board.start();
 
@@ -104,8 +109,15 @@ public class Tetris extends JFrame {
 
     public static void acabar(){tetris.setVisible(false);}
 
-    public static void finalizarPartida(int puntuacion){tetris.setVisible(false);
+    public static void finalizarPartida(int puntuacion) throws SQLException {
+        
+        tetris.setVisible(false);
         GestorPaneles.getInstance().bind(new Interfaz9(tetris.usuario,tetris.esAdmin));
-        Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
+        Timestamp sqlTimestamp = Sistema.getInstance().acabarPartida(puntuacion,tetris.usuario,1);
+        Boolean premio = Sistema.getInstance().comprobarPremio(tetris.usuario, 1, sqlTimestamp, 1);
+        if (premio) {
+            GestorPremios.getInstance().anadirPremio(tetris.usuario, 1, 1, "Has ganado el nivel 1", sqlTimestamp);
+        }
+        GestorPaneles.getInstance().bind(new InterfazD(tetris.usuario,tetris.esAdmin,puntuacion));
     }
     }

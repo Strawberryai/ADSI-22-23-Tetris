@@ -2,10 +2,7 @@ package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.visual.GestorPaneles;
-import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
@@ -18,10 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
     private String usuario;
@@ -79,7 +73,9 @@ public class Board extends JPanel {
 
     public  void cargar(int BOARD_WIDTH, int BOARD_HEIGHT, int PERIOD_INTERVAL, boolean isFallingFinished, boolean isPaused, int numLinesRemoved, int curX, int curY, Shape curPiece, Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
-        this.modificarBoard(BOARD_HEIGHT, BOARD_WIDTH, PERIOD_INTERVAL);
+        this.BOARD_HEIGHT = BOARD_HEIGHT;
+        this.BOARD_WIDTH = BOARD_WIDTH;
+        this.PERIOD_INTERVAL = PERIOD_INTERVAL;
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
         this.curX=curX;
@@ -90,24 +86,75 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardPorNivel(int pNivel){
-
+    public void modificarBoardSet(int pNivel){
+        //int Height, Width,Period;
         if(pNivel == 1){
-            modificarBoard(10,22,300);
+            modificarXYV(10,22,300);
 
         } else if (pNivel == 2) {
-            modificarBoard(12,20,150);
+            modificarXYV(12,20,150);
         }
         else if(pNivel == 3){
-            modificarBoard(14,18,75);
+            modificarXYV(14,18,75);
         }
     }
-    public void modificarBoard(int pX, int pY, int pV){
-        miPartida = this;
-        this.BOARD_WIDTH = pX;
-        this.BOARD_HEIGHT = pY;
-        this.PERIOD_INTERVAL = pV;
+    public void modificarXYV(int x, int y, int v){
+        this.BOARD_WIDTH = x;
+        this.BOARD_HEIGHT = y;
+        this.PERIOD_INTERVAL = v;
 
+    }
+    public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
+        miPartida = this;
+        int WIDTH = getWidthPorNivel(pNivel);
+        int HEIGHT = getWidthPorNivel(pNivel);
+        int PINTERVAL = getPeriodPorNivel(pNivel);
+        this.BOARD_WIDTH = WIDTH;
+        this.BOARD_HEIGHT = HEIGHT;
+        this.PERIOD_INTERVAL = PINTERVAL;
+        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, HEIGHT, WIDTH, PINTERVAL);
+
+
+
+    }
+    public int getWidthPorNivel(int pNivel){
+        int statX = 10;
+        if(pNivel == 1){
+            statX = 10;
+
+        } else if (pNivel == 2) {
+            statX = 12;
+        }
+        else if(pNivel == 3){
+            statX = 14;
+        }
+        return (statX);
+    }
+    public int getHeightPorNivel(int pNivel){
+        int statY = 22;
+        if(pNivel == 1){
+            statY = 22;
+
+        } else if (pNivel == 2) {
+            statY = 21;
+        }
+        else if(pNivel == 3){
+            statY = 20;
+        }
+        return (statY);
+    }
+    public int getPeriodPorNivel(int pNivel){
+        int statV= 300;
+        if(pNivel == 1){
+            statV = 300;
+
+        } else if (pNivel == 2) {
+            statV = 150;
+        }
+        else if(pNivel == 3){
+            statV = 75;
+        }
+        return (statV);
     }
 
     private void initBoard(Tetris parent) {
@@ -232,7 +279,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void pieceDropped() {
+    private void pieceDropped() throws SQLException {
 
         for (int i = 0; i < 4; i++) {
 
@@ -249,7 +296,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void newPiece() {
+    private void newPiece() throws SQLException {
 
         curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
