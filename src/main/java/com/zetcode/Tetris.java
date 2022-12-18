@@ -57,7 +57,7 @@ public class Tetris extends JFrame {
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario, Height, Width, Period);
+        var board = new Board(this, usuario, Height, Width, Period);
         add(board);
         board.start();
 
@@ -65,22 +65,27 @@ public class Tetris extends JFrame {
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
+        GestorPaneles.getInstance().bind(new InterfazGuardar(this.usuario, this.esAdmin));
         Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(usuario);
-        Configuracion nueva = nuevo.getConfig();
-        String pColor= nueva.getColor();
-        if (pColor.equals("azul")){
+        try {
+            Configuracion nueva = nuevo.getConfig();
+        String pColor = nueva.getColor();
+        if (pColor.equals("azul")) {
             board.setBackground(Color.blue);
         } else if (pColor.equals("verde")) {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
-        }else if (pColor.equals("amarillo")) {
+        } else if (pColor.equals("amarillo")) {
             board.setBackground(Color.yellow);
-        }else if (pColor.equals("naranja")) {
+        } else if (pColor.equals("naranja")) {
             board.setBackground(Color.ORANGE);
-        }else if (pColor.equals("negro")) {
+        } else if (pColor.equals("negro")) {
             board.setBackground(Color.BLACK);
+        }
+        }
+        catch (Exception e) {
+            System.out.println("Usuario null, posible junit");
         }
         this.setVisible(true);
     }
