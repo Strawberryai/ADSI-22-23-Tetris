@@ -294,6 +294,10 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Alberto
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
 	... 15 more
 >>>>>>> alberto
+<<<<<<< Updated upstream
 2022-12-18 21:34:08 jdbc[3]: exception
+=======
+2022-12-18 21:40:16 jdbc[3]: exception
+>>>>>>> Stashed changes
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JUGADOR" not found (this database is empty); SQL statement:
 SELECT * FROM Jugador [42104-210]
