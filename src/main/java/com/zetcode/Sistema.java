@@ -171,7 +171,7 @@ public class Sistema {
 
         if (vSuperada % premioAlDe == 0 && acabaDeGanar) {
             Premio premio = new Premio("Ha superado el nivel"+nivel, pUsuario, nivel, nivel, sqlTimestamp);
-            gestorPremios.anadirPremio(Premio);
+            gestorPremios.anadirPremio(premio);
             return true;
         }
         return false;
