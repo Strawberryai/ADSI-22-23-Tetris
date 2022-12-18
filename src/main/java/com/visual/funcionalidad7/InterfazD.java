@@ -118,7 +118,7 @@ public class InterfazD extends PlantillaInterfaces {
 
                     }else if(Objects.equals(button.getText(), "Instagram")){
                         JOptionPane.showMessageDialog(null, panel,"Notificación", JOptionPane.PLAIN_MESSAGE,icono);
-                        GestorPaneles.getInstance().bind(new Interfaz1());
+                        GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
                     }
                     else if(Objects.equals(button.getText(), "Volver")){
                         GestorPaneles.getInstance().bind(new Interfaz9(usuario,esAdmin));
