@@ -34,23 +34,10 @@ public class RankingTest {
         lista.add(y);
         lista.add(z);
     }
+
     @Test
     public void buscarMejoresJugadores(){
-        Date fecha=new Date();
-        Ranking.getInstance().resetearLista(lista);
-        JSONArray arr=Ranking.getInstance().obtenerPuntuacionesMax();
-        JSONObject js=arr.getJSONObject(arr.length()-1);
-        assertTrue(js.getString("usuario").equals("Manuel"));
-        pC=new Partida(fecha,3);
-        t3=new Puntuacion(0,pC);
-        z.anadirListaPuntuacion(t3);
-        arr=Ranking.getInstance().obtenerPuntuacionesMax();
-        js=arr.getJSONObject(arr.length()-1);
-        assertFalse(js.getString("usuario").equals("Dario"));
-    }
-    @Test
-    public void buscarMejoresJugadoresNivel(){
-
+        //Se utiliza el mismo método para las dos
         Ranking.getInstance().resetearLista(lista);
         JSONArray arr=Ranking.getInstance().buscarMejoresJugadores(2);
         JSONObject ob=arr.getJSONObject(arr.length()-1);
@@ -82,9 +69,5 @@ public class RankingTest {
         assertTrue(ob.getString("usuario").equals("Dario"));
     }
 
-    @Test
-    public void prueba(){
-
-    }
 
 }
