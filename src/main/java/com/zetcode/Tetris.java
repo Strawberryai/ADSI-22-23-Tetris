@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz1;
 import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.visual.funcionalidad4.InterfazGuardar;
 import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad5.Interfaz2;
@@ -45,18 +46,18 @@ public class Tetris extends JFrame {
             initUICargar(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL,isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);
         }
         else{
-            initUI();
+            initUI(BOARD_HEIGHT,BOARD_WIDTH,PERIOD_INTERVAL);
         }
         tetris=this;
 
     }
 
-    private void initUI() {
+    private void initUI(int Height, int Width, int Period) {
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this,usuario);
+        var board = new Board(this, usuario, Height, Width, Period);
         add(board);
         board.start();
 
@@ -64,16 +65,31 @@ public class Tetris extends JFrame {
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
-       /* if (pColor.equals("azul")){
+        GestorPaneles.getInstance().bind(new InterfazGuardar(this.usuario, this.esAdmin));
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(usuario);
+        try {
+            Configuracion nueva = nuevo.getConfig();
+        String pColor = nueva.getColor();
+        if (pColor.equals("azul")) {
             board.setBackground(Color.blue);
         } else if (pColor.equals("verde")) {
             board.setBackground(Color.GREEN);
         } else if (pColor.equals("rojo")) {
             board.setBackground(Color.red);
-        }*/
+        } else if (pColor.equals("amarillo")) {
+            board.setBackground(Color.yellow);
+        } else if (pColor.equals("naranja")) {
+            board.setBackground(Color.ORANGE);
+        } else if (pColor.equals("negro")) {
+            board.setBackground(Color.BLACK);
+        }
+        }
+        catch (Exception e) {
+            System.out.println("Usuario null, posible junit");
+        }
         this.setVisible(true);
     }
+
     private void initUICargar(int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL,boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
 
         statusbar = new JLabel(Integer.toString(numLinesRemoved));
@@ -87,7 +103,28 @@ public class Tetris extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         GestorPaneles.getInstance().bind( new InterfazGuardar(this.usuario,this.esAdmin));
+
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(usuario);
+        Configuracion nueva = nuevo.getConfig();
+        String pColor= nueva.getColor();
+        if (pColor.equals("azul")){
+            boardc.setBackground(Color.blue);
+        } else if (pColor.equals("verde")) {
+            boardc.setBackground(Color.GREEN);
+        } else if (pColor.equals("rojo")) {
+            boardc.setBackground(Color.red);
+        }else if (pColor.equals("amarillo")) {
+            boardc.setBackground(Color.yellow);
+        }else if (pColor.equals("naranja")) {
+            boardc.setBackground(Color.ORANGE);
+        }else if (pColor.equals("negro")) {
+            boardc.setBackground(Color.BLACK);
+        }
+
         this.setVisible(true);
+
+
+
     }
 
     JLabel getStatusBar() {
@@ -103,6 +140,7 @@ public class Tetris extends JFrame {
             var game = new Tetris();
             game.setVisible(true);
         });*/
+        Sonido.getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
         GestorBD.getInstance().imprimirTabla("Jugador");
         GestorPaneles.getInstance().bind(new Interfaz1());
     }

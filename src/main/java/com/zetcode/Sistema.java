@@ -105,9 +105,7 @@ public class Sistema {
         JSONObject elRanking=new JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
         JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
-        System.out.println(puntPers.length());
         JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
-        System.out.println(puntGlobales.toString());
         elRanking.put("global", puntGlobales);
         elRanking.put("personal", puntPers);
         return elRanking;
@@ -117,13 +115,6 @@ public class Sistema {
         return GestorUsuarios.getInstance().cambiarContrasena(usuario, pass1, pass2);
     }
 
-    //public void publicarResultadoFacebook(){
-    //    
-    //}
-
-    //public void publicarResultadoInstagram(){
-        
-    //}
 
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);

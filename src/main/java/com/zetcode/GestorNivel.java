@@ -17,7 +17,7 @@ public class GestorNivel {
     public void actualizarNivel(String pUsuario,boolean esAdmin, int pNivel){
         setNivel(pNivel);
         if(Board.getInstance() != null){
-            Board.getInstance().modificarBoard(pUsuario,esAdmin, pNivel);
+            Board.getInstance().modificarBoardPorNiveles(pUsuario,esAdmin, getHeightPorNivel(pNivel), getWidthPorNivel(pNivel), getPeriodPorNivel(pNivel));
         }
         else{
             int Width = this.getWidthPorNivel(pNivel);

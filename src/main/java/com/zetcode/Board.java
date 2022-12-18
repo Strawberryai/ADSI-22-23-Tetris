@@ -2,7 +2,10 @@ package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.visual.GestorPaneles;
+import com.visual.funcionalidad1.Interfaz9;
 import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
@@ -15,8 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
     private String usuario;
@@ -74,9 +79,7 @@ public class Board extends JPanel {
 
     public  void cargar(int BOARD_WIDTH, int BOARD_HEIGHT, int PERIOD_INTERVAL, boolean isFallingFinished, boolean isPaused, int numLinesRemoved, int curX, int curY, Shape curPiece, Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
-        this.BOARD_HEIGHT = BOARD_HEIGHT;
-        this.BOARD_WIDTH = BOARD_WIDTH;
-        this.PERIOD_INTERVAL = PERIOD_INTERVAL;
+        this.modificarBoard(BOARD_HEIGHT, BOARD_WIDTH, PERIOD_INTERVAL);
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
         this.curX=curX;
@@ -87,75 +90,18 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardSet(int pNivel){
-        //int Height, Width,Period;
-        if(pNivel == 1){
-            modificarXYV(10,22,300);
-
-        } else if (pNivel == 2) {
-            modificarXYV(12,20,150);
-        }
-        else if(pNivel == 3){
-            modificarXYV(14,18,75);
-        }
+    public void modificarBoardPorNiveles(String pUsu, boolean esAdmin, int pX, int pY, int pV){
+        modificarBoard(pX, pY, pV);
+        Sistema.getInstance().jugarNuevaPartida(pUsu, esAdmin, pX, pY, pV);
     }
-    public void modificarXYV(int x, int y, int v){
-        this.BOARD_WIDTH = x;
-        this.BOARD_HEIGHT = y;
-        this.PERIOD_INTERVAL = v;
 
-    }
-    public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
+    public void modificarBoard(int pX, int pY, int pV){
         miPartida = this;
-        int WIDTH = getWidthPorNivel(pNivel);
-        int HEIGHT = getWidthPorNivel(pNivel);
-        int PINTERVAL = getPeriodPorNivel(pNivel);
-        this.BOARD_WIDTH = WIDTH;
-        this.BOARD_HEIGHT = HEIGHT;
-        this.PERIOD_INTERVAL = PINTERVAL;
-        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, HEIGHT, WIDTH, PINTERVAL);
+        this.BOARD_WIDTH = pX;
+        this.BOARD_HEIGHT = pY;
+        this.PERIOD_INTERVAL = pV;
 
 
-
-    }
-    public int getWidthPorNivel(int pNivel){
-        int statX = 10;
-        if(pNivel == 1){
-            statX = 10;
-
-        } else if (pNivel == 2) {
-            statX = 12;
-        }
-        else if(pNivel == 3){
-            statX = 14;
-        }
-        return (statX);
-    }
-    public int getHeightPorNivel(int pNivel){
-        int statY = 22;
-        if(pNivel == 1){
-            statY = 22;
-
-        } else if (pNivel == 2) {
-            statY = 21;
-        }
-        else if(pNivel == 3){
-            statY = 20;
-        }
-        return (statY);
-    }
-    public int getPeriodPorNivel(int pNivel){
-        int statV= 300;
-        if(pNivel == 1){
-            statV = 300;
-
-        } else if (pNivel == 2) {
-            statV = 150;
-        }
-        else if(pNivel == 3){
-            statV = 75;
-        }
-        return (statV);
     }
 
     private void initBoard(Tetris parent) {
@@ -280,7 +226,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void pieceDropped(){
+    private void pieceDropped() {
 
         for (int i = 0; i < 4; i++) {
 
@@ -400,31 +346,16 @@ public class Board extends JPanel {
 
     private void drawSquare(Graphics g, int x, int y, Tetrominoe shape) {
 
-        Usuario activo =GestorUsuarios.getInstance().buscarUsuario(usuario);
-        String ladrillo = activo.getConfig().getLadrillo();
-        Color color= new Color(0,0,0);
-        if(ladrillo.equals("predeterminado")){
-            Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
-                    new Color(102, 204, 102), new Color(102, 102, 204),
-                    new Color(204, 204, 102), new Color(204, 102, 204),
-                    new Color(102, 204, 204), new Color(218, 170, 0),
-            };
+        Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
+                new Color(102, 204, 102), new Color(102, 102, 204),
+                new Color(204, 204, 102), new Color(204, 102, 204),
+                new Color(102, 204, 204), new Color(218, 170, 0),
+        };
 
-            color = colors[shape.ordinal()];
-        } else if (ladrillo.equals("rojo")) {
-            color= new Color(255, 0, 0);
-        }else if (ladrillo.equals("verde")) {
-            color= new Color(0, 204, 0);
-        }else if (ladrillo.equals("azul")) {
-            color= new Color(0, 0, 255);
-        }else if (ladrillo.equals("amarillo")) {
-            color= new Color(255, 255, 0);
-        }else if (ladrillo.equals("naranja")) {
-            color= new Color(255, 100, 0);
-        }
+        var color = colors[shape.ordinal()];
 
 
-
+        // color= new Color(102, 204, 102);
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 

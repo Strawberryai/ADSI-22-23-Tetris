@@ -87,8 +87,6 @@ public class Interfaz9 extends PlantillaInterfaces {
         // Contenido principal de la vista
         JPanel content = new JPanel();
 
-        content.add(new JLabel("Añadir contenido de la página aquí (clase: funcionalidad1.Interfaz9; método: getContentPanel())"));
-
         JButton verRanking = new JButton("Ver Ranking");
         verRanking.addActionListener(mouseEventHandler());
         content.add(verRanking);

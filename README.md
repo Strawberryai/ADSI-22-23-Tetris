@@ -5,3 +5,8 @@ Juego Tetris para práctica de asignatura Análisis y Diseño de Sistemas de Inf
 
 Fichero compartido de Overleaf para el desarrollo de la documentación del
 proyecto: [link](https://es.overleaf.com/read/njhdsbngwvnv)
+
+Usuario Administrador | Contraseña
+```
+Manuel, 1234
+```
