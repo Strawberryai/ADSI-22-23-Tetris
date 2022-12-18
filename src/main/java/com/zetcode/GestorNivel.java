@@ -14,9 +14,14 @@ public class GestorNivel {
         if(GestorNivel.miGestorNivel == null) GestorNivel.miGestorNivel = new GestorNivel();
         return GestorNivel.miGestorNivel;
     }
-    public void actualizarNivel(int pNivel){
-        setNivel(pNivel);
-        Board.getInstance().modificarBoardPorNivel(pNivel);
+    public void actualizarNivel(String pUsu, boolean esAdmin, int Height, int Width, int Period, int pNiv){
+        setNivel(pNiv);
+        if(Board.getInstance() != null) {
+            Board.getInstance().modificarBoardPorNivel(pUsu, esAdmin, Height, Width, Period);
+        }
+        else{
+            Sistema.getInstance().jugarNuevaPartida(pUsu, esAdmin, Height, Width, Period);
+        }
 
 
     }

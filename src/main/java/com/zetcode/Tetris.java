@@ -72,7 +72,6 @@ public class Tetris extends JFrame {
         statusbar = new JLabel(Integer.toString(numLinesRemoved));
         add(statusbar, BorderLayout.SOUTH);
         var boardc = new Board(this,usuario);
-        boardc.modificarBoard(BOARD_WIDTH, BOARD_HEIGHT, PERIOD_INTERVAL);
         add(boardc);
 
         boardc.cargar(BOARD_WIDTH, BOARD_HEIGHT, PERIOD_INTERVAL, isFallingFinished,isPaused,numLinesRemoved,curX,curY,curPiece,board);

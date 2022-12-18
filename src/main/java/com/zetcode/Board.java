@@ -88,23 +88,17 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardPorNivel(int pNivel){
-
-        if(pNivel == 1){
-            modificarBoard(10,22,300);
-
-        } else if (pNivel == 2) {
-            modificarBoard(12,20,150);
-        }
-        else if(pNivel == 3){
-            modificarBoard(14,18,75);
-        }
+    public void modificarBoardPorNivel(String pUsu, boolean esAdmin, int pX, int pY, int pV){
+        modificarBoard(pX, pY, pV);
+        Sistema.getInstance().jugarNuevaPartida(pUsu, esAdmin, pX, pY, pV);
     }
+
     public void modificarBoard(int pX, int pY, int pV){
         miPartida = this;
         this.BOARD_WIDTH = pX;
         this.BOARD_HEIGHT = pY;
         this.PERIOD_INTERVAL = pV;
+
 
     }
 

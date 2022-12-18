@@ -178,10 +178,10 @@ public class InterfazNivel extends PlantillaInterfaces {
                                 //Sistema.getInstance().actualizarNivel(usuario,esAdmin, nivel);
                                 button.setEnabled(false);
                                 deseleccionarBotones(nivel);
-                                Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, getHeightPorNivel(nivel), getWidthPorNivel(nivel), getPeriodPorNivel(nivel));
+                                Sistema.getInstance().actualizarNivel(usuario,esAdmin, getHeightPorNivel(nivel), getWidthPorNivel(nivel), getPeriodPorNivel(nivel), nivel);
                             }
                         else{
-
+                            JOptionPane.showMessageDialog(null, "No has seleccionado nivel");
                         }
 
                         }
