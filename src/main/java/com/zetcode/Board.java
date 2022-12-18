@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visual.GestorPaneles;
 import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
@@ -88,7 +90,7 @@ public class Board extends JPanel {
         timer.start();
     }
 
-    public void modificarBoardPorNivel(String pUsu, boolean esAdmin, int pX, int pY, int pV){
+    public void modificarBoardPorNiveles(String pUsu, boolean esAdmin, int pX, int pY, int pV){
         modificarBoard(pX, pY, pV);
         Sistema.getInstance().jugarNuevaPartida(pUsu, esAdmin, pX, pY, pV);
     }
@@ -241,21 +243,37 @@ public class Board extends JPanel {
         }
     }
 
-    private void newPiece() {
+    private void newPiece(){
 
         curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
         if (!tryMove(curPiece, curX, curY)) {
-
+            //TODO: añadir sonido de gameover
+            Sonido.getMiSonido().pararSonido();
+            Sonido.getMiSonido().ReproducirSonido("/audios/gameOver.wav");
+            Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
+            String musica = usu.getConfig().getSonido();
+            if(musica.equals("Positiva")){
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/positivaC.wav");
+            } else if (musica.equals("Intriga")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/intrigaC.wav");
+            }else if (musica.equals("Epico")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/epica.wav");
+            }else if (musica.equals("Relajante")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/relajanteC.wav");
+            }
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
-
-            Tetris.finalizarPartida(numLinesRemoved);
+            try {
+                Tetris.finalizarPartida(numLinesRemoved);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -337,7 +355,7 @@ public class Board extends JPanel {
         var color = colors[shape.ordinal()];
 
 
-       // color= new Color(102, 204, 102);
+        // color= new Color(102, 204, 102);
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 

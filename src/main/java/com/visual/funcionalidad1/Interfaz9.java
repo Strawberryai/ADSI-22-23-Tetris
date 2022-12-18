@@ -63,6 +63,7 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(mouseEventHandler());
         panelUsuario.add(logoutButton);
+
         JButton act = new JButton("Actualizar Configuracion");
         act.addActionListener(mouseEventHandler());
         panelUsuario.add(act);

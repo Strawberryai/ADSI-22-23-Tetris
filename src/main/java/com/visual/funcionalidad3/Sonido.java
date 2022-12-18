@@ -1,7 +1,13 @@
 package com.visual.funcionalidad3;
+
+import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,6 +18,8 @@ import javax.swing.JFrame;
 
 public class Sonido extends JFrame implements ActionListener{
     private static Sonido miSonido;
+    private Clip clip;
+    private AudioInputStream audioInputStream;
     JButton boton1 = new JButton("Pulsame");
     /*  public Sonido(){
           super("Pulse el boton");
@@ -25,24 +33,52 @@ public class Sonido extends JFrame implements ActionListener{
       }*/
     public static void main(String[] Dar10){
         Sonido sonido = new Sonido();
-       // sonido.ReproducirSonido("C:\\Users\\Mario\\OneDrive\\Escritorio\\Sonidos\\0008368.wav");
-        sonido.ReproducirSonido("Resouces/Escudo.wav");
+
+        //getMiSonido().ReproducirSonido("/audios/epica.wav");
+        getMiSonido().reproducirSondoEnLoop("/audios/predeterminada.wav");
+        System.out.println("Hola esto es una prueba");
     }
     public void ReproducirSonido(String nombreSonido){
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
-            Clip clip = AudioSystem.getClip();
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
         } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            ex.printStackTrace();
             System.out.println("Error al reproducir el sonido.");
         }
+    }
+
+    public void reproducirSondoEnLoop(String nombreSonido) {
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+          //  Thread.sleep(3600000);
+            System.out.println("se esta reproduciendo: "+nombreSonido);
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException  ex) {
+            ex.printStackTrace();
+            System.out.println("Error al reproducir el sonido.");
+        }
+    }
+    public void pararSonido(){
+
+           /* audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(nombreSonido));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);*/
+        clip.stop();
+        //clip.flush();
+        //clip.close();
+        System.out.println("se ha parado la cancion: ");
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == boton1){
 
-            ReproducirSonido("src/Resources/Impacto_Arma.wav");
+            ReproducirSonido("src/Resources/gameOver.wav");
         }
     }
     private Sonido() {

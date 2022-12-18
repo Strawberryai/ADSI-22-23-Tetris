@@ -102,45 +102,6 @@ public class InterfazNivel extends PlantillaInterfaces {
 
         return content;
     }
-    public int getWidthPorNivel(int pNivel){
-        int statX = 10;
-        if(pNivel == 1){
-            statX = 10;
-
-        } else if (pNivel == 2) {
-            statX = 12;
-        }
-        else if(pNivel == 3){
-            statX = 14;
-        }
-        return (statX);
-    }
-    public int getHeightPorNivel(int pNivel){
-        int statY = 22;
-        if(pNivel == 1){
-            statY = 22;
-
-        } else if (pNivel == 2) {
-            statY = 21;
-        }
-        else if(pNivel == 3){
-            statY = 20;
-        }
-        return (statY);
-    }
-    public int getPeriodPorNivel(int pNivel){
-        int statV= 300;
-        if(pNivel == 1){
-            statV = 300;
-
-        } else if (pNivel == 2) {
-            statV = 150;
-        }
-        else if(pNivel == 3){
-            statV = 75;
-        }
-        return (statV);
-    }
 
     @Override
     protected ActionListener mouseEventHandler(){
@@ -178,10 +139,10 @@ public class InterfazNivel extends PlantillaInterfaces {
                                 //Sistema.getInstance().actualizarNivel(usuario,esAdmin, nivel);
                                 button.setEnabled(false);
                                 deseleccionarBotones(nivel);
-                                Sistema.getInstance().actualizarNivel(usuario,esAdmin, getHeightPorNivel(nivel), getWidthPorNivel(nivel), getPeriodPorNivel(nivel), nivel);
+                                Sistema.getInstance().actualizarNivel(usuario,esAdmin,nivel);
                             }
                         else{
-                            JOptionPane.showMessageDialog(null, "No has seleccionado nivel");
+                            JOptionPane.showMessageDialog(null,"Nivel sin seleccionar", "Error de seleccion", JOptionPane.PLAIN_MESSAGE);
                         }
 
                         }
