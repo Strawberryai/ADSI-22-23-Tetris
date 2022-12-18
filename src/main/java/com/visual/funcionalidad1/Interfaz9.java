@@ -3,8 +3,11 @@ package com.visual.funcionalidad1;
 import com.visual.GestorPaneles;
 import com.visual.PlantillaInterfaces;
 import com.visual.RecursosVisuales;
+import com.visual.funcionalidad2.InterfazNivel;
+import com.visual.funcionalidad3.Personalizar;
 import com.visual.funcionalidad4.InterfazCargarPartida;
 import com.visual.funcionalidad5.Interfaz2;
+import com.zetcode.Board;
 import com.zetcode.Sistema;
 
 import javax.swing.*;
@@ -60,6 +63,10 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton logoutButton = new JButton("Log out");
         logoutButton.addActionListener(mouseEventHandler());
         panelUsuario.add(logoutButton);
+
+        JButton act = new JButton("Actualizar Configuracion");
+        act.addActionListener(mouseEventHandler());
+        panelUsuario.add(act);
         submain.add(panelUsuario, BorderLayout.EAST);
 
         //  Subtítulo
@@ -85,6 +92,7 @@ public class Interfaz9 extends PlantillaInterfaces {
         JButton verRanking = new JButton("Ver Ranking");
         verRanking.addActionListener(mouseEventHandler());
         content.add(verRanking);
+
 
         JButton CPartida = new JButton("Cargar Partida");
         CPartida.addActionListener(mouseEventHandler());
@@ -126,9 +134,14 @@ public class Interfaz9 extends PlantillaInterfaces {
                     else if(Objects.equals(button.getText(),"Jugar Partida")){
                         //System.out.println("Jugar Partida");
                         //GestorPaneles.getInstance().bind(new InterfazCargarPartida(usuario));
-                        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
-                    }else if(Objects.equals(button.getText(),"Ver Ranking")){
+                        GestorPaneles.getInstance().bind(new InterfazNivel(usuario, esAdmin));
+                        //Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin);
+
+                    } else if(Objects.equals(button.getText(),"Ver Ranking")){
                         GestorPaneles.getInstance().bind(new Interfaz2(usuario, esAdmin));
+                    }else if(Objects.equals(button.getText(),"Actualizar Configuracion")){
+                        //System.out.println("Actualizar Configuracion");
+                        GestorPaneles.getInstance().bind(new Personalizar(usuario, esAdmin));
                     }
                 }
             }

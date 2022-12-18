@@ -47,7 +47,7 @@ public class Interfaz1 extends PlantillaInterfaces {
         // Contenido principal de la vista
         // [No loggeado] -> El contenido es un flowlayout con los botones de login...
         JPanel content = new JPanel();
-        content.setLayout(new FlowLayout());
+        content.setLayout(new FlowLayout(FlowLayout.CENTER,50,30));
 
         // boton de login
         JButton login = new JButton("Log in");

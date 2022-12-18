@@ -164,7 +164,7 @@ public class GestorUsuarios {
                     Usuario x = new Usuario(nomUsu, pass,email, puntosMax, esAdmin, config);
                     lista.add(x);
                     ResultSet resPartida = database.executeQuery("SELECT * FROM Partida WHERE ID_Jugador='" + id + "'");
-
+                    partida=true;
                     while (partida) {
                         try {
                             partida = resPartida.next();
@@ -194,6 +194,7 @@ public class GestorUsuarios {
         return lista.buscarUsuario(pUsuario);
     }
 
+
     public String borrarUsuario(String usuario) {
         String error = "";
 
@@ -216,7 +217,7 @@ public class GestorUsuarios {
 
         // TODO: Hay que borrar sus partidas guardadas
 
-
+        Sistema.getInstance().borrarSusPartidas(usuario);
         return error;
     }
 
@@ -228,5 +229,18 @@ public class GestorUsuarios {
     public JSONArray obtenerMejoresPuntJug(int pNivel, Usuario pElUsuario){
         return pElUsuario.buscarMejoresPartidasJug(pNivel);
     }
+    public void actualizarConfiguracion(Usuario nuevo,String pColor, String pSonido, String pLadrillo){
+        nuevo.actualizarConfiguracion(pColor, pSonido, pLadrillo);
+    }
 
+    //Método solo para las JUnit
+    public void actualizarPartidas(String pUsuario, int pPuntos){
+        datosAObjetos();
+        Usuario usu=buscarUsuario(pUsuario);
+        usu.actualizarPuntosMax(pPuntos);
+
+    }
+    public void anadirUsuario(Usuario pUsuario){
+       lista.add(pUsuario);
+    }
 }

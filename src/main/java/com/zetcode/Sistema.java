@@ -14,8 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Timestamp;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.simple.JSONValue;
@@ -46,7 +46,7 @@ public class Sistema {
         Guardador.guardarPartida(usuario);
     }
 
-    public void cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
+    public Guardador cargarPartida(String f,String pUsuario,boolean esAdmin) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String jsonstring =Files.readString(Path.of(f));
@@ -57,15 +57,18 @@ public class Sistema {
             Tetris tetris=new Tetris(cargador.getBOARD_HEIGHT(),cargador.getBOARD_WIDTH(),cargador.getPERIOD_INTERVAL(),true,cargador.getIsFallingFinished(),cargador.getIsPaused(),cargador.getNumLinesRemoved(),cargador.getCurX(),cargador.getCurY(),cargador.getCurPiece(),cargador.getBoard(),pUsuario,esAdmin);
 
         });
-
+        return cargador;
     }
-    public void jugarNuevaPartida(String pUsuario,boolean esAdmin){
+    public void jugarNuevaPartida(String pUsuario,boolean esAdmin, int Height, int Width, int Period){
         EventQueue.invokeLater(() -> {
-
-            var game = new Tetris(10,22,300,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
+            var game = new Tetris(Height,Width,Period,false,false,false,0,0,0,null,null,pUsuario,esAdmin);
             game.setVisible(true);
         });
     }
+    public void actualizarNivel(String pUsuario,boolean esAdmin, int pNivel){
+        GestorNivel.getInstance().actualizarNivel(pUsuario,esAdmin, pNivel);
+    }
+
 
     public String validarRegistro(String usuario, String mail, String pass) {
         return GestorUsuarios.getInstance().validarRegistro(usuario, mail, pass);
@@ -94,7 +97,6 @@ public class Sistema {
         ranking.put("global",puntGlobal);
         ranking.put("personal",puntPers);
         return ranking;
-
     }
 
     public JSONObject obtenerPuntuaciones(int pNivel, String pUsuario){
@@ -103,7 +105,9 @@ public class Sistema {
         JSONObject elRanking=new JSONObject();
         Usuario usu= GestorUsuarios.getInstance().buscarUsuario(pUsuario);
         JSONArray puntPers=GestorUsuarios.getInstance().obtenerMejoresPuntJug(pNivel, usu);
+        System.out.println(puntPers.length());
         JSONArray puntGlobales=Ranking.getInstance().buscarMejoresJugadores(pNivel);
+        System.out.println(puntGlobales.toString());
         elRanking.put("global", puntGlobales);
         elRanking.put("personal", puntPers);
         return elRanking;
@@ -124,7 +128,7 @@ public class Sistema {
     public String borrarUsuario(String usuario) {
         return GestorUsuarios.getInstance().borrarUsuario(usuario);
     }
-    public void acabarPartida(int puntuacion,String usuario,int nivel){
+    public Timestamp acabarPartida(int puntuacion, String usuario, int nivel){
         int codUsuario=-1;//si es 1 error
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
@@ -139,6 +143,43 @@ public class Sistema {
 
         } catch (SQLException e) {e.printStackTrace();}
         GestorPartida.getInstance().guardarPartida(sqlTimestamp,nivel,puntuacion,codUsuario);
+        return sqlTimestamp;
+    }
+    public void borrarSusPartidas(String usuario){
+        Guardador eliminador=new Guardador();
+        eliminador.eliminarSusPartidas(usuario);
+    }
+
+    public void actualizarConfiguracion(String pUsuario, String pColor, String pSonido, String pLadrillo){
+        Usuario nuevo = GestorUsuarios.getInstance().buscarUsuario(pUsuario);
+        GestorUsuarios.getInstance().actualizarConfiguracion(nuevo, pColor, pSonido,pLadrillo);
+    }
+
+    public boolean comprobarPremio(String pUsuario, int nivel, Timestamp sqlTimestamp, int premioAlDe) throws SQLException {
+        int vSuperada = GestorPartida.getInstance().obtenerVecesSuperada(pUsuario, nivel);
+        GestorPremios gestorPremios = GestorPremios.getInstance();
+        boolean acabaDeGanar = false;
+        int punt = 0;
+        int puntNec = nivel*2;
+        ResultSet resSQL = GestorBD.getInstance().executeQuery("SELECT PUNTUACION FROM Partida WHERE FECHAHORA = '" + sqlTimestamp + "'");
+        if (resSQL.next()) {
+            punt = resSQL.getInt("PUNTUACION");
+            if (punt >= puntNec) {
+                acabaDeGanar = true;
+            }
+        }
+
+        if (vSuperada % premioAlDe == 0 && acabaDeGanar) {
+            Premio premio = new Premio("Ha superado el nivel"+nivel, pUsuario, nivel, nivel, sqlTimestamp);
+            gestorPremios.anadirPremio(Premio);
+            return true;
+        }
+        return false;
+    }
+
+
+    public void cargarDatosUsuarios(){
+        GestorUsuarios.getInstance().datosAObjetos();
     }
 }
 

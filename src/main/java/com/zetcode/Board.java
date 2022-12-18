@@ -2,10 +2,8 @@ package com.zetcode;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.visual.GestorPaneles;
-import com.visual.funcionalidad1.Interfaz9;
+import com.visual.funcionalidad3.Sonido;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
@@ -17,16 +15,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel {
     private String usuario;
     private static Board miPartida;
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
-    private final int PERIOD_INTERVAL = 300;
+    private int BOARD_WIDTH ;
+    private int BOARD_HEIGHT ;
+    private int PERIOD_INTERVAL ;
 
     private Timer timer;
     private boolean isFallingFinished = false;
@@ -41,9 +37,18 @@ public class Board extends JPanel {
     public static Board getInstance(){
         return Board.miPartida;
     }
+
     public Board(Tetris parent,String usuario) {
         miPartida=this;
         miPartida.usuario=usuario;
+        initBoard(parent);
+    }
+    public Board(Tetris parent,String usuario, int BOARD_HEIGHT,int BOARD_WIDTH,int PERIOD_INTERVAL) {
+        miPartida=this;
+        miPartida.usuario=usuario;
+        miPartida.BOARD_HEIGHT = BOARD_HEIGHT;
+        miPartida.BOARD_WIDTH = BOARD_WIDTH;
+        miPartida.PERIOD_INTERVAL = PERIOD_INTERVAL;
         initBoard(parent);
     }
     public static String guardar() throws IOException {
@@ -53,8 +58,24 @@ public class Board extends JPanel {
         guardador.setAllGuardador(miPartida.BOARD_HEIGHT,miPartida.BOARD_WIDTH, miPartida.PERIOD_INTERVAL, miPartida.isFallingFinished,miPartida.isPaused,miPartida.numLinesRemoved,miPartida.curX,miPartida.curY,miPartida.curPiece,miPartida.board);
         return (mapper.writeValueAsString(guardador));
     }
-    public  void cargar(boolean isFallingFinished,boolean isPaused,int numLinesRemoved,int curX,int curY,Shape curPiece,Shape.Tetrominoe[] board){
+
+    public int getBOARD_WIDTH() {
+        return BOARD_WIDTH;
+    }
+
+    public int getBOARD_HEIGHT() {
+        return BOARD_HEIGHT;
+    }
+
+    public int getPERIOD_INTERVAL() {
+        return PERIOD_INTERVAL;
+    }
+
+    public  void cargar(int BOARD_WIDTH, int BOARD_HEIGHT, int PERIOD_INTERVAL, boolean isFallingFinished, boolean isPaused, int numLinesRemoved, int curX, int curY, Shape curPiece, Shape.Tetrominoe[] board){
         this.isFallingFinished=isFallingFinished;
+        this.BOARD_HEIGHT = BOARD_HEIGHT;
+        this.BOARD_WIDTH = BOARD_WIDTH;
+        this.PERIOD_INTERVAL = PERIOD_INTERVAL;
         this.isPaused=isPaused;
         this.numLinesRemoved=numLinesRemoved;
         this.curX=curX;
@@ -64,6 +85,78 @@ public class Board extends JPanel {
         timer = new Timer(PERIOD_INTERVAL, new GameCycle());
         timer.start();
     }
+
+    public void modificarBoardSet(int pNivel){
+        //int Height, Width,Period;
+        if(pNivel == 1){
+            modificarXYV(10,22,300);
+
+        } else if (pNivel == 2) {
+            modificarXYV(12,20,150);
+        }
+        else if(pNivel == 3){
+            modificarXYV(14,18,75);
+        }
+    }
+    public void modificarXYV(int x, int y, int v){
+        this.BOARD_WIDTH = x;
+        this.BOARD_HEIGHT = y;
+        this.PERIOD_INTERVAL = v;
+
+    }
+    public void modificarBoard(String pUsuario,boolean esAdmin, int pNivel){
+        miPartida = this;
+        int WIDTH = getWidthPorNivel(pNivel);
+        int HEIGHT = getWidthPorNivel(pNivel);
+        int PINTERVAL = getPeriodPorNivel(pNivel);
+        this.BOARD_WIDTH = WIDTH;
+        this.BOARD_HEIGHT = HEIGHT;
+        this.PERIOD_INTERVAL = PINTERVAL;
+        Sistema.getInstance().jugarNuevaPartida(usuario,esAdmin, HEIGHT, WIDTH, PINTERVAL);
+
+
+
+    }
+    public int getWidthPorNivel(int pNivel){
+        int statX = 10;
+        if(pNivel == 1){
+            statX = 10;
+
+        } else if (pNivel == 2) {
+            statX = 12;
+        }
+        else if(pNivel == 3){
+            statX = 14;
+        }
+        return (statX);
+    }
+    public int getHeightPorNivel(int pNivel){
+        int statY = 22;
+        if(pNivel == 1){
+            statY = 22;
+
+        } else if (pNivel == 2) {
+            statY = 21;
+        }
+        else if(pNivel == 3){
+            statY = 20;
+        }
+        return (statY);
+    }
+    public int getPeriodPorNivel(int pNivel){
+        int statV= 300;
+        if(pNivel == 1){
+            statV = 300;
+
+        } else if (pNivel == 2) {
+            statV = 150;
+        }
+        else if(pNivel == 3){
+            statV = 75;
+        }
+        return (statV);
+    }
+
     private void initBoard(Tetris parent) {
 
         setFocusable(true);
@@ -186,7 +279,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void pieceDropped() {
+    private void pieceDropped() throws SQLException {
 
         for (int i = 0; i < 4; i++) {
 
@@ -203,20 +296,32 @@ public class Board extends JPanel {
         }
     }
 
-    private void newPiece() {
+    private void newPiece() throws SQLException {
 
         curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
         if (!tryMove(curPiece, curX, curY)) {
-
+            //TODO: añadir sonido de gameover
+            Sonido.getMiSonido().pararSonido();
+            Sonido.getMiSonido().ReproducirSonido("/audios/gameOver.wav");
+            Usuario usu = GestorUsuarios.getInstance().buscarUsuario(usuario);
+            String musica = usu.getConfig().getSonido();
+            if(musica.equals("Positiva")){
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/positivaC.wav");
+            } else if (musica.equals("Intriga")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/intrigaC.wav");
+            }else if (musica.equals("Epico")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/epica.wav");
+            }else if (musica.equals("Relajante")) {
+                com.visual.funcionalidad3.Sonido.getMiSonido().reproducirSondoEnLoop("/audios/relajanteC.wav");
+            }
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
-
             Tetris.finalizarPartida(numLinesRemoved);
 
         }
@@ -290,13 +395,30 @@ public class Board extends JPanel {
 
     private void drawSquare(Graphics g, int x, int y, Tetrominoe shape) {
 
-        Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
-                new Color(102, 204, 102), new Color(102, 102, 204),
-                new Color(204, 204, 102), new Color(204, 102, 204),
-                new Color(102, 204, 204), new Color(218, 170, 0)
-        };
+        Usuario activo =GestorUsuarios.getInstance().buscarUsuario(usuario);
+        String ladrillo = activo.getConfig().getLadrillo();
+        Color color= new Color(0,0,0);
+        if(ladrillo.equals("predeterminado")){
+            Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
+                    new Color(102, 204, 102), new Color(102, 102, 204),
+                    new Color(204, 204, 102), new Color(204, 102, 204),
+                    new Color(102, 204, 204), new Color(218, 170, 0),
+            };
 
-        var color = colors[shape.ordinal()];
+            color = colors[shape.ordinal()];
+        } else if (ladrillo.equals("rojo")) {
+            color= new Color(255, 0, 0);
+        }else if (ladrillo.equals("verde")) {
+            color= new Color(0, 204, 0);
+        }else if (ladrillo.equals("azul")) {
+            color= new Color(0, 0, 255);
+        }else if (ladrillo.equals("amarillo")) {
+            color= new Color(255, 255, 0);
+        }else if (ladrillo.equals("naranja")) {
+            color= new Color(255, 100, 0);
+        }
+
+
 
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
